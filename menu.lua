@@ -792,7 +792,7 @@ if QuestC.Visible == true then
 							end
 						end
 						end)
-						local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/minhhau207/SilverHub/main/obfuscated-3788.lua"))()
+						local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/binhbun/gmvmoba/refs/heads/main/menu.lua"))()
 
 						local Main = Library.xova()
 
