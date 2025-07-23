@@ -11,19 +11,19 @@
           <key>kind</key>
           <string>software-package</string>
           <key>url</key>
-          <string></string>
+          <string>https://github.com/binhbun/gmvmoba/raw/refs/heads/main/vpro/EsignNew-GMV_MOBA_5.0.2.ipa</string>
         </dict>
       </array>
       <key>metadata</key>
       <dict>
         <key>bundle-identifier</key>
-        <string>esign.binhbun.newv3</string>
+        <string>esign.binhbun.pro.v1</string>
         <key>bundle-version</key>
         <string>5.0.2</string>
         <key>kind</key>
         <string>software</string>
         <key>title</key>
-        <string>Esign-GMV_MOBA</string>
+        <string>EsignNew-GMV_MOBA</string>
       </dict>
     </dict>
   </array>
