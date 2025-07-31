@@ -17,7 +17,7 @@
       <key>metadata</key>
       <dict>
         <key>bundle-identifier</key>
-        <string>com.binhbun.delta.V1</string>
+        <string>com.binhbun.delta.v1</string>
         <key>bundle-version</key>
         <string>2.682.805</string>
         <key>kind</key>
