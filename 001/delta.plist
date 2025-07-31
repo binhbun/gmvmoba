@@ -11,7 +11,7 @@
           <key>kind</key>
           <string>software-package</string>
           <key>url</key>
-          <string>https://sub2s.com/Delta-GMV_MOBA_update.ipa</string>
+          <string>https://sub2s.com/DeltaVN.ipa</string>
         </dict>
       </array>
       <key>metadata</key>
@@ -19,7 +19,7 @@
         <key>bundle-identifier</key>
         <string>com.binhbun.deltavn</string>
         <key>bundle-version</key>
-        <string>2.682.508</string>
+        <string>2.682.805</string>
         <key>kind</key>
         <string>software</string>
         <key>title</key>
