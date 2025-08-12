@@ -11,19 +11,19 @@
           <key>kind</key>
           <string>software-package</string>
           <key>url</key>
-          <string>https://sub2s.com/KrnlLite.ipa</string>
+          <string>https://sub2s.com/KrnlVN Siêu Fix Lag-GMV_MOBA_Pro.ipa</string>
         </dict>
       </array>
       <key>metadata</key>
       <dict>
         <key>bundle-identifier</key>
-        <string>lite.krnl.binhbun</string>
+        <string>com.binhbun.krnlvn.fixlag</string>
         <key>bundle-version</key>
-        <string>2.682.805</string>
+        <string>2.684.688</string>
         <key>kind</key>
         <string>software</string>
         <key>title</key>
-        <string>KrnlFixLag-GMV_MOBA</string>
+        <string>KrnlVN Siêu Fix Lag-GMV_MOBA</string>
       </dict>
     </dict>
   </array>
