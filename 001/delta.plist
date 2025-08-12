@@ -11,19 +11,19 @@
           <key>kind</key>
           <string>software-package</string>
           <key>url</key>
-          <string>https://sub2s.com/DeltaVN.ipa</string>
+          <string>https://sub2s.com/Delta-GMV_MOBA_Pro.ipa</string>
         </dict>
       </array>
       <key>metadata</key>
       <dict>
         <key>bundle-identifier</key>
-        <string>com.binhbun.deltavn</string>
+        <string>com.deltamobile.binhbun.pro</string>
         <key>bundle-version</key>
-        <string>2.682.805</string>
+        <string>2.684.774</string>
         <key>kind</key>
         <string>software</string>
         <key>title</key>
-        <string>DeltaVN-GMV_MOBA</string>
+        <string>Delta-GMV_MOBA</string>
       </dict>
     </dict>
   </array>
