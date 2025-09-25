@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>items</key>
+  <array>
+    <dict>
+      <key>assets</key>
+      <array>
+        <dict>
+          <key>kind</key>
+          <string>software-package</string>
+          <key>url</key>
+          <string>https://eueu.littlera.in/7d941777-ebf5-46ef-8cc7-adb58431bece/0.ipa</string>
+        </dict>
+        <dict>
+          <key>kind</key>
+          <string>display-image</string>
+          <key>needs-shine</key>
+          <true/>
+          <key>url</key>
+          <string>https://i.postimg.cc/SxCXQTg6/signal-2025-08-25-10-39-32-474-1.jpg</string>
+        </dict>
+      </array>
+      <key>metadata</key>
+      <dict>
+        <key>bundle-identifier</key>
+        <string>com.ngocbonggaming.krnlvn</string>
+        <key>bundle-version</key>
+        <string>2.690.721</string>
+        <key>kind</key>
+        <string>software</string>
+        <key>title</key>
+        <string>KrnlVN New</string>
+      </dict>
+    </dict>
+  </array>
+</dict>
+</plist>
