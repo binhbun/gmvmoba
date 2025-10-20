@@ -2,31 +2,48 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>items</key>
-  <array>
-    <dict>
-      <key>assets</key>
-      <array>
+    <key>items</key>
+    <array>
         <dict>
-          <key>kind</key>
-          <string>software-package</string>
-          <key>url</key>
-          <string>https://eueu.littlera.in/8e986e2f-f881-409b-a54f-e76d46a54cca/0.ipa</string>
+            <key>assets</key>
+            <array>
+                <dict>
+                    <key>kind</key>
+                    <string>software-package</string>
+                    <key>url</key>
+                    <string>https://github.com/trinhtruongphong-bot/telegram-local-bot/releases/download/ipa/Krnl.VN.ipa</string>
+                </dict>
+                <dict>
+                    <key>kind</key>
+                    <string>full-size-image</string>
+                    <key>needs-shine</key>
+                    <false/>
+                    <key>url</key>
+                    <string>https://loadly.io/image/view/app_icons/3a45129877e8622af525bc862f1f6f5e/120</string>
+                </dict>
+                <dict>
+                    <key>kind</key>
+                    <string>display-image</string>
+                    <key>needs-shine</key>
+                    <false/>
+                    <key>url</key>
+                    <string>https://loadly.io/image/view/app_icons/3a45129877e8622af525bc862f1f6f5e/120</string>
+                </dict>
+            </array>
+            <key>metadata</key>
+            <dict>
+                <key>bundle-identifier</key>
+                <string>com.khoindvn.io.vn</string>
+                <key>bundle-version</key>
+                <string>2.690.722</string>
+                <key>kind</key>
+                <string>software</string>
+                <key>subtitle</key>
+                <string>Krnl VN</string>
+                <key>title</key>
+                <string>Krnl VN</string>
+            </dict>
         </dict>
-        
-      </array>
-      <key>metadata</key>
-      <dict>
-        <key>bundle-identifier</key>
-        <string>com.ngocbonggaming.krnlvn</string>
-        <key>bundle-version</key>
-        <string>2.692.843</string>
-        <key>kind</key>
-        <string>software</string>
-        <key>title</key>
-        <string>KrnlVN New</string>
-      </dict>
-    </dict>
-  </array>
+    </array>
 </dict>
 </plist>
