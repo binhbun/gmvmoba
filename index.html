@@ -70,7 +70,7 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script> -->
 
-    <h2>🎉 KRNL + DELTA Client Roblox NEW Update</h2>
+    <h2>Mở Link Bằng Trình Duyệt (Safari / Chrome /Goog) tránh bị lỗi</h2>
 
     <div id="note-content"><h2 style="text-align: center;"><a href="https://m.me/192498543927268" target="_blank" rel="noopener"><span style="color: #0d0d0d; font-family: Roboto, Noto, sans-serif;"><span style="font-size: 15px; white-space-collapse: preserve;"><em>🛒 <span style="color: #0000ff;">Mua Client  Roblox (Delta &amp; KRNL) kh&ocirc;ng cần vượt link</span> 👉 <span style="color: #ff0000;">Li&ecirc;n hệ Admin</span> ✅</em></span></span></a></h2>
 <h3><em><strong><span style="color: #0d0d0d; font-family: Roboto, Noto, sans-serif; font-size: 15px; white-space-collapse: preserve;">✅ </span></strong><span style="color: #0000ff;"><strong>Script Blox Fruits </strong></span><strong><span style="color: #0d0d0d; font-family: Roboto, Noto, sans-serif; font-size: 15px; white-space-collapse: preserve;">✅ </span></strong></em></h3>
@@ -114,6 +114,22 @@
 <center>
 
     </center>
+
+
+<div id="indexModal" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      Mở Link Bằng Trình Duyệt (Safari / Chrome /Google) tránh bị lỗi!
+    </div>
+    <div class="modal-content">
+      <img src="https://bbmkts.com/uploads/img_691151a0091fe5_93818014.png" class="modal-image" alt="Thông báo">
+    </div>
+    <div class="modal-footer">
+      <button onclick="hidetb()" class="close-btn">❌ Đóng</button>
+    </div>
+  </div>
+</div>
+    
 <script>
 function showNotification(message, type = 'success') {
     const notification = document.getElementById('notification');
@@ -260,7 +276,112 @@ a {
 </style>
       
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script> 
-   
+
+<style>
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Modal Box */
+.modal-box {
+  background: #fff;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header */
+.modal-header {
+  padding: 15px;
+  font-weight: bold;
+  color: #d60000;
+  text-align: center;
+  border-bottom: 2px solid #eee;
+  flex-shrink: 0;
+}
+
+/* Content */
+.modal-content {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  flex-grow: 1;
+  align-items: center;
+}
+
+/* Image */
+.modal-image {
+  width: auto;                 /* không kéo rộng theo modal */
+  max-width: 90%;              /* chỉ 70% so với gốc */
+  height: auto;                /* giữ tỉ lệ */
+  max-height: calc(90vh - 150px); /* không vượt modal */
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* Text */
+.modal-text {
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Footer & Button */
+.modal-footer {
+  text-align: center;
+  padding: 10px;
+  flex-shrink: 0;
+}
+.close-btn {
+  background: none;
+  border: 2px solid #facc15;
+  color: #d60000;
+  padding: 6px 15px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.close-btn:hover {
+  background: #ffe8a3;
+}
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideDown { from { transform: translateY(-20px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity:0; } }
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .modal-box {
+    max-height: 85vh;
+  }
+  
+}
+</style>
+
+<script>
+function hidetb() {
+  const modal = document.getElementById("indexModal");
+  modal.style.display = "none";
+}
+
+window.addEventListener("click", function(e){
+  if(e.target === document.getElementById("indexModal")) hidetb();
+});
+</script>
 </body>
 </html>
 
