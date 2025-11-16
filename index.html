@@ -107,16 +107,8 @@
 <h2 style="text-align: center;"><span style="color: green ;"><span style="font-family: Roboto, Noto, sans-serif;"><span style="font-size: 15px; white-space-collapse: preserve;"><em>@ 5207418 @</em></span></span></span></h2>
      -->
     
-    <script>
-function hidetb() {
-  const modal = document.getElementById("indexModal");
-  modal.style.display = "none";
-}
 
-window.addEventListener("click", function(e){
-  if(e.target === document.getElementById("indexModal")) hidetb();
-});
-</script>
+
 </body>
 
     <div id="content">⏳ Đang tải nội dung...</div>
@@ -132,6 +124,44 @@ fetch("https://bbmkts.com/getcontent/note/49?c=" + Date.now())
         document.getElementById("content").innerHTML =
             "❗ Không tải được nội dung.";
     });
+
+function isEmbeddedApp() {
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+    // Danh sách app phổ biến
+    const apps = [
+        "FBAN",        // Facebook App
+        "FBAV",        // Facebook App
+        "Messenger",   // Facebook Messenger
+        "Instagram",   // Instagram
+        "Line",        // LINE
+        "Zalo",        // Zalo
+        "TikTok",      // TikTok
+        "Discord"      // Discord
+    ];
+
+    return apps.some(app => ua.includes(app));
+}
+
+window.addEventListener("DOMContentLoaded", function() {
+    const modal = document.getElementById("indexModal");
+    if(!modal) return;
+
+    if(isEmbeddedApp()){
+        // Hiển thị modal nếu mở trong app
+        modal.style.display = "block";
+    } else {
+        // Ẩn modal nếu mở trên trình duyệt bình thường
+        modal.style.display = "none";
+    }
+
+    // Click ngoài modal để ẩn
+    window.addEventListener("click", function(e){
+        if(e.target === modal) modal.style.display = "none";
+    });
+});
+
+    
 </script>
     </div>
 
