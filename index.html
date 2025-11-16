@@ -27,6 +27,36 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-92DEY4LH2M"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-92DEY4LH2M"></script>
+    <script>
+function hidetb() {
+  const modal = document.getElementById("indexModal");
+  modal.style.display = "none";
+}
+
+// Kiểm tra xem có phải WebView không
+function isWebView() {
+  const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+  // Một số chỉ dấu thường gặp của WebView
+  return (/FBAN|FBAV|Instagram|Line|Messenger|TikTok|WebView/i.test(ua));
+}
+
+// Chỉ hiển thị modal nếu là WebView
+window.addEventListener("DOMContentLoaded", function() {
+  const modal = document.getElementById("indexModal");
+  if (isWebView()) {
+    modal.style.display = "block";
+  } else {
+    modal.style.display = "none";
+  }
+});
+
+// Ẩn modal khi click ngoài
+window.addEventListener("click", function(e){
+  if(e.target === document.getElementById("indexModal")) hidetb();
+});
+</script>
+
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -124,43 +154,6 @@ fetch("https://bbmkts.com/getcontent/note/49?c=" + Date.now())
         document.getElementById("content").innerHTML =
             "❗ Không tải được nội dung.";
     });
-
-function isEmbeddedApp() {
-    const ua = navigator.userAgent || navigator.vendor || window.opera;
-
-    // Danh sách app phổ biến
-    const apps = [
-        "FBAN",        // Facebook App
-        "FBAV",        // Facebook App
-        "Messenger",   // Facebook Messenger
-        "Instagram",   // Instagram
-        "Line",        // LINE
-        "Zalo",        // Zalo
-        "TikTok",      // TikTok
-        "Discord"      // Discord
-    ];
-
-    return apps.some(app => ua.includes(app));
-}
-
-window.addEventListener("DOMContentLoaded", function() {
-    const modal = document.getElementById("indexModal");
-    if(!modal) return;
-
-    if(isEmbeddedApp()){
-        // Hiển thị modal nếu mở trong app
-        modal.style.display = "block";
-    } else {
-        // Ẩn modal nếu mở trên trình duyệt bình thường
-        modal.style.display = "none";
-    }
-
-    // Click ngoài modal để ẩn
-    window.addEventListener("click", function(e){
-        if(e.target === modal) modal.style.display = "none";
-    });
-});
-
     
 </script>
     </div>
