@@ -30,7 +30,6 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-92DEY4LH2M"></script>
 
 <script>
-  sessionStorage.setItem("homeSession", "ok_" + Date.now());
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -85,7 +84,6 @@
     <div id="content">⏳ Đang tải nội dung...</div>
 
 <script>
-    sessionStorage.setItem("homeSession", "ok_" + Date.now());
     
 fetch("https://bbmkts.com/getcontent/note/49?c=" + Date.now())
     .then(res => res.json())
