@@ -85,6 +85,8 @@
     <div id="content">⏳ Đang tải nội dung...</div>
 
 <script>
+    sessionStorage.setItem("homeSession", "ok_" + Date.now());
+    
 fetch("https://bbmkts.com/getcontent/note/49?c=" + Date.now())
     .then(res => res.json())
     .then(data => {
