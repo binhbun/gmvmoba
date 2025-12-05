@@ -130,6 +130,8 @@ document.getElementById("GetKeyBtn_Label").addEventListener("click", function() 
 
     Swal.fire("Thành công!", "Đã sao chép code!", "success");
 });
+
+ 
 </script>
 <script>
     function resetRef() {
@@ -145,6 +147,9 @@ document.getElementById("GetKeyBtn_Label").addEventListener("click", function() 
     let sessionId = sessionStorage.getItem("homeSession");
 
     if (!sessionId) {
+        const newId = "H" + Date.now();
+        sessionStorage.setItem("homeSession", newId);
+
         resetRef();
     }
 </script>
