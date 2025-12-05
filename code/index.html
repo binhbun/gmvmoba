@@ -128,12 +128,11 @@
     const ref = document.referrer;
     const body = document.body;
 
-    // Nếu ref KHÔNG phải từ bbmkts.com/
     if (!ref || !ref.startsWith(required)) {
         document.getElementById("refWarning").style.display = "flex";
-        // setTimeout(() => {
-        //     window.location.href = "https://bbmkts.com/go/codevipfree";
-        // }, 2000);
+        setTimeout(() => {
+            window.location.href = "https://bbmkts.com/go/codevipfree";
+        }, 2000);
         return; 
     }
 
@@ -152,7 +151,7 @@ async function getIP() {
     }
 }
 
-function randomCode(length = 16) {
+function randomCode(length = 5) {
     let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let out = "";
     for (let i = 0; i < length; i++) {
