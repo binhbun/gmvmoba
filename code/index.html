@@ -152,13 +152,18 @@ async function getIP() {
     }
 }
 
-async function generateCodeIfNeeded() {
+async function generateOrLoadCode() {
 
+    const saved = sessionStorage.getItem("code_value");
+    if (saved) {
+        document.getElementById("GetKeyViewTextBox").value = saved;
+        return;
+    }
     if (!window.isFirstVisit) return;
 
     const prefix = "GMVMOBA_";
-
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
     let random = "";
     for (let i = 0; i < 5; i++) {
         random += chars[Math.floor(Math.random() * chars.length)];
@@ -166,15 +171,18 @@ async function generateCodeIfNeeded() {
 
     let ip = "UNKNOWN";
     try {
-        let res = await fetch("https://api.ipify.org?format=json");
+        const res = await fetch("https://api.ipify.org?format=json");
         ip = (await res.json()).ip;
     } catch {}
 
     const final = `${prefix}${random}_${ip}`;
+
+    sessionStorage.setItem("code_value", final);
+
     document.getElementById("GetKeyViewTextBox").value = final;
 }
 
-window.onload = generateCodeIfNeeded;
+window.onload = generateOrLoadCode;
 
 document.getElementById("GetKeyBtn_Label").addEventListener("click", function() {
     const input = document.getElementById("GetKeyViewTextBox");
