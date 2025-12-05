@@ -78,10 +78,12 @@
 
 <script>
 (function() {
-    const url = new URL(window.location.href);
-    const ref = url.searchParams.get("ref");
-    
-    if (ref !== "bbmkts") {
+    const required = "https://bbmkts.com/";
+    const ref = document.referrer;
+    const body = document.body;
+
+    // Nếu ref KHÔNG phải từ bbmkts.com/
+    if (!ref || !ref.startsWith(required)) {
         document.getElementById("refWarning").style.display = "flex";
         // setTimeout(() => {
         //     window.location.href = "https://bbmkts.com/go/codevipfree";
