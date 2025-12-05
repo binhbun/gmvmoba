@@ -182,21 +182,22 @@ document.getElementById("GetKeyBtn_Label").addEventListener("click", function() 
 <script>
 (function () {
 
-    const nav = performance.getEntriesByType("navigation")[0].type;
+    let sessionOk = sessionStorage.getItem("session_ok");
 
-    if (nav === "reload") {
-        document.body.classList.remove("protected");
-        return;
-    }
-
-    if (!sessionStorage.getItem("session_ok")) {
+    if (!sessionOk) {
         sessionStorage.setItem("session_ok", "1");
-        document.body.classList.remove("protected");
+    } else {
+        showError();
         return;
     }
 
-    showError();
-    return;
+    if (performance.getEntriesByType("navigation")[0].type !== "navigate") {
+        
+        showError();
+        return;
+    }
+
+    document.body.classList.remove("protected");
 
     function showError() {
         document.getElementById("refWarning").style.display = "flex";
@@ -207,6 +208,7 @@ document.getElementById("GetKeyBtn_Label").addEventListener("click", function() 
 
 })();
 </script>
+
 
 
 </body>
