@@ -84,7 +84,7 @@
     if (ref !== "bbmkts") {
         document.getElementById("refWarning").style.display = "flex";
         setTimeout(() => {
-            window.location.href = "https://gmvmoba.com/";
+            window.location.href = "https://bbmkts.com/go/codevipfree";
         }, 2000);
         return; 
     }
@@ -131,6 +131,40 @@ document.getElementById("GetKeyBtn_Label").addEventListener("click", function() 
 });
 
  
+</script>
+<script>
+(function () {
+
+    // Lần đầu vào trang
+    let sessionOk = sessionStorage.getItem("session_ok");
+
+    // Nếu chưa có session thì tạo
+    if (!sessionOk) {
+        sessionStorage.setItem("session_ok", "1");
+    } else {
+        // Nếu đã có session, tức là tab này đã vào lần trước
+        // → coi như reload / truy cập lại → Lỗi
+        showError();
+        return;
+    }
+
+    // Check nếu user mở lại trang bằng Back/Forward (type=2)
+    if (performance.getEntriesByType("navigation")[0].type !== "navigate") {
+        // NOT a fresh visit → lỗi
+        showError();
+        return;
+    }
+
+    document.body.classList.remove("protected");
+
+    function showError() {
+        document.getElementById("refWarning").style.display = "flex";
+        setTimeout(() => {
+            window.location.href = "https://bbmkts.com/go/codevipfree";
+        }, 2000);
+    }
+
+})();
 </script>
 
 </body>
