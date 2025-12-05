@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Code Câu Cá Vạn Cân</title>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    body.protected #realContent {
+        display: none !important;
+    }
+
+    #refWarning {
+        display: none;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-family: Poppins, sans-serif;
+        background: #fff1f1;
+    }
+
+    .warning-box {
+        background: white;
+        padding: 35px;
+        border-radius: 20px;
+        width: 350px;
+        box-shadow: 0 0 40px rgba(255,0,0,0.3);
+        color: #d10000;
+    }
+</style>
+
+</head>
+
+<body class="protected">
+
+<div id="refWarning">
+    <div class="warning-box">
+        <h2>🚫 Truy cập không hợp lệ!</h2>
+        <p>Vui lòng GetLink từ đầu<br><b>tự động chuyển hướng sau 3s</b></p>
+    </div>
+</div>
+
+<div id="realContent">
+
+    <div id="Dialog" style="
+        width: 400px;
+        height: 630px;
+        background: white;
+        box-shadow: 10px 10px 200px rgba(0,255,225,0.65);
+        border-radius: 32px;
+        text-align: center;
+        margin: 40px auto;
+    ">
+        <div style="
+            color:#191717;
+            font-size:32px;
+            font-family:'Poppins',sans-serif;
+            font-weight:600;
+            padding-top:30px;
+        ">Code của bạn là</div>
+
+        <p>Lấy code gửi Discord cho admin để được hack free nhé</p>
+
+        <input id="GetKeyViewTextBox" readonly
+            style="background:#5fff24;width:250px;height:60px;border-radius:20px;
+                   margin:20px auto;text-align:center;font-size:15px;font-family:Poppins;border:none;">
+
+        <button id="GetKeyBtn_Label"
+            style="background:#8affc7;width:250px;height:60px;border-radius:20px;
+                   margin:20px auto;cursor:pointer;font-size:15px;font-family:Poppins;font-weight:600;border:none;">
+            Sao Chép Code
+        </button>
+    </div>
+
+</div>
+
+<script>
+(function() {
+    const required = "https://bbmkts.com/";
+    const ref = document.referrer;
+    const body = document.body;
+
+    if (!ref || !ref.startsWith(required)) {
+        document.getElementById("refWarning").style.display = "flex";
+        setTimeout(() => {
+            window.location.href = "https://gmvmoba.com/";
+        }, 2000);
+        return; 
+    }
+
+    body.classList.remove("protected");
+})();
+</script>
+
+<script>
+async function getIP() {
+    try {
+        let res = await fetch("https://api.ipify.org?format=json");
+        let data = await res.json();
+        return data.ip;
+    } catch {
+        return "UNKNOWN";
+    }
+}
+
+function randomCode(length = 16) {
+    let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let out = "";
+    for (let i = 0; i < length; i++) {
+        out += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return out;
+}
+
+window.onload = async function () {
+    const prefix = "GMVMOBA_";
+    const random = randomCode(16);
+    const ip = await getIP();
+
+    const final = `${prefix}${random}_${ip}`;
+    document.getElementById("GetKeyViewTextBox").value = final;
+};
+
+document.getElementById("GetKeyBtn_Label").addEventListener("click", function() {
+    const input = document.getElementById("GetKeyViewTextBox");
+    input.select();
+    document.execCommand("copy");
+
+    Swal.fire("Thành công!", "Đã sao chép code!", "success");
+});
+</script>
+<script>
+    function resetRef() {
+        const cleanUrl = window.location.href.split('#')[0];
+        const meta = document.createElement("meta");
+        meta.name = "referrer";
+        meta.content = "no-referrer";
+        document.head.appendChild(meta);
+
+        window.location.replace(cleanUrl);
+    }
+
+    let sessionId = sessionStorage.getItem("homeSession");
+
+    if (!sessionId) {
+        resetRef();
+    }
+</script>
+
+</body>
+</html>
