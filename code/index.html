@@ -330,22 +330,21 @@ document.getElementById("GetKeyBtn_Label").addEventListener("click", function() 
 <script>
 (function () {
 
-    let sessionOk = sessionStorage.getItem("session_ok");
+    const required = "https://bbmkts.com/";
+    const ref = document.referrer;
+    const nav = performance.getEntriesByType("navigation")[0].type;
 
-    if (!sessionOk) {
-        sessionStorage.setItem("session_ok", "1");
-    } else {
-        showError();
+    if (nav === "reload") {
+        return showError();
+    }
+
+    if (ref && ref.startsWith(required)) {
+        document.body.classList.remove("protected");
         return;
     }
 
-    if (performance.getEntriesByType("navigation")[0].type !== "navigate") {
-        
-        showError();
-        return;
-    }
-
-    document.body.classList.remove("protected");
+    showError();
+    return;
 
     function showError() {
         document.getElementById("refWarning").style.display = "flex";
@@ -356,6 +355,7 @@ document.getElementById("GetKeyBtn_Label").addEventListener("click", function() 
 
 })();
 </script>
+
 
 
 
