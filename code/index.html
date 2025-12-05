@@ -132,26 +132,6 @@ document.getElementById("GetKeyBtn_Label").addEventListener("click", function() 
 
  
 </script>
-<script>
-    function resetRef() {
-        const cleanUrl = window.location.href.split('#')[0];
-        const meta = document.createElement("meta");
-        meta.name = "referrer";
-        meta.content = "no-referrer";
-        document.head.appendChild(meta);
-
-        window.location.replace(cleanUrl);
-    }
-
-    let sessionId = sessionStorage.getItem("homeSession");
-
-    if (!sessionId) {
-        const newId = "H" + Date.now();
-        sessionStorage.setItem("homeSession", newId);
-
-        resetRef();
-    }
-</script>
 
 </body>
 </html>
