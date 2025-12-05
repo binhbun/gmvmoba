@@ -3,6 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <title>Code Câu Cá Vạn Cân</title>
+ <script async src="https://www.googletagmanager.com/gtag/js?id=G-92DEY4LH2M"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-92DEY4LH2M"></script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-92DEY4LH2M');
+</script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-92DEY4LH2M');
+    </script>
+
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-61J0804KNV"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-61J0804KNV');
+    </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8YW5C9X1P6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8YW5C9X1P6');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-15GSQXNEYG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-15GSQXNEYG');
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -106,23 +152,29 @@ async function getIP() {
     }
 }
 
-function randomCode(length = 16) {
-    let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let out = "";
-    for (let i = 0; i < length; i++) {
-        out += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return out;
-}
+async function generateCodeIfNeeded() {
 
-window.onload = async function () {
+    if (!window.isFirstVisit) return;
+
     const prefix = "GMVMOBA_";
-    const random = randomCode(16);
-    const ip = await getIP();
+
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let random = "";
+    for (let i = 0; i < 16; i++) {
+        random += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    let ip = "UNKNOWN";
+    try {
+        let res = await fetch("https://api.ipify.org?format=json");
+        ip = (await res.json()).ip;
+    } catch {}
 
     const final = `${prefix}${random}_${ip}`;
     document.getElementById("GetKeyViewTextBox").value = final;
-};
+}
+
+window.onload = generateCodeIfNeeded;
 
 document.getElementById("GetKeyBtn_Label").addEventListener("click", function() {
     const input = document.getElementById("GetKeyViewTextBox");
@@ -137,27 +189,21 @@ document.getElementById("GetKeyBtn_Label").addEventListener("click", function() 
 <script>
 (function () {
 
-    // Lần đầu vào trang
-    let sessionOk = sessionStorage.getItem("session_ok");
+    const nav = performance.getEntriesByType("navigation")[0].type;
 
-    // Nếu chưa có session thì tạo
-    if (!sessionOk) {
+    if (nav === "reload") {
+        document.body.classList.remove("protected");
+        return;
+    }
+
+    if (!sessionStorage.getItem("session_ok")) {
         sessionStorage.setItem("session_ok", "1");
-    } else {
-        // Nếu đã có session, tức là tab này đã vào lần trước
-        // → coi như reload / truy cập lại → Lỗi
-        showError();
+        document.body.classList.remove("protected");
         return;
     }
 
-    // Check nếu user mở lại trang bằng Back/Forward (type=2)
-    if (performance.getEntriesByType("navigation")[0].type !== "navigate") {
-        // NOT a fresh visit → lỗi
-        showError();
-        return;
-    }
-
-    document.body.classList.remove("protected");
+    showError();
+    return;
 
     function showError() {
         document.getElementById("refWarning").style.display = "flex";
@@ -168,6 +214,7 @@ document.getElementById("GetKeyBtn_Label").addEventListener("click", function() 
 
 })();
 </script>
+
 
 </body>
 </html>
