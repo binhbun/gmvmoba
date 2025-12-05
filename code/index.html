@@ -78,11 +78,10 @@
 
 <script>
 (function() {
-    const required = "https://bbmkts.com/";
-    const ref = document.referrer;
-    const body = document.body;
-
-    if (!ref || !ref.startsWith(required)) {
+    const url = new URL(window.location.href);
+    const ref = url.searchParams.get("ref");
+    
+    if (ref !== "bbmkts") {
         document.getElementById("refWarning").style.display = "flex";
         setTimeout(() => {
             window.location.href = "https://gmvmoba.com/";
