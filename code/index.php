@@ -361,63 +361,12 @@ document.getElementById("GetNewKey_Label3").addEventListener("click", function()
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"6bc47083d9c545718c30ba8b05223eaa","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
+
+    <script>(function(s){s.dataset.zone='10195711',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+<script type="text/javascript" src="//appletinherit.com/e6/0b/a8/e60ba84f43dead44a053fc1b76b1e0d8.js"></script>
 </html>
 
 </div>
-<div class="container" data-v-a1b911ec style="margin-top: 90%;">
-                                <div class="guild-video section-box" data-v-a1b911ec>
-                                    <div class="row" data-v-a1b911ec>
-                                        <div class="col" data-v-a1b911ec>
-                                            <h2 class="guild-title" data-v-a1b911ec>Video khác</h2>
-                                            <div class="video-box" data-v-a1b911ec>
-                                                <iframe width="560" height="315"
-                                                    src="https://www.youtube.com/embed/wLlQHI2c-6o?autoplay=1&mute=1&playsinline=1"
-                                                    title="YouTube video player"
-                                                    frameborder="0"
-                                                    allow="autoplay; encrypted-media"
-                                                    allowfullscreen>
-                                                </iframe>
-                                                 <iframe width="560" height="315"
-                                                    src="https://www.youtube.com/embed/1pSCtM43W4w?autoplay=1&mute=1&playsinline=1"
-                                                    title="YouTube video player"
-                                                    frameborder="0"
-                                                    allow="autoplay; encrypted-media"
-                                                    allowfullscreen>
-                                                </iframe>
-                                                 <iframe width="560" height="315"
-                                                    src="https://www.youtube.com/embed/3W8dw2uN794?autoplay=1&mute=1&playsinline=1"
-                                                    title="YouTube video player"
-                                                    frameborder="0"
-                                                    allow="autoplay; encrypted-media"
-                                                    allowfullscreen>
-                                                </iframe>
-                                                 <iframe width="560" height="315"
-                                                    src="https://www.youtube.com/embed/Mix--KEPgjY?autoplay=1&mute=1&playsinline=1"
-                                                    title="YouTube video player"
-                                                    frameborder="0"
-                                                    allow="autoplay; encrypted-media"
-                                                    allowfullscreen>
-                                                </iframe>
-                                                 <iframe width="560" height="315"
-                                                    src="https://www.youtube.com/embed/XBMKK2JcT2Q?autoplay=1&mute=1&playsinline=1"
-                                                    title="YouTube video player"
-                                                    frameborder="0"
-                                                    allow="autoplay; encrypted-media"
-                                                    allowfullscreen>
-                                                </iframe>
-                                                 <iframe width="560" height="315"
-                                                    src="https://www.youtube.com/embed/qcceYX0Myxs?autoplay=1&mute=1&playsinline=1"
-                                                    title="YouTube video player"
-                                                    frameborder="0"
-                                                    allow="autoplay; encrypted-media"
-                                                    allowfullscreen>
-                                                </iframe>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
 <script>
 
