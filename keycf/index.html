@@ -1,0 +1,21 @@
+<script>
+async function redirect() {
+    try {
+        const res = await fetch(
+            "https://hackergammer.online/GETKEY/Ngocbong2026&type=com.vnggames.cfl.crossfirelegends"
+        );
+
+        const shortUrl = (await res.text()).trim();
+
+        const finalUrl =
+            "https://bbmkts.com/ql?token=1a471588d7365b07a2d71401&longurl=" +
+            encodeURIComponent(shortUrl);
+
+        window.location.href = finalUrl;
+    } catch (e) {
+        document.body.innerHTML = "❌ Lỗi chuyển hướng";
+    }
+}
+
+redirect();
+</script>
