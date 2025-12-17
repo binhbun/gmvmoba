@@ -100,7 +100,22 @@
     <div id="content">⏳ Đang tải nội dung...</div>
 
 <script>
+function reorderByDevice() {
+    const ua = navigator.userAgent.toLowerCase();
+    const isAndroid = ua.includes("android");
+    const isIOS = ua.includes("iphone") || ua.includes("ipad") || ua.includes("ipod");
+    if (!isAndroid && !isIOS) return;
+    const ios = document.getElementById("ios-section");
+    const android = document.getElementById("android-section");
 
+    if (!ios || !android) {
+        console.warn("Không tìm thấy ios-section hoặc android-section");
+        return;
+    }
+    if (isAndroid) {
+        ios.parentNode.insertBefore(android, ios);
+    }
+}
     
 fetch("https://bbmkts.com/getcontent/note/49?c=" + Date.now())
 //fetch("https://bbmkts.com/getcontent/note/44?c=" + Date.now())
@@ -108,6 +123,7 @@ fetch("https://bbmkts.com/getcontent/note/49?c=" + Date.now())
     .then(data => {
         document.getElementById("content").innerHTML =
             data.content || data.html;
+        reorderByDevice();
     })
     .catch(() => {
         document.getElementById("content").innerHTML =
@@ -411,19 +427,6 @@ a {
 </style>
 
 </body>
-    <script>
-(function () {
-    const ua = navigator.userAgent || navigator.vendor || window.opera;
-    const isAndroid = /android/i.test(ua);
-    const isIOS = /iphone|ipad|ipod/i.test(ua);
-    const ios = document.getElementById("ios-section");
-    const android = document.getElementById("android-section");
-    if (!ios || !android) return;
-    if (isAndroid) {
-        ios.parentNode.insertBefore(android, ios);
-    }
-})();
-</script>
 
 <script>(function(s){s.dataset.zone='10195711',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <div id="imageModal1" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; display: flex; justify-content: center; align-items: center; z-index: 1000;">
