@@ -11,37 +11,22 @@
                     <key>kind</key>
                     <string>software-package</string>
                     <key>url</key>
-                    <string>https://sub2s.com/webfonts/DeltaVNNew.ipa</string>
+                    <string>https://bbmkts.com/ipas/Crossfire__Legends_1.0.8_1766227276_1766287091.ipa</string>
                 </dict>
-                <dict>
-                    <key>kind</key>
-                    <string>full-size-image</string>
-                    <key>needs-shine</key>
-                    <false/>
-                    <key>url</key>
-                    <string>https://loadly.io/image/view/app_icons/08f9552fa01dede9c9b7fdab7e8529c1/120</string>
-                </dict>
-                <dict>
-                    <key>kind</key>
-                    <string>display-image</string>
-                    <key>needs-shine</key>
-                    <false/>
-                    <key>url</key>
-                    <string>https://loadly.io/image/view/app_icons/08f9552fa01dede9c9b7fdab7e8529c1/120</string>
-                </dict>
+              
             </array>
             <key>metadata</key>
             <dict>
                 <key>bundle-identifier</key>
-                <string>com.ngocbong.deltavn.690</string>
+                <string>com.vnggames.cfl.crossfirelegends</string>
                 <key>bundle-version</key>
-                <string>2.696.799</string>
+                <string>1.0.8</string>
                 <key>kind</key>
                 <string>software</string>
                 <key>subtitle</key>
-                <string>Delta VN</string>
+                <string>Crossfire: Legends</string>
                 <key>title</key>
-                <string>Delta VN</string>
+                <string>Crossfire: Legends</string>
             </dict>
         </dict>
     </array>
