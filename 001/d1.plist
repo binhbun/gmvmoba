@@ -18,15 +18,15 @@
             <key>metadata</key>
             <dict>
                 <key>bundle-identifier</key>
-                <string>com.vnggames.cfl.crossfirelegends</string>
+                <string>com.deltavn.new</string>
                 <key>bundle-version</key>
-                <string>1.0.8</string>
+                <string>2.702.633</string>
                 <key>kind</key>
                 <string>software</string>
                 <key>subtitle</key>
-                <string>Crossfire: Legends</string>
+                <string>DeltaVN New</string>
                 <key>title</key>
-                <string>Crossfire: Legends</string>
+                <string>DeltaVN New</string>
             </dict>
         </dict>
     </array>
