@@ -11,19 +11,19 @@
                     <key>kind</key>
                     <string>software-package</string>
                     <key>url</key>
-                    <string>https://bbmkts.com/ipas/Crossfire__Legends_1.0.8_1767260068_1767261581.ipa</string>
+                    <string>https://github.com/ngocbonggaming88/cau-ca/releases/download/cauca/Cauca.ipa</string>
                 </dict>
             </array>
             <key>metadata</key>
             <dict>
                 <key>bundle-identifier</key>
-                <string>com.vnggames.cfl.crossfirelegends</string>
+                <string>api.vthangios.vn</string>
                 <key>bundle-version</key>
-                <string>1.0.8</string>
+                <string>1.64.0</string>
                 <key>kind</key>
                 <string>software</string>
                 <key>title</key>
-                <string>CFM FIX</string>
+                <string>Cau Ca</string>
             </dict>
         </dict>
     </array>
