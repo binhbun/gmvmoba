@@ -148,16 +148,17 @@ function reorderByDevice() {
 //     });
 
 (async () => {
-    let country = localStorage.getItem("country_code");
+    let noteId = 49;
 
-    if (!country) {
-        try {
-            const res = await fetch("https://ipapi.co/country/");
-            country = (await res.text()).trim();
-            localStorage.setItem("country_code", country);
-        } catch {
-            country = "VN";
+    try {
+        const res = await fetch("https://ipapi.co/country/");
+        const countryCode = (await res.text()).trim();
+
+        if (countryCode !== "VN") {
+            noteId = 44;
         }
+    } catch (e) {
+        noteId = 49;
     }
 
     const noteId = country === "VN" ? 49 : 44;
