@@ -1,1 +1,255 @@
 
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miguel Menu VIP - Full Features</title>
+    <style>
+        :root {
+            --primary: #a448ff; /* Màu tím theo ảnh gốc */
+            --bg-panel: #0f0f13;
+            --bg-item: #1a1a20;
+            --text-gray: #8e8e93;
+        }
+
+        body {
+            background: #000;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+        }
+
+        .menu-container {
+            width: 360px;
+            background: var(--bg-panel);
+            border: 1px solid #2c2c2e;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            overflow: hidden;
+        }
+
+        /* Tiêu đề Menu */
+        .header {
+            background: #121216;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 18px;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        /* Thanh chỉ báo Tab đang chạy */
+        .tab-bar {
+            display: flex;
+            background: #1a1a20;
+            padding: 5px 10px;
+            gap: 5px;
+        }
+
+        .tab-segment {
+            flex: 1;
+            height: 3px;
+            background: #333;
+            border-radius: 2px;
+            transition: 0.4s;
+        }
+
+        .tab-segment.active {
+            background: var(--primary);
+            box-shadow: 0 0 8px var(--primary);
+        }
+
+        /* Vùng nội dung */
+        .content-wrapper {
+            height: 320px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .tab-page.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        /* Header của từng trang */
+        .page-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 8px;
+        }
+
+        .page-info b { color: var(--primary); font-size: 14px; text-transform: uppercase; }
+        .page-info span { color: var(--text-gray); font-size: 12px; }
+
+        /* Hàng chức năng */
+        .feature-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 14px;
+            color: #efeff4;
+        }
+
+        /* Dropdown mô phỏng */
+        .select-box {
+            background: #2c2c2e;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--primary);
+        }
+
+        /* Switch button */
+        .switch {
+            width: 34px; height: 18px;
+            position: relative; display: inline-block;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #333; border-radius: 20px; transition: .4s;
+        }
+        .slider:before {
+            position: absolute; content: "";
+            height: 14px; width: 14px; left: 2px; bottom: 2px;
+            background-color: white; border-radius: 50%; transition: .3s;
+        }
+        input:checked + .slider { background-color: var(--primary); }
+        input:checked + .slider:before { transform: translateX(16px); }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price { font-size: 16px; color: var(--text-gray); }
+        .price b { color: #ff453a; }
+
+        .zalo-link {
+            background: var(--primary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-container">
+        <div class="header">
+            <h1>MIGUEL MENU PRO</h1>
+        </div>
+
+        <div class="tab-bar">
+            <div class="tab-segment active"></div>
+            <div class="tab-segment"></div>
+            <div class="tab-segment"></div>
+            <div class="tab-segment"></div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="tab-page active" id="page0">
+                <div class="page-info"><b>🎯 AIMBOT</b> <span>Auto target enemies</span></div>
+                <div class="feature-item"><span>Enable Aimbot</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                <div class="feature-item"><span>Show FOV Circle</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="feature-item"><span>Ignore Bots</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                <div class="feature-item"><span>Aim Mode</span> <div class="select-box">Closest to Crosshair</div></div>
+                <div class="feature-item"><span>Target Bone</span> <div class="select-box">⚠️ Head</div></div>
+                <div class="feature-item"><span>Aim Trigger</span> <div class="select-box">Only When Shooting</div></div>
+            </div>
+
+            <div class="tab-page" id="page1">
+                <div class="page-info"><b>👁️ VISUALS</b> <span>See where enemies are</span></div>
+                <div class="feature-item"><span>ESP Enable</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                <div class="feature-item"><span>ESP Boxes</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                <div class="feature-item"><span>ESP Lines</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="feature-item"><span>ESP Name</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                <div class="feature-item"><span>ESP Distance</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="feature-item"><span>ESP Health</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="feature-item"><span>ESP Skeleton</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+            </div>
+
+            <div class="tab-page" id="page2">
+                <div class="page-info"><b>📦 MISC</b> <span>Extra gameplay features</span></div>
+                <div class="feature-row">
+                    <div class="feature-item"><span>No Recoil</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                    <div class="feature-item"><span>Force 120 FPS</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                    <div class="feature-item"><span>Reset Guest</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                    <div class="feature-item"><span>Fast Reload</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                    <div class="feature-item"><span>Antenna Hand</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                </div>
+            </div>
+
+            <div class="tab-page" id="page3">
+                <div class="page-info"><b>⚙️ SETTINGS</b> <span>System configuration</span></div>
+                <div class="feature-item"><span>Anti-Ban v2.1</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                <div class="feature-item"><span>Bypass Lobby</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                <div class="feature-item"><span>Save Configuration</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                <div class="feature-item"><span>Menu Language</span> <div class="select-box">Vietnamese</div></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="price"><b>20k = Ngày <br> 120k = Tuần <br> 300k = Tháng</b></div>
+            <a href="https://zalo.me/0965870531" class="zalo-link">ZALO MUA KEY: 0965870531</a>
+        </div>
+    </div>
+
+    <script>
+        const pages = document.querySelectorAll('.tab-page');
+        const segments = document.querySelectorAll('.tab-segment');
+        let currentIdx = 0;
+
+        function autoSwap() {
+            // Xóa active cũ
+            pages.forEach(p => p.classList.remove('active'));
+            segments.forEach(s => s.classList.remove('active'));
+
+            // Chuyển chỉ số
+            currentIdx = (currentIdx + 1) % pages.length;
+
+            // Thêm active mới
+            pages[currentIdx].classList.add('active');
+            segments[currentIdx].classList.add('active');
+        }
+
+        // Tự động chuyển sau mỗi 3 giây
+        setInterval(autoSwap, 3000);
+    </script>
+</body>
+</html>
