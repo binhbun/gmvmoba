@@ -157,14 +157,14 @@ fetch("https://www.cloudflare.com/cdn-cgi/trace")
         console.log("Quốc gia hiện tại:", countryCode);
 
         if (countryCode === "VN") {
-            fetchContent(49);
+            fetchContent(44);
         } else {
             fetchContent(44);
         }
     })
     .catch(err => {
         console.warn("Lỗi kết nối API IP");
-        fetchContent(49);
+        fetchContent(44);
     });
 
     
