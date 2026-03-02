@@ -34,7 +34,7 @@ jobs:
                   count = 0
               
               print(f"Số lượng key hiện có: {count}")
-              if count >= 20:
+              if count >= 50:
                   print("Kho key vẫn đủ, dừng bot.")
                   return
 
