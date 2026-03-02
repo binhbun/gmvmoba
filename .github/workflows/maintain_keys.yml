@@ -1,7 +1,7 @@
 name: Auto Generate GMVMOBA Keys
 on:
   schedule:
-    - cron: '*/5 * * * *' # Chạy mỗi 30 phút
+    - cron: '*/30 * * * *' # Chạy mỗi 30 phút
   workflow_dispatch:
 
 jobs:
@@ -34,7 +34,7 @@ jobs:
                   count = 0
               
               print(f"Số lượng key hiện có: {count}")
-              if count >= 50:
+              if count >= 80:
                   print("Kho key vẫn đủ, dừng bot.")
                   return
 
