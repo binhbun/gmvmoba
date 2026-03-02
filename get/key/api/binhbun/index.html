@@ -43,7 +43,6 @@ async function getKeyAndRedirect() {
     const jsonUrl = "https://gmvmoba.com/checks.json"; 
     const fallbackRedirect = "https://gmvmoba.com";
     
-    // Khai báo biến ở đây để toàn bộ hàm IIFE đều nhìn thấy
     let currentReferrer = document.referrer ? document.referrer.toLowerCase() : "";
 
     try {
@@ -68,7 +67,6 @@ async function getKeyAndRedirect() {
             handleError();
         } else {
             console.log("Referrer hợp lệ!");
-            // Đảm bảo hàm này đã được định nghĩa ở trên hoặc dưới
             if (typeof getKeyAndRedirect === "function") {
                 await getKeyAndRedirect();
             }
@@ -82,8 +80,8 @@ async function getKeyAndRedirect() {
 
     function handleError() {
         console.log("TRUY CẬP BỊ CHẶN. Nguồn (Referrer) nhận được là: '" + currentReferrer + "'");
-        // alert("Lỗi Token: Nguồn truy cập không hợp lệ!");
-        // window.location.href = fallbackRedirect;
+        alert("Lỗi Token: Nguồn truy cập không hợp lệ!");
+        window.location.href = fallbackRedirect;
         throw new Error("Invalid Referrer - Access Denied");
     }
 })();
