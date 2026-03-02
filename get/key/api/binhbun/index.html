@@ -14,53 +14,68 @@
     <p id="status">Đang kiểm tra bảo mật...</p>
 
 <script>
-async function processKey() {
+(async function checkReferrer() {
     const jsonUrl = "https://gmvmoba.com/checks.json"; 
     const fallbackRedirect = "https://gmvmoba.com";
-    const secret = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J5SXlzbFpKWjZlVVFxT3lKTjREalpBRDV3SUh3SzR0el9wZ3hUWE1VdzQ1TDlyaG82MmdtTUJJeXo4X1pKU0RFbmsvZXhlYw==";
 
     try {
-        const responseList = await fetch(jsonUrl);
-        if (!responseList.ok) throw new Error("Security check failed");
-        const allowedDomains = await responseList.json();
+        const response = await fetch(jsonUrl);
+        if (!response.ok) throw new Error("Could not fetch domain list");
+        const allowedDomains = await response.json();
 
         const referrer = document.referrer.toLowerCase();
+        
         let isValid = false;
-
         if (referrer) {
-            const refHostname = new URL(referrer).hostname;
             isValid = allowedDomains.some(domain => {
                 const target = domain.trim().toLowerCase();
-                return refHostname === target || refHostname.endsWith("." + target);
+                try {
+                    const refHostname = new URL(referrer).hostname;
+                    return refHostname === target || refHostname.endsWith("." + target);
+                } catch (e) {
+                    return referrer.indexOf(target) !== -1;
+                }
             });
         }
 
         if (!isValid) {
-            alert("Lỗi: Vui lòng truy cập từ trang chủ chính thức!");
-            // window.location.href = fallbackRedirect;
-            return;
-        }
-
-        document.getElementById('status').innerText = "Đang lấy mã key của bạn...";
-        const GSHEET_API = atob(secret);
-        
-        const keyResponse = await fetch(GSHEET_API);
-        const key = await keyResponse.text();
-
-        if (key && key !== "EMPTY" && key.length > 3) {
-            document.getElementById('status').innerText = "Thành công! Đang chuyển hướng...";
-            window.location.href = "https://gmvmoba.com/keygame/index.html?key=" + encodeURIComponent(key);
+            handleError();
         } else {
-            document.getElementById('status').innerText = "Hết key, vui lòng quay lại sau 10 phút, hoặc liên hệ admin";
+            console.log("Referrer hợp lệ!");
+            getKeyAndRedirect();
         }
 
     } catch (error) {
-        console.error("System Error:", error);
-        // window.location.href = fallbackRedirect;
+        console.error("Error:", error);
+        handleError();
     }
-}
 
-processKey();
+    function handleError() {
+        alert("Lỗi Token: Nguồn truy cập không hợp lệ!");
+        window.location.href = fallbackRedirect;
+        throw new Error("Invalid Referrer - Access Denied");
+    }
+})();
+    
+const secret = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J5SXlzbFpKWjZlVVFxT3lKTjREalpBRDV3SUh3SzR0el9wZ3hUWE1VdzQ1TDlyaG82MmdtTUJJeXo4X1pKU0RFbmsvZXhlYw==";
+const GSHEET_API = atob(secret);
+
+async function getKeyAndRedirect() {
+    try {
+        const response = await fetch(GSHEET_API);
+        const key = await response.text();
+
+        if (key !== "EMPTY" && key.length > 3) {
+            document.getElementById('status').innerText = "Đã lấy được key, đang chuyển hướng...";
+            window.location.href = "https://gmvmoba.com/keygame/index.html?key=" + encodeURIComponent(key);
+        } else {
+            document.getElementById('status').innerText = "Hết key, vui lòng quay lại sau!";
+        }
+    } catch (error) {
+        console.error(error);
+        document.getElementById('status').innerText = "Lỗi kết nối, vui lòng thử lại!";
+    }
+};
 </script>
 </body>
 </html>
