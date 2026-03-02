@@ -22,11 +22,9 @@ async function getKeyAndRedirect() {
     try {
         document.getElementById('status').innerText = "Đang lấy mã key của bạn, Vui lòng chờ...";
         
-        // Gọi API Google
         const response = await fetch(GSHEET_API);
         const key = await response.text();
 
-        // Kiểm tra dữ liệu trả về
         if (key && key.trim() !== "EMPTY" && key.length > 3) {
             document.getElementById('status').innerText = "Đã lấy được key, đang chuyển hướng...";
             window.location.replace("https://gmvmoba.com/keygame/index.html?key=" + encodeURIComponent(key.trim()));
@@ -39,7 +37,7 @@ async function getKeyAndRedirect() {
     }
 }
 
-(async function verifyAndStart() {
+(async function checkReferrer() {
     const jsonUrl = "https://gmvmoba.com/checks.json"; 
     const fallbackRedirect = "https://gmvmoba.com";
 
@@ -54,26 +52,30 @@ async function getKeyAndRedirect() {
         if (referrer) {
             isValid = allowedDomains.some(domain => {
                 const target = domain.trim().toLowerCase();
-                return referrer.includes(target);
+                try {
+                    const refHostname = new URL(referrer).hostname;
+                    return refHostname === target || refHostname.endsWith("." + target);
+                } catch (e) {
+                    return referrer.indexOf(target) !== -1;
+                }
             });
         }
 
-        if (isValid) {
-            console.log("Referrer hợp lệ: " + referrer);
-            await getKeyAndRedirect();
-        } else {
-            console.log("Referrer không hợp lệ: " + referrer);
+        if (!isValid) {
             handleError();
+        } else {
+            console.log("Referrer hợp lệ!");
+            await getKeyAndRedirect();
         }
-
     } catch (error) {
-        console.error("Main Error:", error);
+        console.error("Error:", error);
         handleError();
     }
 
     function handleError() {
-        alert("Lỗi: Nguồn truy cập không hợp lệ!");
+        alert("Lỗi Token: Nguồn truy cập không hợp lệ!");
         window.location.href = fallbackRedirect;
+        throw new Error("Invalid Referrer - Access Denied");
     }
 })();
 </script>
