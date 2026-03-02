@@ -37,7 +37,9 @@ async function getKeyAndRedirect() {
         document.getElementById('status').innerText = "Lỗi kết nối API Google! Vui lòng F5 trang.";
     }
 }
-
+</script>
+    
+<script>
 (async function checkReferrer() {
     const jsonUrl = "https://gmvmoba.com/checks.json"; 
     const fallbackRedirect = "https://gmvmoba.com";
@@ -48,8 +50,8 @@ async function getKeyAndRedirect() {
         const allowedDomains = await response.json();
 
         const referrer = document.referrer.toLowerCase();
+        
         let isValid = false;
-
         if (referrer) {
             isValid = allowedDomains.some(domain => {
                 const target = domain.trim().toLowerCase();
@@ -65,11 +67,13 @@ async function getKeyAndRedirect() {
         if (!isValid) {
             handleError();
         } else {
-            console.log("Referrer hợp lệ!");
             await getKeyAndRedirect();
+            console.log("Referrer hợp lệ!");
         }
+
     } catch (error) {
         console.error("Error:", error);
+        console.log("Dữ liệu Referrer thực tế nhận được là: '" + referrer + "'");
         handleError();
     }
 
