@@ -63,7 +63,7 @@ jobs:
                   # Tạo chuỗi random y hệt PHP: md5(microtime)
                   m = hashlib.md5()
                   m.update(str(time.time()).encode('utf-8'))
-                  random_key = "GMVMOBA" + m.hexdigest().upper()[:15]
+                  random_key = "GMVMOBA" + m.hexdigest().upper()[:10]
 
                   payload = {
                       'csrf_test_name': csrf_gen.group(1),
