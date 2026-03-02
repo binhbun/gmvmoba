@@ -3,7 +3,7 @@
 <head>
     <title>Đang xử lý...</title>
     <meta charset="UTF-8">
-    <style>
+    <meta name="referrer" content="no-referrer-when-downgrade"> <style>
         body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #0f172a; color: white; }
         .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3b82f6; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -14,7 +14,28 @@
     <p id="status">Đang kiểm tra bảo mật...</p>
 
 <script>
-(async function checkReferrer() {
+const secret = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J5SXlzbFpKWjZlVVFxT3lKTjREalpBRDV3SUh3SzR0el9wZ3hUWE1VdzQ1TDlyaG82MmdtTUJJeXo4X1pKU0RFbmsvZXhlYw==";
+const GSHEET_API = atob(secret);
+
+async function getKeyAndRedirect() {
+    try {
+        document.getElementById('status').innerText = "Đang lấy mã key từ máy chủ...";
+        const response = await fetch(GSHEET_API);
+        const key = await response.text();
+
+        if (key && key.trim() !== "EMPTY" && key.length > 3) {
+            document.getElementById('status').innerText = "Đã lấy được key, đang chuyển hướng...";
+            window.location.replace("https://gmvmoba.com/keygame/index.html?key=" + encodeURIComponent(key.trim()));
+        } else {
+            document.getElementById('status').innerText = "Hết key, vui lòng quay lại sau 10p, hoặc liên hệ admin nếu 30p chưa có key mới!";
+        }
+    } catch (error) {
+        console.error(error);
+        document.getElementById('status').innerText = "Lỗi kết nối API Google!";
+    }
+}
+
+(async function verifyAndStart() {
     const jsonUrl = "https://gmvmoba.com/checks.json"; 
     const fallbackRedirect = "https://gmvmoba.com";
 
@@ -24,25 +45,25 @@
         const allowedDomains = await response.json();
 
         const referrer = document.referrer.toLowerCase();
-        
         let isValid = false;
+
         if (referrer) {
-            isValid = allowedDomains.some(domain => {
-                const target = domain.trim().toLowerCase();
-                try {
-                    const refHostname = new URL(referrer).hostname;
+            try {
+                const refHostname = new URL(referrer).hostname.replace('www.', '');
+                isValid = allowedDomains.some(domain => {
+                    const target = domain.trim().toLowerCase().replace('www.', '');
                     return refHostname === target || refHostname.endsWith("." + target);
-                } catch (e) {
-                    return referrer.indexOf(target) !== -1;
-                }
-            });
+                });
+            } catch (e) {
+                isValid = allowedDomains.some(domain => referrer.includes(domain.trim().toLowerCase()));
+            }
         }
 
-        if (!isValid) {
-            handleError();
-        } else {
+        if (isValid) {
             console.log("Referrer hợp lệ!");
-            getKeyAndRedirect();
+            await getKeyAndRedirect();
+        } else {
+            handleError();
         }
 
     } catch (error) {
@@ -51,31 +72,10 @@
     }
 
     function handleError() {
-        alert("Lỗi Token: Nguồn truy cập không hợp lệ!");
+        alert("Lỗi: Nguồn truy cập không hợp lệ!");
         window.location.href = fallbackRedirect;
-        throw new Error("Invalid Referrer - Access Denied");
     }
 })();
-    
-const secret = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J5SXlzbFpKWjZlVVFxT3lKTjREalpBRDV3SUh3SzR0el9wZ3hUWE1VdzQ1TDlyaG82MmdtTUJJeXo4X1pKU0RFbmsvZXhlYw==";
-const GSHEET_API = atob(secret);
-
-async function getKeyAndRedirect() {
-    try {
-        const response = await fetch(GSHEET_API);
-        const key = await response.text();
-
-        if (key !== "EMPTY" && key.length > 3) {
-            document.getElementById('status').innerText = "Đã lấy được key, đang chuyển hướng...";
-            window.location.href = "https://gmvmoba.com/keygame/index.html?key=" + encodeURIComponent(key);
-        } else {
-            document.getElementById('status').innerText = "Hết key, vui lòng quay lại sau!";
-        }
-    } catch (error) {
-        console.error(error);
-        document.getElementById('status').innerText = "Lỗi kết nối, vui lòng thử lại!";
-    }
-};
 </script>
 </body>
 </html>
