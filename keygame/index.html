@@ -1,0 +1,467 @@
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KEY CỦA BẠN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00d4ff;
+            --primary-dark: #0099cc;
+            --secondary-color: #6c63ff;
+            --secondary-dark: #4a44b5;
+            --accent-color: #ff6b6b;
+            --background: #0a0a14;
+            --card-background: rgba(16, 18, 33, 0.95);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0c0;
+            --border-color: rgba(0, 212, 255, 0.3);
+            --success-color: #10B981;
+            --error-color: #EF4444;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 212, 255, 0.1);
+            --shadow: 0 4px 6px -1px rgba(0, 212, 255, 0.15);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 212, 255, 0.2);
+            --glow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(108, 99, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 20%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-background);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            z-index: -1;
+            border-radius: 1.2rem;
+            opacity: 0.3;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .header-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .key-container {
+            margin: 2rem 0;
+        }
+
+        .key-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .key-label i {
+            font-size: 1rem;
+        }
+
+        .key-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        #key-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--text-primary);
+            text-align: center;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        #key-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow), var(--glow);
+        }
+
+        .copy-button {
+            width: 100%;
+            padding: 1rem;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .copy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow), var(--glow);
+        }
+
+        .copy-button:active {
+            transform: translateY(0);
+        }
+
+        .copy-button i {
+            font-size: 1.1rem;
+        }
+
+        .time-info {
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .time-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #current-time {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .instructions {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .instructions-title {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .instructions-list {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            padding-left: 1.5rem;
+        }
+
+        .instructions-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--success-color), var(--primary-color));
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 1000;
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, var(--error-color), #ff6b6b);
+        }
+
+        .toast i {
+            font-size: 1.2rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .header-title {
+                font-size: 1.5rem;
+            }
+            
+            .header-subtitle {
+                font-size: 0.8rem;
+            }
+            
+            #key-input {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .copy-button {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-height: 600px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .header {
+                margin-bottom: 1rem;
+            }
+            
+            .key-container {
+                margin: 1rem 0;
+            }
+        }
+
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="no-select">
+    <div class="container">
+        <div class="header">
+            <h1 class="header-title">GMV MOBA</h1>
+            <p class="header-subtitle">KHÓA KÍCH HOẠT CỦA BẠN </p>
+        </div>
+        <div class="key-container">
+            <div class="key-label">
+                <i class="fas fa-key"></i>
+                <span>KEY CỦA BẠN LÀ:</span>
+            </div>
+            <div class="key-input-wrapper">
+                <input type="text" id="key-input" 
+                       value="" 
+                       readonly>
+            </div>
+            <button class="copy-button" onclick="copyToClipboard()">
+                <i class="fas fa-copy"></i>
+                SAO CHÉP KEY
+            </button>
+        </div>
+
+        <div class="instructions">
+            <div class="instructions-title">
+                <i class="fas fa-info-circle"></i>
+                <span>HƯỚNG DẪN SỬ DỤNG:</span>
+            </div>
+            <ol class="instructions-list">
+                <li>Sao chép key bên trên</li>
+                <li>Dán Key Của Bạn Vào</li>
+                <li>Bấn Đăng Nhập Để Kích Hoạt</li>
+            </ol>
+        </div>
+
+        <div class="footer">
+            <p></p>
+            <p></p>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span>Đã sao chép key thành công!</span>
+    </div>
+<script>
+(function () {
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get('key');
+
+    const keyInput = document.getElementById('key-input');
+
+    if (key && key.trim() !== '') {
+        keyInput.value = key;
+    } else {
+        keyInput.value = 'Không có khóa';
+    }
+})();
+</script>
+
+<script>(function(s){s.dataset.zone='10195711',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script src="https://appletinherit.com/e6/0b/a8/e60ba84f43dead44a053fc1b76b1e0d8.js"></script>
+    <script>
+
+        
+        function copyToClipboard() {
+            const copyText = document.getElementById("key-input");
+            const toast = document.getElementById("toast");
+            
+            // Kiểm tra nếu key không hợp lệ
+            if (copyText.value === "Không có khóa" || 
+                copyText.value === "Key lỗi, vui lòng thử lại." ||
+                copyText.value === "Active token không hợp lệ hoặc đã hết hạn" ||
+                copyText.value === "Có lỗi xảy ra, vui lòng thử lại sau" ||
+                copyText.value === "Vui lòng lấy lại key") {
+                
+                toast.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>Key không hợp lệ, vui lòng thử lại!</span>';
+                toast.classList.add('error');
+            } else {
+                toast.innerHTML = '<i class="fas fa-check-circle"></i><span>Đã sao chép key thành công!</span>';
+                toast.classList.remove('error');
+            }
+            
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            
+            try {
+                navigator.clipboard.writeText(copyText.value)
+                    .then(() => showToast())
+                    .catch(() => {
+                        document.execCommand("copy");
+                        showToast();
+                    });
+            } catch (err) {
+                document.execCommand("copy");
+                showToast();
+            }
+        }
+
+        function copyToClipboard() {
+    const key = document.getElementById("key-input").value;
+
+    navigator.clipboard.writeText(key).then(() => {
+        fetch('confirm_copy.php', {
+            method: 'POST',
+            headers: {'Content-Type':'application/x-www-form-urlencoded'},
+            body: 'key=' + encodeURIComponent(key)
+        });
+        showToast();
+    });
+}
+
+
+        function showToast() {
+            const toast = document.getElementById("toast");
+            toast.style.display = 'flex';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // Prevent zoom on double tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Add focus effect to key input when clicked
+        const keyInput = document.getElementById('key-input');
+        keyInput.addEventListener('click', function() {
+            this.select();
+        });
+    </script>
+</body>
+</html>
