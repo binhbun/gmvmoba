@@ -72,8 +72,8 @@ async function getKeyAndRedirect() {
         }
 
     } catch (error) {
-        console.error("Error:", error);
         console.log("Dữ liệu Referrer thực tế nhận được là: '" + referrer + "'");
+        console.error("Error:", error);
         handleError();
     }
 
