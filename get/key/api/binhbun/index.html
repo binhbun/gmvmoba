@@ -74,8 +74,9 @@ async function getKeyAndRedirect() {
     }
 
     function handleError() {
-        alert("Lỗi Token: Nguồn truy cập không hợp lệ!");
+        // alert("Lỗi Token: Nguồn truy cập không hợp lệ!");
         // window.location.href = fallbackRedirect;
+        console.log("Dữ liệu Referrer thực tế nhận được là: '" + referrer + "'");
         throw new Error("Invalid Referrer - Access Denied");
     }
 })();
