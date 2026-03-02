@@ -1,0 +1,37 @@
+name: Firebase Daily Full Reset (00:00 VN)
+
+on:
+  schedule:
+    # 17:00 UTC tương đương 00:00 giờ Việt Nam (UTC+7)
+    - cron: '0 17 * * *'
+  workflow_dispatch: # Nút bấm để bạn có thể xóa thủ công bất kỳ lúc nào
+
+jobs:
+  clear_database:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete All User Logs
+        run: |
+          PROJECT_ID="api-ip-fa955"
+          COLLECTION="user_logs"
+          API_KEY="AIzaSyBlfmGsb8Cg65JcmUwwcHGHnb5puCQfQdk"
+
+          echo "🧹 Bắt đầu tổng vệ sinh Firebase lúc $(date)"
+
+          # 1. Lấy danh sách 500 bản ghi (Tăng pageSize để xóa được nhiều nhất có thể trong 1 lần quét)
+          DOCS=$(curl -s "https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/${COLLECTION}?pageSize=500&mask.fieldPaths=__name__&key=${API_KEY}")
+
+          # 2. Trích xuất đường dẫn của từng Document
+          LIST=$(echo "$DOCS" | grep -o "projects/${PROJECT_ID}/databases/(default)/documents/${COLLECTION}/[^ \"]*")
+
+          if [ -z "$LIST" ]; then
+            echo "✨ Database đã sạch sẵn rồi, không có gì để xóa."
+          else
+            echo "Tìm thấy bản ghi, đang tiến hành xóa hàng loạt..."
+            # 3. Lặp qua danh sách và xóa từng cái
+            echo "$LIST" | while read -r doc_path; do
+              echo "--- Đang xóa: $doc_path"
+              curl -s -X DELETE "https://firestore.googleapis.com/v1/${doc_path}?key=${API_KEY}"
+            done
+            echo "✅ Đã xóa sạch toàn bộ bản ghi. Hạn ngạch dung lượng đã được giải phóng!"
+          fi
