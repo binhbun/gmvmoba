@@ -19,7 +19,7 @@ const GSHEET_API = atob(secret);
 
 async function getKeyAndRedirect() {
     try {
-        document.getElementById('status').innerText = "Đang lấy mã key từ máy chủ...";
+        document.getElementById('status').innerText = "Đang lấy mã key của bạn, Vui lòng chờ...";
         const response = await fetch(GSHEET_API);
         const key = await response.text();
 
