@@ -12,27 +12,73 @@
 <body>
     <div class="loader"></div>
     <p id="status">Đang kết nối máy chủ để lấy mã key...</p>
+<script>
+(async function checkReferrer() {
+    const jsonUrl = "https://gmvmoba.com/checks.json"; 
+    const fallbackRedirect = "https://gmvmoba.com";
 
-    <script>
-        const GSHEET_API = "https://script.google.com/macros/s/AKfycbz1rIbQ8Gi8VeCAHMpwrk2U1HJ6-11XMnvOnb5R8Xsgrd1TJooI002V1G3JgWSptnYK/exec";
+    try {
+        const response = await fetch(jsonUrl);
+        if (!response.ok) throw new Error("Could not fetch domain list");
+        const allowedDomains = await response.json();
 
-        async function getKeyAndRedirect() {
-            try {
-                const response = await fetch(GSHEET_API);
-                const key = await response.text();
+        const referrer = document.referrer.toLowerCase();
+        
+        let isValid = false;
+        if (referrer) {
+            isValid = allowedDomains.some(domain => {
+                const target = domain.trim().toLowerCase();
+                try {
+                    const refHostname = new URL(referrer).hostname;
+                    return refHostname === target || refHostname.endsWith("." + target);
 
-                if (key !== "EMPTY" && key.length > 3) {
-                    document.getElementById('status').innerText = "Đã lấy được key, đang chuyển hướng...";
-                    window.location.href = "https://gmvmoba.com/keygame/index.html?key=" + encodeURIComponent(key);
-                } else {
-                    document.getElementById('status').innerText = "Hết key, vui lòng quay lại sau!";
+
+
+                    const secret = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J5SXlzbFpKWjZlVVFxT3lKTjREalpBRDV3SUh3SzR0el9wZ3hUWE1VdzQ1TDlyaG82MmdtTUJJeXo4X1pKU0RFbmsvZXhlYw==";
+                        const GSHEET_API = atob(secret); 
+                        async function getKeyAndRedirect() {
+                            try {
+                                const response = await fetch(GSHEET_API);
+                                const key = await response.text();
+                
+                                if (key !== "EMPTY" && key.length > 3) {
+                                    document.getElementById('status').innerText = "Đã lấy được key, đang chuyển hướng...";
+                                    window.location.href = "https://gmvmoba.com/keygame/index.html?key=" + encodeURIComponent(key);
+                                } else {
+                                    document.getElementById('status').innerText = "Hết key, vui lòng quay lại sau!";
+                                }
+                            } catch (error) {
+                                console.error(error);
+                                document.getElementById('status').innerText = "Lỗi kết nối, vui lòng thử lại!";
+                            }
+                        }
+                        getKeyAndRedirect();
+
+                    
+                } catch (e) {
+                    return referrer.indexOf(target) !== -1;
                 }
-            } catch (error) {
-                console.error(error);
-                document.getElementById('status').innerText = "Lỗi kết nối, vui lòng thử lại!";
-            }
+            });
         }
-        getKeyAndRedirect();
-    </script>
+
+        if (!isValid) {
+            handleError();
+        } else {
+            console.log("Referrer hợp lệ!");
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+        handleError();
+    }
+
+    function handleError() {
+        alert("Lỗi Token: Nguồn truy cập không hợp lệ!");
+        window.location.href = fallbackRedirect;
+        throw new Error("Invalid Referrer - Access Denied");
+    }
+})();
+</script>
+
 </body>
 </html>
