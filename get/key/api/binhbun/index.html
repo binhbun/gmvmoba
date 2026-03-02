@@ -38,28 +38,28 @@ async function getKeyAndRedirect() {
     }
 }
 </script>
-    
-<script>
+ <script>
 (async function checkReferrer() {
     const jsonUrl = "https://gmvmoba.com/checks.json"; 
     const fallbackRedirect = "https://gmvmoba.com";
+    
+    // Khai báo biến ở đây để toàn bộ hàm IIFE đều nhìn thấy
+    let currentReferrer = document.referrer ? document.referrer.toLowerCase() : "";
 
     try {
         const response = await fetch(jsonUrl);
         if (!response.ok) throw new Error("Could not fetch domain list");
         const allowedDomains = await response.json();
 
-        const referrer = document.referrer.toLowerCase();
-        
         let isValid = false;
-        if (referrer) {
+        if (currentReferrer) {
             isValid = allowedDomains.some(domain => {
                 const target = domain.trim().toLowerCase();
                 try {
-                    const refHostname = new URL(referrer).hostname;
+                    const refHostname = new URL(currentReferrer).hostname;
                     return refHostname === target || refHostname.endsWith("." + target);
                 } catch (e) {
-                    return referrer.indexOf(target) !== -1;
+                    return currentReferrer.indexOf(target) !== -1;
                 }
             });
         }
@@ -67,20 +67,23 @@ async function getKeyAndRedirect() {
         if (!isValid) {
             handleError();
         } else {
-            await getKeyAndRedirect();
             console.log("Referrer hợp lệ!");
+            // Đảm bảo hàm này đã được định nghĩa ở trên hoặc dưới
+            if (typeof getKeyAndRedirect === "function") {
+                await getKeyAndRedirect();
+            }
         }
 
     } catch (error) {
-        console.log("Dữ liệu Referrer thực tế nhận được là: '" + referrer + "'");
-        console.error("Error:", error);
+        console.log("Dữ liệu Referrer thực tế nhận được là: '" + currentReferrer + "'");
+        console.error("Chi tiết lỗi:", error);
         handleError();
     }
 
     function handleError() {
+        console.log("TRUY CẬP BỊ CHẶN. Nguồn (Referrer) nhận được là: '" + currentReferrer + "'");
         // alert("Lỗi Token: Nguồn truy cập không hợp lệ!");
         // window.location.href = fallbackRedirect;
-        console.log("Dữ liệu Referrer thực tế nhận được là: '" + referrer + "'");
         throw new Error("Invalid Referrer - Access Denied");
     }
 })();
