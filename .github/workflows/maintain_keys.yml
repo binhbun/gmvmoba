@@ -1,7 +1,7 @@
 name: Auto Generate GMVMOBA Keys
 on:
   schedule:
-    - cron: '*/30 * * * *' # Chạy mỗi 30 phút
+    - cron: '*/5 * * * *' # Chạy mỗi 30 phút
   workflow_dispatch:
 
 jobs:
