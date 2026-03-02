@@ -41,10 +41,10 @@ jobs:
                   
                   session = requests.Session()
                   # Đăng nhập (Dựa trên thông tin lcqmod.site)
-                  login_page = session.get("https://lcqmod.site/public/login")
+                  login_page = session.get("https://quandev.site/login")
                   csrf = re.search(r'name="csrf_test_name" value="([^"]+)"', login_page.text).group(1)
                   
-                  session.post("https://lcqmod.site/public/login", data={
+                  session.post("https://quandev.site/login", data={
                       'csrf_test_name': csrf, 'username': user, 'password': pw
                   })
 
@@ -54,12 +54,12 @@ jobs:
                       custom_key = f"GMVMOBA_{random_str}"
                       
                       # Lấy CSRF tạo key
-                      gen_page = session.get("https://lcqmod.site/public/keys/generate")
+                      gen_page = session.get("https://quandev.site/keys/generate")
                       csrf_gen = re.search(r'name="csrf_test_name" value="([^"]+)"', gen_page.text).group(1)
                       
                       payload = {
                           'csrf_test_name': csrf_gen,
-                          'game': 'ALL',
+                          'game': 'com.vnggames.cfl.crossfirelegends',
                           'custom_key': custom_key,
                           'max_devices': '1',
                           'duration': '1',
@@ -67,7 +67,7 @@ jobs:
                           'quantity': '1'
                       }
                       
-                      res = session.post("https://lcqmod.site/public/keys/generate", data=payload)
+                      res = session.post("https://quandev.site/keys/generate", data=payload)
                       
                       # Kiểm tra nếu tạo thành công (Tìm lại key có tiền tố GMVMOBA_)
                       match = re.search(r'(GMVMOBA_[A-Z0-9]+)', res.text)
