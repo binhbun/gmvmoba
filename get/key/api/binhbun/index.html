@@ -74,7 +74,7 @@ async function getKeyAndRedirect() {
 
     function handleError() {
         alert("Lỗi Token: Nguồn truy cập không hợp lệ!");
-        window.location.href = fallbackRedirect;
+        // window.location.href = fallbackRedirect;
         throw new Error("Invalid Referrer - Access Denied");
     }
 })();
