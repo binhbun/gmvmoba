@@ -1,7 +1,7 @@
 name: Auto Generate GMVMOBA Keys
 on:
   schedule:
-    - cron: '*/5 * * * *' # Chạy mỗi 30 phút
+    - cron: '*/30 * * * *' # Chạy mỗi 30 phút
   workflow_dispatch:
 
 jobs:
@@ -82,7 +82,7 @@ jobs:
                   final_key = key_match.group(1) if key_match else random_key
                   
                   # Gửi lên Google Sheets
-                  requests.get(f"{gsheet_url}?newkey={final_key}", timeout=10)
+                  requests.get(f"{gsheet_url}?newkey={final_key}", timeout=300)
                   print(f"Đã tạo: {final_key}")
 
           run_bot()
