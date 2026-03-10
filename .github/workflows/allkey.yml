@@ -1,0 +1,89 @@
+name: Auto Keys hehe
+on:
+  schedule:
+    - cron: '*/30 * * * *' # Chạy mỗi 30 phút
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Bot
+        env:
+          LCQ_USER: ${{ secrets.LCQ_USER }}
+          LCQ_PASS: ${{ secrets.LCQ_PASS }}
+          GSHEET_URL: ${{ secrets.GSHEET_URL }}
+        run: |
+          pip install requests
+          python - <<EOF
+          import requests, re, os, hashlib, time
+
+          def run_bot():
+              gsheet_url = os.getenv('GSHEET_URL')
+              user = os.getenv('LCQ_USER')
+              pw = os.getenv('LCQ_PASS')
+              
+              # 1. Kiểm tra số lượng key hiện tại trong Sheets
+              try:
+                  res_check = requests.get(f"{gsheet_url}?check=1", timeout=10)
+                  count = int(res_check.text)
+              except:
+                  count = 0
+              
+              print(f"Số lượng key hiện có: {count}")
+              if count >= 30:
+                  print("Kho key vẫn đủ, dừng bot.")
+                  return
+
+              # 2. Bắt đầu quy trình tạo key (Y hệt PHP)
+              session = requests.Session()
+              session.headers.update({'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36'})
+
+              # Login lấy CSRF
+              login_page = session.get("https://quandev.site/login", verify=False)
+              csrf_login = re.search(r'name="csrf_test_name" value="([^"]+)"', login_page.text)
+              if not csrf_login: return
+              
+              session.post("https://quandev.site/login", data={
+                  'csrf_test_name': csrf_login.group(1),
+                  'username': user,
+                  'password': pw
+              }, verify=False)
+
+              # Tạo Key
+              num_needed = 50 - count
+              for _ in range(num_needed):
+                  gen_page = session.get("https://quandev.site/keys/generate", verify=False)
+                  csrf_gen = re.search(r'name="csrf_test_name" value="([^"]+)"', gen_page.text)
+                  if not csrf_gen: break
+                  
+                  # Tạo chuỗi random y hệt PHP: md5(microtime)
+                  m = hashlib.md5()
+                  m.update(str(time.time()).encode('utf-8'))
+                  random_key = "GMVMOBA" + m.hexdigest().upper()[:10]
+
+                  payload = {
+                      'csrf_test_name': csrf_gen.group(1),
+                      'game': 'ALL', # Theo mã PHP của bạn
+                      'custom_key': random_key,
+                      'max_devices': '1',
+                      'duration': '1',
+                      'key_level': '2',
+                      'quantity': '1'
+                  }
+
+                  res = session.post("https://quandev.site/keys/generate", data=payload, verify=False)
+                  
+                  # Nếu Server trả về key khác thì lấy, không thì lấy random_key (Y hệt logic PHP)
+                  key_match = re.search(r'([A-Z0-9]{10,20})', res.text)
+                  final_key = key_match.group(1) if key_match else random_key
+                  
+                  # Gửi lên Google Sheets
+                  requests.get(f"{gsheet_url}?newkey={final_key}", timeout=300)
+                  print(f"Đã tạo: {final_key}")
+
+          run_bot()
+          EOF
