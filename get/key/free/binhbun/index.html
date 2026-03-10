@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Đang xử lý...</title>
+   <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer-when-downgrade"> 
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #0f172a; color: white; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3b82f6; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <p id="status">Đang kiểm tra bảo mật...</p>
+
+<script>
+const secret = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6R0xwM0V4b3BLekRfdUxLTUxydTY2eTVKRHFPVjhpR3FSb0pVWmhEVDR3QnN2c2w4dkF0SW1WNWN6RTVYcjAzQ3EvZXhlYw==";
+const GSHEET_API = atob(secret);
+
+async function getKeyAndRedirect() {
+    try {
+        document.getElementById('status').innerText = "Đang lấy mã key của bạn, Vui lòng chờ...";
+        
+        const response = await fetch(GSHEET_API);
+        const key = await response.text();
+
+        if (key && key.trim() !== "EMPTY" && key.length > 3) {
+            document.getElementById('status').innerText = "Đã lấy được key, đang chuyển hướng...";
+            window.location.replace("https://gmvmoba.com/keygame/index.html?key=" + encodeURIComponent(key.trim()));
+        } else {
+            document.getElementById('status').innerText = "Hết key! Hệ thống tự nạp sau 10-30p, vui lòng quay lại sau.";
+        }
+    } catch (error) {
+        console.error("Fetch Error:", error);
+        document.getElementById('status').innerText = "Lỗi kết nối API Google! Vui lòng F5 trang.";
+    }
+}
+</script>
+ <script>
+(async function checkReferrer() {
+    const jsonUrl = "https://gmvmoba.com/checks.json"; 
+    const fallbackRedirect = "https://gmvmoba.com";
+    
+    let currentReferrer = document.referrer ? document.referrer.toLowerCase() : "";
+
+    try {
+        const response = await fetch(jsonUrl);
+        if (!response.ok) throw new Error("Could not fetch domain list");
+        const allowedDomains = await response.json();
+
+        let isValid = false;
+        if (currentReferrer) {
+            isValid = allowedDomains.some(domain => {
+                const target = domain.trim().toLowerCase();
+                try {
+                    const refHostname = new URL(currentReferrer).hostname;
+                    return refHostname === target || refHostname.endsWith("." + target);
+                } catch (e) {
+                    return currentReferrer.indexOf(target) !== -1;
+                }
+            });
+        }
+
+        if (!isValid) {
+            handleError();
+        } else {
+            console.log("Referrer hợp lệ!");
+            if (typeof getKeyAndRedirect === "function") {
+                await getKeyAndRedirect();
+            }
+        }
+
+    } catch (error) {
+        console.log("Dữ liệu Referrer thực tế nhận được là: '" + currentReferrer + "'");
+        console.error("Chi tiết lỗi:", error);
+        handleError();
+    }
+
+    function handleError() {
+        console.log("TRUY CẬP BỊ CHẶN. Nguồn (Referrer) nhận được là: '" + currentReferrer + "'");
+        alert("Lỗi Token: Nguồn truy cập không hợp lệ!");
+        window.location.href = fallbackRedirect;
+        throw new Error("Invalid Referrer - Access Denied");
+    }
+})();
+</script>
+</body>
+</html>
