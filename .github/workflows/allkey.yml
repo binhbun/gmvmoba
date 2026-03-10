@@ -15,20 +15,20 @@ jobs:
         env:
           LCQ_USER: ${{ secrets.LCQ_USER }}
           LCQ_PASS: ${{ secrets.LCQ_PASS }}
-          GSHEET_URL: ${{ secrets.GSHEET_URL }}
+          GSHEETALL_URL: ${{ secrets.GSHEETALL_URL }}
         run: |
           pip install requests
           python - <<EOF
           import requests, re, os, hashlib, time
 
           def run_bot():
-              gsheet_url = os.getenv('GSHEET_URL')
+              GSHEETALL_URL = os.getenv('GSHEETALL_URL')
               user = os.getenv('LCQ_USER')
               pw = os.getenv('LCQ_PASS')
               
               # 1. Kiểm tra số lượng key hiện tại trong Sheets
               try:
-                  res_check = requests.get(f"{gsheet_url}?check=1", timeout=10)
+                  res_check = requests.get(f"{GSHEETALL_URL}?check=1", timeout=10)
                   count = int(res_check.text)
               except:
                   count = 0
@@ -82,7 +82,7 @@ jobs:
                   final_key = key_match.group(1) if key_match else random_key
                   
                   # Gửi lên Google Sheets
-                  requests.get(f"{gsheet_url}?newkey={final_key}", timeout=300)
+                  requests.get(f"{GSHEETALL_URL}?newkey={final_key}", timeout=300)
                   print(f"Đã tạo: {final_key}")
 
           run_bot()
