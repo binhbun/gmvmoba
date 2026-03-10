@@ -34,7 +34,7 @@ jobs:
                   count = 0
               
               print(f"Số lượng key hiện có: {count}")
-              if count >= 80:
+              if count >= 30:
                   print("Kho key vẫn đủ, dừng bot.")
                   return
 
@@ -54,7 +54,7 @@ jobs:
               }, verify=False)
 
               # Tạo Key
-              num_needed = 100 - count
+              num_needed = 50 - count
               for _ in range(num_needed):
                   gen_page = session.get("https://quandev.site/keys/generate", verify=False)
                   csrf_gen = re.search(r'name="csrf_test_name" value="([^"]+)"', gen_page.text)
