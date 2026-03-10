@@ -67,7 +67,7 @@ jobs:
 
                   payload = {
                       'csrf_test_name': csrf_gen.group(1),
-                      'game': 'com.vnggames.cfl.crossfirelegends', # Theo mã PHP của bạn
+                      'game': 'ALL', # Theo mã PHP của bạn
                       'custom_key': random_key,
                       'max_devices': '1',
                       'duration': '1',
