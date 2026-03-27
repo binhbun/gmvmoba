@@ -1,15 +1,17 @@
-name: Firebase Smart Cleanup
+name: Firebase Smart Cleanup (Every 5m)
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   smart_clear:
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: false
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -18,12 +20,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
+          cache: 'npm'
 
       - name: Install Firebase Admin
-        run: npm install firebase-admin
+        run: |
+          if [ ! -f package.json ]; then npm init -y; fi
+          npm install firebase-admin
 
       - name: Run Cleanup Script
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-       
+      
         run: node .github/workflows/cleanup.js
