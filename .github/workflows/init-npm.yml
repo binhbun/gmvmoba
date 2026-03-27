@@ -1,0 +1,29 @@
+name: Init NPM (one time)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Create package.json
+        run: npm init -y
+
+      - name: Install firebase-admin
+        run: npm install firebase-admin
+
+      - name: Commit lockfile
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add package.json package-lock.json
+          git commit -m "Add npm lockfile"
+          git push
