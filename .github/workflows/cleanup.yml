@@ -1,9 +1,11 @@
-name: Firebase Smart Cleanup
+name: Firebase Smart Cleanup (Every 5m)
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
-  workflow_dispatch: # Nút bấm chạy thủ công
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   smart_clear:
@@ -15,13 +17,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install Firebase Admin
         run: npm install firebase-admin
 
       - name: Run Cleanup Script
         env:
-          # Bạn cần dán nội dung Service Account JSON vào Secret này trong Settings GitHub
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+       
         run: node .github/workflows/cleanup.js
