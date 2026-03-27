@@ -1,8 +1,7 @@
-name: Firebase Smart Cleanup (Every 5m)
+name: Firebase Smart Cleanup
 
 on:
   schedule:
-    # Chạy mỗi 5 phút một lần
     - cron: '*/10 * * * *'
   workflow_dispatch: # Nút bấm chạy thủ công
 
@@ -25,4 +24,4 @@ jobs:
         env:
           # Bạn cần dán nội dung Service Account JSON vào Secret này trong Settings GitHub
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-        run: node cleanup.js
+        run: node .github/workflows/cleanup.js
