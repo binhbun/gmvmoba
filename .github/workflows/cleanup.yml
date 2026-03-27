@@ -19,7 +19,7 @@ jobs:
           echo "🧹 Bắt đầu tổng vệ sinh Firebase lúc $(date)"
 
           # 1. Lấy danh sách 500 bản ghi (Tăng pageSize để xóa được nhiều nhất có thể trong 1 lần quét)
-          DOCS=$(curl -s "https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/${COLLECTION}?pageSize=10000&mask.fieldPaths=__name__&key=${API_KEY}")
+          DOCS=$(curl -s "https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/${COLLECTION}?pageSize=20000&mask.fieldPaths=__name__&key=${API_KEY}")
 
           # 2. Trích xuất đường dẫn của từng Document
           LIST=$(echo "$DOCS" | grep -o "projects/${PROJECT_ID}/databases/(default)/documents/${COLLECTION}/[^ \"]*")
