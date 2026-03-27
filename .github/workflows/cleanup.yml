@@ -10,14 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout Code
+        uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
         with:
           node-version: 24
-          cache: npm
+          cache: npm   # ⭐ bật cache npm
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm install firebase-admin --no-audit --no-fund
 
       - name: Run Cleanup Script
         env:
