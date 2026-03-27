@@ -1,37 +1,28 @@
-name: Firebase Daily Full Reset (00:00 VN)
+name: Firebase Smart Cleanup (Every 5m)
 
 on:
   schedule:
-    # 17:00 UTC tương đương 00:00 giờ Việt Nam (UTC+7)
-    - cron: '0 17 * * *'
-  workflow_dispatch: # Nút bấm để bạn có thể xóa thủ công bất kỳ lúc nào
+    # Chạy mỗi 5 phút một lần
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Nút bấm chạy thủ công
 
 jobs:
-  clear_database:
+  smart_clear:
     runs-on: ubuntu-latest
     steps:
-      - name: Delete All User Logs
-        run: |
-          PROJECT_ID="api-ip-fa955"
-          COLLECTION="user_logs"
-          API_KEY="${{ secrets.API_KEY }}"
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-          echo "🧹 Bắt đầu tổng vệ sinh Firebase lúc $(date)"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-          # 1. Lấy danh sách 500 bản ghi (Tăng pageSize để xóa được nhiều nhất có thể trong 1 lần quét)
-          DOCS=$(curl -s "https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/${COLLECTION}?pageSize=10000&mask.fieldPaths=__name__&key=${API_KEY}")
+      - name: Install Firebase Admin
+        run: npm install firebase-admin
 
-          # 2. Trích xuất đường dẫn của từng Document
-          LIST=$(echo "$DOCS" | grep -o "projects/${PROJECT_ID}/databases/(default)/documents/${COLLECTION}/[^ \"]*")
-
-          if [ -z "$LIST" ]; then
-            echo "✨ Database đã sạch sẵn rồi, không có gì để xóa."
-          else
-            echo "Tìm thấy bản ghi, đang tiến hành xóa hàng loạt..."
-            # 3. Lặp qua danh sách và xóa từng cái
-            echo "$LIST" | while read -r doc_path; do
-              echo "--- Đang xóa: $doc_path"
-              curl -s -X DELETE "https://firestore.googleapis.com/v1/${doc_path}?key=${API_KEY}"
-            done
-            echo "✅ Đã xóa sạch toàn bộ bản ghi. Hạn ngạch dung lượng đã được giải phóng!"
-          fi
+      - name: Run Cleanup Script
+        env:
+          # Bạn cần dán nội dung Service Account JSON vào Secret này trong Settings GitHub
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: node cleanup.js
