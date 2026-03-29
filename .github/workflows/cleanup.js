@@ -2,54 +2,44 @@ const admin = require('firebase-admin');
 
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
+}
 
 const db = admin.firestore();
 
 async function cleanExpiredLogs() {
-  console.log(`🧹 Bắt đầu kiểm tra lúc: ${new Date().toLocaleString('vi-VN')}`);
+  console.log(`🧹 Bắt đầu dọn dẹp: ${new Date().toLocaleString('vi-VN')}`);
   
-  const collectionRef = db.collection('user_logs');
-  const snapshot = await collectionRef.get();
+  // Ngưỡng thời gian: 5 phút trước (Dùng đối tượng Timestamp của Firestore)
+  const fiveMinutesAgo = admin.firestore.Timestamp.fromMillis(Date.now() - (5 * 60 * 1000));
 
-  if (snapshot.empty) {
-    console.log('✨ Không có dữ liệu trong user_logs.');
-    return;
-  }
+  try {
+    // TỐI ƯU: Chỉ lấy những bản ghi cũ hơn 5 phút (Tiết kiệm Read Quota)
+    // Lưu ý: Bạn cần đảm bảo trường 'last_update' luôn tồn tại
+    const snapshot = await db.collection('user_logs')
+      .where('last_update', '<', fiveMinutesAgo)
+      .limit(400) // Giới hạn để không vượt quá 500 của Batch
+      .get();
 
-  const batch = db.batch();
-  let count = 0;
-  
-  const fiveMinutesAgo = Date.now() - (5 * 60 * 1000);
-
-  snapshot.forEach(doc => {
-    const data = doc.data();
-
-    const hasRequiredFields = 
-      data.hasOwnProperty('current_active_domain') &&
-      data.hasOwnProperty('last_start_time') &&
-      data.hasOwnProperty('last_update');
-
-    if (hasRequiredFields) {
-      // Firestore Timestamp được chuyển về JS Date bằng .toDate()
-      const lastUpdateTime = data.last_update.toDate().getTime();
-
-      if (lastUpdateTime < fiveMinutesAgo) {
-        console.log(`🗑️ Đang xóa IP: ${doc.id} (Cũ hơn 5 phút)`);
-        batch.delete(doc.ref);
-        count++;
-      }
+    if (snapshot.empty) {
+      console.log('🙌 Không có bản ghi nào hết hạn.');
+      return;
     }
-  });
 
-  if (count > 0) {
+    const batch = db.batch();
+    snapshot.docs.forEach((doc) => {
+      batch.delete(doc.ref);
+    });
+
     await batch.commit();
-    console.log(`✅ Đã dọn dẹp xong ${count} bản ghi.`);
-  } else {
-    console.log('🙌 Không tìm thấy bản ghi nào thỏa mãn điều kiện để xóa.');
+    console.log(`✅ Đã xóa thành công ${snapshot.size} bản ghi cũ.`);
+
+  } catch (error) {
+    console.error('❌ Lỗi khi dọn dẹp:', error);
   }
 }
 
-cleanExpiredLogs().catch(console.error);
+cleanExpiredLogs();
