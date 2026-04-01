@@ -1,0 +1,13 @@
+<script>
+const links = [
+    "https://discord.com/invite/wY6xFY6BzK"
+];
+
+let counter = parseInt(localStorage.getItem("rr_counter") || "0");
+counter++;
+localStorage.setItem("rr_counter", counter);
+
+const index = (counter - 1) % links.length;
+
+location.href = links[index];
+</script>
