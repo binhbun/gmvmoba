@@ -10,6 +10,9 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+
 async function deleteCollection(collectionPath, batchSize) {
   const collectionRef = db.collection(collectionPath);
   const query = collectionRef.limit(batchSize);
@@ -22,7 +25,7 @@ async function deleteCollection(collectionPath, batchSize) {
 async function deleteQueryBatch(query, resolve) {
   const snapshot = await query.get();
 
-  // Nếu không còn dữ liệu thì dừng
+  // Nếu không còn dữ liệu thì dừng lại
   if (snapshot.size === 0) {
     resolve();
     return;
@@ -34,23 +37,25 @@ async function deleteQueryBatch(query, resolve) {
   });
 
   await batch.commit();
-  console.log(`- Đã xóa ${snapshot.size} bản ghi...`);
+  console.log(`✅ Đã xóa xong ${snapshot.size} bản ghi.`);
 
-  process.nextTick(() => {
-    deleteQueryBatch(query, resolve);
-  });
+  console.log('⏳ Đang nghỉ 5 giây trước khi tiếp tục...');
+  await sleep(5000);
+
+  await deleteQueryBatch(query, resolve);
 }
 
-async function cleanAllLogs() {
-  console.log(`🧹 Bắt đầu dọn dẹp toàn bộ dữ liệu: ${new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}`);
-  
+async function startCleanup() {
+  const now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+  console.log(`🚀 Bắt đầu tiến trình dọn dẹp lúc: ${now}`);
+
   try {
-    await deleteCollection('user_logs', 400);
-    console.log('✅ Đã xóa sạch toàn bộ IP trong collection user_logs.');
+    await deleteCollection('user_logs', 400); 
+    console.log('🎉 HOÀN TẤT: Toàn bộ dữ liệu đã được làm sạch.');
   } catch (error) {
-    console.error('❌ Lỗi khi dọn dẹp:', error);
+    console.error('❌ LỖI NGHIÊM TRỌNG:', error.message);
     process.exit(1);
   }
 }
 
-cleanAllLogs();
+startCleanup();
