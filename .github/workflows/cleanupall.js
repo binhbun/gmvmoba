@@ -21,7 +21,6 @@ async function startCleanup() {
     let totalDeleted = 0;
 
     while (true) {
-      // Lấy từng đợt cực nhỏ (100 bản ghi) để không gây Spike
       const snapshot = await db.collection(collectionName).limit(100).get();
 
       if (snapshot.empty) {
@@ -39,7 +38,7 @@ async function startCleanup() {
       console.log(`✅ Đã xóa ${totalDeleted} bản ghi...`);
 
       // Nghỉ lâu hơn một chút giữa mỗi batch nhỏ
-      await sleep(2000); 
+      await sleep(5000); 
     }
   } catch (error) {
     // Nếu vẫn lỗi Resource Exhausted, nghĩa là Firebase đang khóa IP/Token của bạn tạm thời
