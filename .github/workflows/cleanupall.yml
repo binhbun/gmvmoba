@@ -1,4 +1,4 @@
-name: Firebase Smart Cleanup
+name: Firebase Cleanup ALL
 
 on:
   schedule:
