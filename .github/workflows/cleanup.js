@@ -10,36 +10,41 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-async function cleanExpiredLogs() {
-  console.log(`🧹 Bắt đầu dọn dẹp: ${new Date().toLocaleString('vi-VN')}`);
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+async function cleanEverything() {
+  console.log(`🚀 Bắt đầu dọn dẹp sạch toàn bộ collection: ${new Date().toLocaleString('vi-VN')}`);
   
-  // Ngưỡng thời gian: 5 phút trước (Dùng đối tượng Timestamp của Firestore)
-  const fiveMinutesAgo = admin.firestore.Timestamp.fromMillis(Date.now() - (5 * 60 * 1000));
+  const collectionName = 'user_logs';
+  let totalDeleted = 0;
 
   try {
-    // TỐI ƯU: Chỉ lấy những bản ghi cũ hơn 5 phút (Tiết kiệm Read Quota)
-    // Lưu ý: Bạn cần đảm bảo trường 'last_update' luôn tồn tại
-    const snapshot = await db.collection('user_logs')
-      .where('last_update', '<', fiveMinutesAgo)
-      .limit(400) // Giới hạn để không vượt quá 500 của Batch
-      .get();
+    while (true) {
+      const snapshot = await db.collection(collectionName).limit(200).get();
 
-    if (snapshot.empty) {
-      console.log('🙌 Không có bản ghi nào hết hạn.');
-      return;
+      if (snapshot.empty) {
+        console.log(`🎉 HOÀN TẤT: Đã xóa sạch bóng ${totalDeleted} bản ghi.`);
+        break;
+      }
+
+      const batch = db.batch();
+      snapshot.docs.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+
+      await batch.commit();
+      totalDeleted += snapshot.size;
+      console.log(`✅ Đã xóa tổng cộng ${totalDeleted} bản ghi...`);
+
+      await sleep(5000); 
     }
-
-    const batch = db.batch();
-    snapshot.docs.forEach((doc) => {
-      batch.delete(doc.ref);
-    });
-
-    await batch.commit();
-    console.log(`✅ Đã xóa thành công ${snapshot.size} bản ghi cũ.`);
-
   } catch (error) {
-    console.error('❌ Lỗi khi dọn dẹp:', error);
+    console.error('❌ Lỗi:', error.message);
+    if (error.message.includes('RESOURCE_EXHAUSTED')) {
+      console.log('⚠️ Hạn mức tức thời bị vượt quá. Hãy thử lại sau 30 phút.');
+    }
+    process.exit(1);
   }
 }
 
-cleanExpiredLogs();
+cleanEverything();
