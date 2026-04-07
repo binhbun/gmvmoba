@@ -10,47 +10,32 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 async function cleanExpiredLogs() {
-  const now = admin.firestore.Timestamp.now();
-  console.log(`🧹 Bắt đầu dọn dẹp theo điều kiện thời gian: ${new Date().toLocaleString('vi-VN')}`);
-  
-  let totalDeleted = 0;
-  const collectionRef = db.collection('user_logs');
+  console.log(`🧹 Bắt đầu dọn dẹp: ${new Date().toLocaleString('vi-VN')}`);
+
+  const fiveMinutesAgo = admin.firestore.Timestamp.fromMillis(Date.now() - (5 * 60 * 1000));
 
   try {
-    while (true) {
-      const snapshot = await collectionRef
-        .where('last_update', '<=', now)
-        .limit(100)
-        .get();
+    const snapshot = await db.collection('user_logs')
+      .where('last_update', '<', fiveMinutesAgo)
+      .limit(300)
+      .get();
 
-      if (snapshot.empty) {
-        console.log(`🙌 Hoàn tất! Đã xóa sạch ${totalDeleted} bản ghi thỏa điều kiện.`);
-        break;
-      }
-
-      const batch = db.batch();
-      snapshot.docs.forEach((doc) => {
-        batch.delete(doc.ref);
-      });
-
-      await batch.commit();
-      totalDeleted += snapshot.size;
-      
-      console.log(`✅ Đã xóa thành công đợt ${totalDeleted}...`);
-
-      await sleep(5000);
-
-      if (totalDeleted >= 18000) {
-        console.log('⚠️ Đã đạt giới hạn an toàn 18,000. Dừng tiến trình để bảo vệ Quota ngày.');
-        break;
-      }
+    if (snapshot.empty) {
+      console.log('🙌 Không có bản ghi nào hết hạn.');
+      return;
     }
+
+    const batch = db.batch();
+    snapshot.docs.forEach((doc) => {
+      batch.delete(doc.ref);
+    });
+
+    await batch.commit();
+    console.log(`✅ Đã xóa thành công ${snapshot.size} bản ghi cũ.`);
+
   } catch (error) {
-    console.error('❌ Lỗi khi dọn dẹp:', error.message);
-    process.exit(1);
+    console.error('❌ Lỗi khi dọn dẹp:', error);
   }
 }
 
