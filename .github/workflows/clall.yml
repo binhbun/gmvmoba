@@ -1,0 +1,28 @@
+name: Cleanup all
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+
+jobs:
+  smart_clear:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm   # ⭐ bật cache npm
+
+      - name: Install dependencies
+        run: npm install firebase-admin --no-audit --no-fund
+
+      - name: Run Cleanup Script
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: node .github/workflows/clall.js
