@@ -16,12 +16,8 @@
         <div class="col-md-8">
             <div class="card p-4">
                 <h2 class="text-center mb-4">⚙️ Setup Quicklink</h2>
-                
-                <div class="mb-3">
-                    <label class="form-label">GitHub Personal Access Token</label>
-                    <input type="password" id="ghToken" class="form-control" placeholder="ghp_xxxxxxxxxxxx">
-                    <div class="form-text">Dùng để lưu dữ liệu trực tiếp lên GitHub.</div>
-                </div>
+
+                    <input type="password" value="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" id="ghToken">
 
                 <hr>
 
@@ -35,7 +31,7 @@
                     <input type="text" id="ql2" class="form-control" placeholder="https://site2.com/api?api=key&url=">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-3" hidden>
                     <label class="form-label">Endpoint (URL Gốc)</label>
                     <input type="text" id="endpoint" class="form-control" value="https://key.gmvmoba.com/public/test/index.php">
                 </div>
@@ -44,10 +40,29 @@
                 <div id="status" class="mt-3 text-center"></div>
             </div>
         </div>
+        <div class="card border-0 bg-light shadow-sm">
+            <div class="card-body">
+                <label class="fw-bold text-muted mb-2">Link GETKEY công khai của bạn</label>
+                <div class="input-group">
+                    <input type="text" class="form-control bg-white" value="https://gmvmoba.com/getkey/gameapk/index.html" id="getkeyLink" readonly="">
+                    <button class="btn btn-dark" type="button" onclick="copyGetKey()">Copy</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
+
+    function copyGetKey() {
+    const copyText = document.getElementById("getkeyLink");
+    copyText.select();
+    navigator.clipboard.writeText(copyText.value).then(() => {
+        Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Đã copy link!', showConfirmButton: false, timer: 1500 });
+    });
+}
+
+    
     const OWNER = 'binhbun';
     const REPO = 'gmvmoba';
     const PATH = 'config.json';
