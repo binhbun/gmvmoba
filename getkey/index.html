@@ -77,7 +77,7 @@ async function saveToGithub() {
         });
 
         if (res.ok) {
-            status.innerHTML = "<span class='text-success'>✅ Đã lưu thành công!</span>";
+            status.innerHTML = "<span class='text-success'>✅ Đã lưu thành công! thông tin mới sẽ được update sau 1-5 phút</span>";
         } else {
             status.innerHTML = "<span class='text-danger'>❌ Lỗi khi lưu.</span>";
         }
