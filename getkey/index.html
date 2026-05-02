@@ -59,6 +59,22 @@
         Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Đã copy link!', showConfirmButton: false, timer: 1500 });
     });
 }
+
+    async function loadConfig() {
+    try {
+        const res = await fetch("https://nameless-credit-5cd3.teamgamehub99.workers.dev");
+        const data = await res.json();
+
+        document.getElementById('ql1').value = data.quicklink_1 || "";
+        document.getElementById('ql2').value = data.quicklink_2 || "";
+        document.getElementById('endpoint').value = data.endpoint || "";
+
+    } catch (e) {
+        console.error("Load config lỗi", e);
+    }
+}
+
+    
 async function saveToGithub() {
     const ql1 = document.getElementById('ql1').value;
     const ql2 = document.getElementById('ql2').value;
@@ -86,6 +102,8 @@ async function saveToGithub() {
         status.innerHTML = "<span class='text-danger'>❌ Lỗi kết nối.</span>";
     }
 }
+
+    loadConfig();
 </script>
 </body>
 </html>
