@@ -3,253 +3,787 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miguel Menu VIP - Full Features</title>
-    <style>
-        :root {
-            --primary: #a448ff; /* Màu tím theo ảnh gốc */
-            --bg-panel: #0f0f13;
-            --bg-item: #1a1a20;
-            --text-gray: #8e8e93;
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>NGỌC BỔNG GAMING</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style nonce="f2EJNtLZZntn0S7Y3a9aRw==">
+        :root { 
+            --bg: #050110; 
+            --glass-bg: rgba(12, 5, 28, 0.8); 
+            --glass-border: rgba(168, 130, 255, 0.35); 
+            --t1: #fff; 
+            --cyan: #b794f4; 
+            --purp: #8b5cf6; 
+            --pink: #ec4899; 
+            --ff-orange: #f59e0b; 
+            --red-mnt: #ef4444; 
+            --neon-scale: 1; 
+            --neon-speed: 5s; 
         }
-
-        body {
-            background: #000;
-            font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            color: white;
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { 
+            background: var(--bg); 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 12px; 
+            color: #fff; 
+            transition: zoom 0.3s ease; 
         }
-
-        .menu-container {
-            width: 360px;
-            background: var(--bg-panel);
-            border: 1px solid #2c2c2e;
-            border-radius: 12px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
-            overflow: hidden;
+        
+        /* Nền động - Chiều sâu vũ trụ */
+        .bg { 
+            position: fixed; 
+            inset: 0; 
+            z-index: 0; 
+            background: 
+                radial-gradient(ellipse at 20% 40%, rgba(139, 92, 246, 0.3) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.2) 0%, transparent 55%),
+                radial-gradient(ellipse at 40% 80%, rgba(167, 139, 250, 0.15) 0%, transparent 55%),
+                radial-gradient(ellipse at 70% 60%, rgba(249, 115, 22, 0.08) 0%, transparent 50%);
+            filter: blur(60px); 
+            animation: pulseBg 12s infinite alternate; 
         }
-
-        /* Tiêu đề Menu */
-        .header {
-            background: #121216;
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid var(--primary);
+        
+        @keyframes pulseBg { 
+            0% { opacity: 0.8; transform: scale(1) rotate(0deg); } 
+            100% { opacity: 1; transform: scale(1.12) rotate(3deg); } 
         }
-
-        .header h1 {
-            margin: 0;
-            font-size: 18px;
-            color: var(--primary);
+        
+        /* Blocker khi xoay dọc */
+        #landscapeBlocker { 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(5, 1, 16, 0.98); 
+            backdrop-filter: blur(20px); 
+            z-index: 999999; 
+            display: none; 
+            align-items: center; 
+            justify-content: center; 
+            flex-direction: column; 
+            padding: 20px; 
+            text-align: center; 
+        }
+        #landscapeBlocker i { 
+            font-size: 80px; 
+            color: var(--purp); 
+            margin-bottom: 25px; 
+            animation: iconFloat 2s ease-in-out infinite; 
+        }
+        #landscapeBlocker span { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            font-size: 16px; 
+            color: #d8b4fe; 
+            font-weight: bold; 
+            line-height: 1.6; 
+            letter-spacing: 1px; 
+            text-transform: uppercase;
+        }
+        
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 15px var(--purp)); }
+            50% { transform: translateY(-15px); filter: drop-shadow(0 0 30px var(--purp)); }
+        }
+        @keyframes brandGlow { 
+            0%, 100% { color: #fff; text-shadow: 0 0 20px rgba(168, 130, 255, 0.8), 0 0 40px rgba(139, 92, 246, 0.4); } 
+            50% { color: #ede9fe; text-shadow: 0 0 35px #b794f4, 0 0 70px rgba(236, 72, 153, 0.5), 0 0 100px rgba(139, 92, 246, 0.3); } 
+        }
+        
+        /* Nút ngôn ngữ và điều chỉnh */
+        .lang-btn { 
+            position: fixed; 
+            top: 20px; 
+            left: 20px; 
+            z-index: 100; 
+            background: rgba(139, 92, 246, 0.25); 
+            backdrop-filter: blur(15px); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 14px; 
+            padding: 10px 20px; 
+            color: #fff; 
+            font-weight: 900; 
+            font-family: 'Orbitron', sans-serif; 
+            cursor: pointer; 
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            box-shadow: 0 6px 25px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(255,255,255,0.1); 
+            font-size: 12px; 
             letter-spacing: 1px;
         }
-
-        /* Thanh chỉ báo Tab đang chạy */
-        .tab-bar {
-            display: flex;
-            background: #1a1a20;
-            padding: 5px 10px;
-            gap: 5px;
+        .lang-btn:hover { 
+            background: rgba(168, 130, 255, 0.4); 
+            box-shadow: 0 10px 35px rgba(139, 92, 246, 0.5), 0 0 20px rgba(236, 72, 153, 0.2); 
+            transform: translateY(-3px); 
+            border-color: var(--purp);
         }
-
-        .tab-segment {
-            flex: 1;
-            height: 3px;
-            background: #333;
-            border-radius: 2px;
-            transition: 0.4s;
+        
+        .control-btn { 
+            position: fixed; 
+            top: 20px; 
+            z-index: 100; 
+            background: rgba(236, 72, 153, 0.25); 
+            backdrop-filter: blur(15px); 
+            border: 1px solid rgba(236, 72, 153, 0.4); 
+            border-radius: 14px; 
+            width: 44px; 
+            height: 44px; 
+            color: #fff; 
+            cursor: pointer; 
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            box-shadow: 0 6px 25px rgba(236, 72, 153, 0.3), inset 0 1px 0 rgba(255,255,255,0.1); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: bold; 
         }
-
-        .tab-segment.active {
-            background: var(--primary);
-            box-shadow: 0 0 8px var(--primary);
+        #shrinkTextBtn { 
+            left: 120px; 
+            color: var(--pink); 
+            font-family: 'Times New Roman', serif; 
+            font-size: 20px; 
         }
-
-        /* Vùng nội dung */
-        .content-wrapper {
-            height: 320px;
+        #shrinkTextBtn:hover { 
+            background: rgba(236, 72, 153, 0.4); 
+            box-shadow: 0 10px 35px rgba(236, 72, 153, 0.6), 0 0 20px rgba(139, 92, 246, 0.2); 
+            transform: translateY(-3px) scale(1.05); 
+            border-color: var(--pink);
+        }
+        
+        /* Nút cài đặt góc phải */
+        .setting-btn { 
+            position: fixed; 
+            bottom: 35px; 
+            right: 35px; 
+            z-index: 101; 
+            width: 65px; 
+            height: 65px; 
+            background: linear-gradient(145deg, rgba(139, 92, 246, 0.4), rgba(236, 72, 153, 0.3)); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 26px; 
+            color: #fff; 
+            cursor: pointer; 
+            box-shadow: 0 15px 45px rgba(139, 92, 246, 0.5), 0 0 30px rgba(236, 72, 153, 0.3), inset 0 2px 5px rgba(255, 255, 255, 0.2); 
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .setting-btn:hover { 
+            transform: rotate(180deg) scale(1.15); 
+            box-shadow: 0 25px 60px rgba(236, 72, 153, 0.6), 0 0 50px rgba(139, 92, 246, 0.5), inset 0 3px 8px rgba(255, 255, 255, 0.3); 
+            border-color: rgba(255, 255, 255, 0.7); 
+        }
+        
+        /* Modal Glassmorphism siêu chiều sâu */
+        .game-modal-overlay { 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(3, 1, 12, 0.75); 
+            z-index: 110; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 15px; 
+            opacity: 0; 
+            visibility: hidden; 
+            transition: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px); 
+        }
+        .game-modal-overlay.active { opacity: 1; visibility: visible; }
+        
+        .game-modal { 
+            width: 100%; 
+            max-width: 600px; 
+            height: 450px; 
+            background: var(--glass-bg); 
+            backdrop-filter: blur(30px); 
+            -webkit-backdrop-filter: blur(30px); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 28px; 
+            display: flex; 
+            flex-direction: row; 
+            position: relative; 
+            transform: scale(0.9) translateY(50px) perspective(800px) rotateX(5deg); 
+            opacity: 0; 
+            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 
+                0 50px 100px rgba(0, 0, 0, 0.9), 
+                0 0 80px rgba(139, 92, 246, 0.25) inset, 
+                0 0 40px rgba(236, 72, 153, 0.15) inset,
+                0 2px 10px rgba(255, 255, 255, 0.1) inset;
+            overflow: hidden; 
+        }
+        .game-modal-overlay.active .game-modal { 
+            transform: scale(1) translateY(0) perspective(800px) rotateX(0deg); 
+            opacity: 1; 
+        }
+        
+        .modal-ip-badge { 
+            position: absolute; 
+            top: 18px; 
+            left: 18px; 
+            z-index: 10; 
+            font-family: 'Orbitron', monospace; 
+            font-size: 9px; 
+            color: rgba(255, 255, 255, 0.95); 
+            font-weight: 800; 
+            background: rgba(139, 92, 246, 0.35); 
+            backdrop-filter: blur(10px); 
+            padding: 7px 16px; 
+            border-radius: 25px; 
+            border: 1px solid rgba(168, 130, 255, 0.5); 
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(139, 92, 246, 0.3); 
+            letter-spacing: 1.5px;
+        }
+        
+        .sidebar { 
+            width: 155px; 
+            background: rgba(5, 2, 15, 0.5); 
+            border-right: 1px solid var(--glass-border); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 55px 14px 25px 14px; 
+            flex-shrink: 0; 
+            overflow-y: auto; 
+            box-shadow: inset -10px 0 30px rgba(0,0,0,0.3);
+        }
+        
+        .user-avatar-mini { 
+            width: 55px; 
+            height: 55px; 
+            border-radius: 18px; 
+            border: 2px solid rgba(168, 130, 255, 0.6); 
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4), 0 0 15px rgba(236, 72, 153, 0.2); 
+            object-fit: cover; 
+            cursor: pointer; 
+            margin-bottom: 14px; 
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .user-avatar-mini:hover { 
+            transform: scale(1.1) translateY(-3px); 
+            border-color: #fff; 
+            box-shadow: 0 18px 40px rgba(167, 139, 250, 0.7), 0 0 25px rgba(236, 72, 153, 0.4); 
+        }
+        .user-name-mini { 
+            font-size: 11px; 
+            font-weight: 800; 
+            color: #ede9fe; 
+            text-align: center; 
+            margin-bottom: 28px; 
+            width: 100%; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            white-space: nowrap; 
+            opacity: 0.95; 
+            letter-spacing: 0.8px;
+        }
+        .mini-tabs { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+            width: 100%; 
+        }
+        .mini-tab { 
+            padding: 12px 15px; 
+            font-weight: 700; 
+            font-size: 11px; 
+            letter-spacing: 1px; 
+            color: rgba(255, 255, 255, 0.65); 
+            background: transparent; 
+            border: 1px solid transparent; 
+            border-radius: 12px; 
+            text-decoration: none; 
+            cursor: pointer; 
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            font-family: 'Orbitron', sans-serif; 
+            text-align: left; 
+            display: flex; 
+            align-items: center; 
+            width: 100%; 
             position: relative;
             overflow: hidden;
         }
-
-        .tab-page {
+        .mini-tab::before {
+            content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            padding: 15px;
-            box-sizing: border-box;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: all 0.5s ease-in-out;
-            pointer-events: none;
+            top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: linear-gradient(180deg, var(--purp), var(--pink));
+            border-radius: 0 4px 4px 0;
+            transform: scaleY(0);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-
-        .tab-page.active {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: auto;
+        .mini-tab i { 
+            margin-right: 10px; 
+            font-size: 14px; 
+            width: 18px; 
+            text-align: center; 
+            color: var(--purp);
+            transition: color 0.3s;
         }
-
-        /* Header của từng trang */
-        .page-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #222;
-            padding-bottom: 8px;
+        .mini-tab:hover { 
+            background: rgba(139, 92, 246, 0.12); 
+            color: #fff; 
+            transform: translateX(8px); 
+            border-color: rgba(168, 130, 255, 0.2); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
-
-        .page-info b { color: var(--primary); font-size: 14px; text-transform: uppercase; }
-        .page-info span { color: var(--text-gray); font-size: 12px; }
-
-        /* Hàng chức năng */
-        .feature-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            font-size: 14px;
-            color: #efeff4;
+        .mini-tab:hover::before { transform: scaleY(1); }
+        .mini-tab.active { 
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.2)); 
+            color: #fff; 
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4), 0 0 20px rgba(236, 72, 153, 0.2); 
+            transform: translateX(8px); 
+            border: 1px solid rgba(168, 130, 255, 0.4); 
         }
-
-        /* Dropdown mô phỏng */
-        .select-box {
-            background: #2c2c2e;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            color: var(--primary);
+        .mini-tab.active::before { transform: scaleY(1); }
+        .mini-tab.active i { color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.6); }
+        
+        .modal-content-area { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            min-width: 0; 
+            background: transparent; 
         }
-
-        /* Switch button */
-        .switch {
-            width: 34px; height: 18px;
-            position: relative; display: inline-block;
+        .modal-top-bar { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 20px 28px; 
+            border-bottom: 1px solid var(--glass-border); 
+            background: rgba(5, 2, 15, 0.4); 
+            z-index: 5; 
+            backdrop-filter: blur(8px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute; cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #333; border-radius: 20px; transition: .4s;
+        .modal-title-neon { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 19px; 
+            font-weight: 900; 
+            letter-spacing: 4px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            animation: brandGlow 2.5s infinite alternate; 
+            color: #fff; 
         }
-        .slider:before {
-            position: absolute; content: "";
-            height: 14px; width: 14px; left: 2px; bottom: 2px;
-            background-color: white; border-radius: 50%; transition: .3s;
+        .modal-close-btn { 
+            background: rgba(255, 255, 255, 0.06); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            border-radius: 12px; 
+            width: 36px; 
+            height: 36px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: rgba(255, 255, 255, 0.7); 
+            font-size: 18px; 
+            cursor: pointer; 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
         }
-        input:checked + .slider { background-color: var(--primary); }
-        input:checked + .slider:before { transform: translateX(16px); }
-
-        /* Footer */
-        .footer {
-            background: #0a0a0a;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .modal-close-btn:hover { 
+            background: rgba(239, 68, 68, 0.25); 
+            color: var(--red-mnt); 
+            transform: rotate(90deg) scale(1.15); 
+            border-color: rgba(239, 68, 68, 0.6); 
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
         }
-
-        .price { font-size: 16px; color: var(--text-gray); }
-        .price b { color: #ff453a; }
-
-        .zalo-link {
-            background: var(--primary);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: bold;
+        
+        .game-content { 
+            flex: 1; 
+            padding: 28px; 
+            overflow-y: auto; 
+            color: #fff; 
+        }
+        .game-content::-webkit-scrollbar { 
+            width: 6px; 
+        }
+        .game-content::-webkit-scrollbar-thumb { 
+            background: linear-gradient(180deg, var(--purp), var(--pink)); 
+            border-radius: 10px; 
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        }
+        
+        /* Thẻ Aim Card - Hiệu ứng kính nổi 3D */
+        .aim-card { 
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.07)); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(168, 130, 255, 0.2); 
+            border-radius: 18px; 
+            padding: 18px 22px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 16px; 
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            cursor: pointer; 
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255,255,255,0.1); 
+            color: #fff; 
+        }
+        .aim-card:hover { 
+            transform: translateY(-5px) scale(1.02); 
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.12)); 
+            border-color: rgba(168, 130, 255, 0.5); 
+            box-shadow: 0 20px 45px rgba(139, 92, 246, 0.3), 0 0 25px rgba(236, 72, 153, 0.15) inset, 0 2px 2px rgba(255,255,255,0.15) inset; 
+        }
+        .aim-card.disabled { 
+            opacity: 0.35; 
+            filter: grayscale(70%); 
+            cursor: not-allowed; 
+            border-color: transparent; 
+        }
+        .aim-card.disabled:hover { 
+            transform: none; 
+            box-shadow: none; 
+            background: rgba(255, 255, 255, 0.03); 
+        }
+        .aim-error-note { 
+            color: #f87171; 
+            font-size: 10px; 
+            font-weight: 700; 
+            background: rgba(248, 113, 113, 0.2); 
+            padding: 3px 9px; 
+            border-radius: 6px; 
+            border: 1px solid rgba(248, 113, 113, 0.4); 
+            margin-left: 8px; 
+            text-shadow: none; 
+        }
+        
+        .switch { 
+            position: relative; 
+            display: inline-block; 
+            width: 50px; 
+            height: 28px; 
+        }
+        .switch input { 
+            opacity: 0; 
+            width: 0; 
+            height: 0; 
+        }
+        .slider { 
+            position: absolute; 
+            cursor: pointer; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0; 
+            background-color: rgba(255, 255, 255, 0.08); 
+            transition: .4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            border-radius: 28px; 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.6); 
+        }
+        .slider:before { 
+            position: absolute; 
+            content: ""; 
+            height: 22px; 
+            width: 22px; 
+            left: 2px; 
+            bottom: 2px; 
+            background-color: #fff; 
+            transition: .4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            border-radius: 50%; 
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4); 
+        }
+        input:checked + .slider { 
+            background-color: var(--purp); 
+            border-color: var(--purp); 
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.6), inset 0 3px 10px rgba(0, 0, 0, 0.4); 
+        }
+        input:checked + .slider:before { 
+            transform: translateX(22px); 
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.9); 
+        }
+        
+        .game-btn { 
+            width: 100%; 
+            padding: 18px; 
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(236, 72, 153, 0.85)); 
+            border-radius: 16px; 
+            border: none; 
+            font-weight: 800; 
+            letter-spacing: 2px; 
+            color: #fff; 
+            font-size: 14px; 
+            cursor: pointer; 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4), 0 0 20px rgba(236, 72, 153, 0.2); 
+            text-transform: uppercase; 
+            font-family: 'Orbitron', sans-serif;
+        }
+        .game-btn:hover { 
+            transform: translateY(-4px); 
+            box-shadow: 0 18px 40px rgba(236, 72, 153, 0.5), 0 0 30px rgba(139, 92, 246, 0.4); 
+            background: linear-gradient(135deg, #a78bfa, #f472b6); 
+        }
+        
+        .account-avatar-img { 
+            width: 90px; 
+            height: 90px; 
+            border-radius: 22px; 
+            border: 2px solid rgba(168, 130, 255, 0.7); 
+            cursor: pointer; 
+            object-fit: cover; 
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.5), 0 0 20px rgba(236, 72, 153, 0.3); 
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .account-avatar-img:hover { 
+            transform: scale(1.08); 
+            border-color: #fff; 
+            box-shadow: 0 20px 50px rgba(167, 139, 250, 0.7), 0 0 30px rgba(236, 72, 153, 0.5); 
+        }
+        
+        .swal-sol-popup { 
+            background: rgba(15, 8, 30, 0.98) !important; 
+            backdrop-filter: blur(25px) !important; 
+            border: 1px solid rgba(168, 130, 255, 0.4) !important; 
+            border-radius: 24px !important; 
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 40px rgba(139, 92, 246, 0.3) !important; 
+            color: #fff; 
+        }
+        .sol-btn-ok { 
+            background: linear-gradient(135deg, #8b5cf6, #ec4899) !important; 
+            color: #fff !important; 
+            font-weight: 800 !important; 
+            border-radius: 12px !important; 
+            font-family: 'Orbitron' !important; 
+            padding: 15px 35px !important; 
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4) !important;
+        }
+        .sol-btn-kick { 
+            background: var(--red-mnt) !important; 
+            color: #fff !important; 
+            font-weight: 800 !important; 
+            border-radius: 12px !important; 
+            font-family: 'Orbitron' !important; 
+            padding: 15px 35px !important; 
+            box-shadow: 0 12px 30px rgba(239, 68, 68, 0.5) !important; 
+        }
+        .neon-popup-content { 
+            color: #fff; 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 21px; 
+            line-height: 1.7; 
+            text-shadow: 0 0 25px rgba(168, 130, 255, 0.6); 
+        }
+        .neon-port-text { 
+            font-size: 44px; 
+            font-weight: 900; 
+            display: block; 
+            margin-top: 22px; 
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.9), 0 0 15px rgba(236, 72, 153, 0.5); 
+            color: #ede9fe;
+        }
+        .countdown-text { 
+            font-size: 60px; 
+            font-weight: 900; 
+            color: #fff; 
+            text-shadow: 0 0 30px rgba(236, 72, 153, 0.9); 
         }
     </style>
 </head>
 <body>
-
-    <div class="menu-container">
-        <div class="header">
-            <h1>MIGUEL MENU PRO</h1>
-        </div>
-
-        <div class="tab-bar">
-            <div class="tab-segment active"></div>
-            <div class="tab-segment"></div>
-            <div class="tab-segment"></div>
-            <div class="tab-segment"></div>
-        </div>
-
-        <div class="content-wrapper">
-            <div class="tab-page active" id="page0">
-                <div class="page-info"><b>🎯 AIMBOT</b> <span>Auto target enemies</span></div>
-                <div class="feature-item"><span>Enable Aimbot</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-                <div class="feature-item"><span>Show FOV Circle</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-                <div class="feature-item"><span>Ignore Bots</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-                <div class="feature-item"><span>Aim Mode</span> <div class="select-box">Closest to Crosshair</div></div>
-                <div class="feature-item"><span>Target Bone</span> <div class="select-box">⚠️ Head</div></div>
-                <div class="feature-item"><span>Aim Trigger</span> <div class="select-box">Only When Shooting</div></div>
-            </div>
-
-            <div class="tab-page" id="page1">
-                <div class="page-info"><b>👁️ VISUALS</b> <span>See where enemies are</span></div>
-                <div class="feature-item"><span>ESP Enable</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-                <div class="feature-item"><span>ESP Boxes</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-                <div class="feature-item"><span>ESP Lines</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-                <div class="feature-item"><span>ESP Name</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-                <div class="feature-item"><span>ESP Distance</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-                <div class="feature-item"><span>ESP Health</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-                <div class="feature-item"><span>ESP Skeleton</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-            </div>
-
-            <div class="tab-page" id="page2">
-                <div class="page-info"><b>📦 MISC</b> <span>Extra gameplay features</span></div>
-                <div class="feature-row">
-                    <div class="feature-item"><span>No Recoil</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-                    <div class="feature-item"><span>Force 120 FPS</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-                    <div class="feature-item"><span>Reset Guest</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-                    <div class="feature-item"><span>Fast Reload</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-                    <div class="feature-item"><span>Antenna Hand</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+    <div id="landscapeBlocker"><i class="fas fa-mobile-alt" style="transform: rotate(90deg);"></i><span>ĐÃ BẬT CHẾ ĐỘ NGANG<br>VUI LÒNG XOAY NGANG ĐỂ DÙNG</span></div>
+    <div class="bg"></div>
+    <button class="lang-btn" id="langToggle">VN</button>
+    <button class="control-btn" id="shrinkTextBtn" title="Điều chỉnh kích thước">Aa</button>
+    <div class="setting-btn" id="settingBtn"><i class="fas fa-layer-group"></i></div>
+    <input type="file" id="globalAvatarInput" accept="image/*" style="display:none;">
+    
+    <div class="game-modal-overlay" id="gameModalOverlay">
+        <div class="game-modal" onclick="event.stopPropagation()">
+            <div class="modal-ip-badge">IP: <span class="live-ip-display">Đang lấy...</span></div>
+            <div class="sidebar" id="sidebarMenu"></div>
+            <div class="modal-content-area">
+                <div class="modal-top-bar">
+                    <span class="modal-title-neon" id="modalTitle">NGỌC BỔNG GAMING</span>
+                    <button class="modal-close-btn" id="modalCloseBtn"><i class="fas fa-times"></i></button>
                 </div>
+                <div class="game-content" id="gameContent"></div>
             </div>
-
-            <div class="tab-page" id="page3">
-                <div class="page-info"><b>⚙️ SETTINGS</b> <span>System configuration</span></div>
-                <div class="feature-item"><span>Anti-Ban v2.1</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-                <div class="feature-item"><span>Bypass Lobby</span> <label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-                <div class="feature-item"><span>Save Configuration</span> <label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-                <div class="feature-item"><span>Menu Language</span> <div class="select-box">Vietnamese</div></div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <div class="price"><b>30k = Ngày <br> 120k = Tuần <br> 300k = Tháng</b></div>
-            <a href="https://zalo.me/0965870531" class="zalo-link">ZALO MUA KEY: 0965870531</a>
         </div>
     </div>
 
-    <script>
-        const pages = document.querySelectorAll('.tab-page');
-        const segments = document.querySelectorAll('.tab-segment');
-        let currentIdx = 0;
-
-        function autoSwap() {
-            // Xóa active cũ
-            pages.forEach(p => p.classList.remove('active'));
-            segments.forEach(s => s.classList.remove('active'));
-
-            // Chuyển chỉ số
-            currentIdx = (currentIdx + 1) % pages.length;
-
-            // Thêm active mới
-            pages[currentIdx].classList.add('active');
-            segments[currentIdx].classList.add('active');
+    <script nonce="f2EJNtLZZntn0S7Y3a9aRw==">
+        const isLoggedIn = true;
+        const csrf = "8d45aa302cef6f011d4e6d40a6e119ac61a57455cc13e629c727198d98d81d8f";
+        const accountType = "free";
+        const accountRole = "member";
+        const username = "ngocbong-12H-0h7PzS";
+        const displayName = "nguoidung74141";
+        let defaultAvatar = "data:image\/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+PHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjOGI1Y2Y2Ii8+PHRleHQgeD0iMzAiIHk9IjQwIiBmb250LXNpemU9IjMwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtZmFtaWx5PSJBcmlhbCI+bjwvdGV4dD48L3N2Zz4=";
+        let activeAim = "" || null;
+        
+        if (activeAim) localStorage.setItem('sol_active_aim', activeAim);
+        else localStorage.removeItem('sol_active_aim');
+        
+        window.solBrightness = localStorage.getItem('sol_brightness') || 100;
+        document.body.style.filter = `brightness(${window.solBrightness}%)`;
+        
+        let solDeviceId = localStorage.getItem('sol_device_id');
+        if (!solDeviceId) { solDeviceId = 'DEV-' + Math.random().toString(36).substr(2, 10) + '-' + Date.now(); localStorage.setItem('sol_device_id', solDeviceId); }
+        let clientDevice = (function() { const ua = navigator.userAgent; let osVer = ''; const iosMatch = ua.match(/OS (\d+[_.]\d+)/); if (iosMatch) osVer = ' iOS ' + iosMatch[1].replace('_', '.'); if (/iPhone/.test(ua)) { return 'iPhone' + osVer; } if (/Android/.test(ua)) { const m = ua.match(/Android.*?; (.*?) Build/); return m ? m[1].trim() : 'Android'; } if (/Windows NT/.test(ua)) return 'Windows PC'; return 'Thiết bị Web'; })();
+        
+        let clientIP = 'Đang lấy...';
+        fetch('https://api.ipify.org?format=json').then(r=>r.json()).then(d=>{ clientIP = d.ip; document.querySelectorAll('.live-ip-display').forEach(e=>e.innerText=clientIP); }).catch(e=>{ clientIP='Lỗi API'; });
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const magicToken = urlParams.get('token');
+        if (magicToken && !isLoggedIn) {
+            Swal.fire({ html:'<div class="neon-popup-content" style="font-size:16px;">ĐANG XÁC THỰC LINK...</div>', background:'rgba(15,8,30,0.98)', allowOutsideClick:false, didOpen:()=>Swal.showLoading() });
+            const fd = new URLSearchParams(); fd.append('action', 'login_magic'); fd.append('csrf_token', csrf); fd.append('magic_token', magicToken); fd.append('device_id', solDeviceId); fd.append('device_info', clientDevice);
+            fetch('', {method: 'POST', body: fd}).then(r=>r.json()).then(d=>{ if(d.s==='success'){ window.history.replaceState({}, document.title, window.location.pathname); location.reload(); } else { Swal.fire({icon:'error', title:'LỖI', text:d.m, customClass:{popup:'swal-sol-popup', confirmButton:'sol-btn-ok'}}); } });
         }
-
-        // Tự động chuyển sau mỗi 3 giây
-        setInterval(autoSwap, 3000);
+        
+        const dict = { vi: { tab_login:"Đăng nhập", tab_video:"Hướng Dẫn", tab_aim:"Aimbot", tab_acc:"Tài khoản", login_title:"ĐĂNG NHẬP" }, en: { tab_login:"Login", tab_video:"Tutorial", tab_aim:"Aimbot", tab_acc:"Account", login_title:"LOGIN" } };
+        let curLang = localStorage.getItem('sol_lang') || 'vi';
+        function t(k){ return dict[curLang][k] || k; }
+        
+        document.getElementById('langToggle').onclick = ()=>{ curLang = curLang==='vi'?'en':'vi'; localStorage.setItem('sol_lang', curLang); document.getElementById('langToggle').innerText = curLang.toUpperCase(); if(document.getElementById('gameModalOverlay').classList.contains('active')){ renderUserBar(); switchTab(currentTab); } };
+        document.getElementById('langToggle').innerText = curLang.toUpperCase();
+        
+        function handleKick(){ if(window.isKickedOut)return; window.isKickedOut=true; localStorage.removeItem('sol_active_aim'); localStorage.removeItem('sol_free_expire'); Swal.fire({ html:'<div class="neon-popup-content" style="font-size:16px;">TÀI KHOẢN ĐÃ HẾT HẠN</div>', customClass:{popup:'swal-sol-popup swal-sol-kick',confirmButton:'sol-btn-kick'} }).then(()=>location.reload()); }
+        
+        const overlay = document.getElementById('gameModalOverlay'); const contentDiv = document.getElementById('gameContent'); let currentTab = isLoggedIn ? 'aim' : 'login';
+        document.getElementById('settingBtn').onclick = ()=>{ overlay.classList.add('active'); renderUserBar(); switchTab(currentTab); };
+        document.getElementById('modalCloseBtn').onclick = ()=> overlay.classList.remove('active'); overlay.addEventListener('click', e=>{ if(e.target===overlay) overlay.classList.remove('active'); });
+        
+        function renderUserBar(){
+            if(isLoggedIn){
+                document.getElementById('sidebarMenu').innerHTML = `<img src="${defaultAvatar}" class="user-avatar-mini" id="miniAvatar" title="Đổi Avatar"><span class="user-name-mini">${displayName}</span><div class="mini-tabs"><button class="mini-tab ${currentTab==='aim'?'active':''}" data-tab="aim"><i class="fas fa-crosshairs"></i> ${t('tab_aim')}</button><button class="mini-tab ${currentTab==='account'?'active':''}" data-tab="account"><i class="fas fa-user-astronaut"></i> ${t('tab_acc')}</button><button class="mini-tab ${currentTab==='settings'?'active':''}" data-tab="settings"><i class="fas fa-cog"></i> Cài Đặt Giao Diện</button></div>`;
+                document.getElementById('miniAvatar').onclick = ()=> document.getElementById('globalAvatarInput').click();
+            } else { 
+                document.getElementById('sidebarMenu').innerHTML = `<div class="mini-tabs"><button class="mini-tab ${currentTab==='login'?'active':''}" data-tab="login"><i class="fas fa-sign-in-alt"></i> ${t('tab_login')}</button><button class="mini-tab ${currentTab==='video'?'active':''}" data-tab="video"><i class="fas fa-play"></i> ${t('tab_video')}</button></div>`; 
+            }
+            document.querySelectorAll('.mini-tab[data-tab]').forEach(b=> b.onclick = function(){ currentTab = this.dataset.tab; renderUserBar(); switchTab(currentTab); });
+        }
+        
+        function renderAimItem(id, name, errorNote = ''){ 
+            let isChecked = activeAim === id; 
+            let isDisabled = activeAim !== null && activeAim !== id; 
+            let activeText = isChecked ? '<span style="color:var(--purp); font-size:10px; font-weight:800; margin-right:10px; text-shadow:0 0 15px rgba(139,92,246,0.8);">ĐANG BẬT</span>' : ''; 
+            let noteHtml = errorNote ? ` <span class="aim-error-note">${errorNote}</span>` : ''; 
+            return `<div class="aim-card ${isDisabled ? 'disabled' : ''}" data-id="${id}"><span style="font-size:13px; font-weight:700; color:${isDisabled ? 'rgba(255,255,255,0.6)' : '#fff'}; display:flex; align-items:center;">${name}${noteHtml}</span><div style="display:flex; align-items:center;">${activeText}<label class="switch"><input type="checkbox" class="aim-switch-input" data-id="${id}" ${isChecked?'checked':''} ${isDisabled?'disabled':''}><span class="slider"></span></label></div></div>`; 
+        }
+        
+        function switchTab(tab){
+            let html='';
+            if(!isLoggedIn){ 
+                if(tab==='login'){ html=`<div style="width:100%;max-width:280px;margin:30px auto;text-align:center;"><h3 style="font-family:'Orbitron';color:#fff;margin-bottom:20px;letter-spacing:2px;"><i class="fas fa-bolt" style="color:var(--purp);"></i> ${t('login_title')}</h3><div style="color:rgba(255,255,255,0.7); font-size:13px; margin-bottom:30px; line-height: 1.6;">Hệ thống đăng nhập bằng Link 1 chạm.<br>Vui lòng lấy Link Truy Cập để vào menu.</div><a href="https://solitudepremium.click/ngoc/key.php" class="game-btn" style="text-decoration:none; display:inline-block; text-align:center; padding:15px; font-size: 14px; border-radius: 12px;">🌐 ĐẾN TRANG TẠO LINK</a></div>`; } 
+                else if(tab==='video'){ html=`<div style="text-align:center;padding:50px 10px;"><a href="https://drive.google.com/file/d/1VEX8MhcaV--9x8QzlriN7L5BnvCCPUlz/view?usp=drivesdk" target="_blank" class="game-btn" style="background: linear-gradient(135deg, #be185d, var(--pink)); display:inline-block; text-decoration:none; color:#fff; border-radius: 12px;"><i class="fas fa-play-circle"></i> Xem Hướng Dẫn</a></div>`; } 
+            } else {
+                if(tab==='aim'){ 
+                    html=`<div style="width:100%;max-width:340px;margin:0 auto;padding-top:5px;">
+                    <h4 style="color:#fff;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:15px;font-family:'Orbitron';"><i class="fas fa-crosshairs"></i> AIMBOT VIP</h4>
+                    <div class="aim-card" style="background:rgba(0,0,0,0.2);cursor:default;box-shadow:none;border:1px dashed rgba(255,255,255,0.2);">
+                        <span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.8);display:flex;align-items:center;gap:6px;"><i class="fas fa-server"></i> Máy chủ: <span id="serverHostname" style="color:#fff;margin-left:4px;cursor:pointer;">solitudeversion.duckdns.org</span></span>
+                    </div>
+                    ${renderAimItem('aim_antena','Aim Antena')}
+                    ${renderAimItem('no_antena','Aim No Antena')}
+                    ${renderAimItem('aim_body_antena','Aim Body No Antena')}
+                    ${renderAimItem('server_aimco','Aim Server 2019')}
+                    ${renderAimItem('aim_chest','Aim Ngực')}
+                    ${renderAimItem('aim_co_v2','Aim Cổ')}
+                    ${renderAimItem('aim_long_neck','Aim Cổ Dài')}
+                    </div>`; 
+                }
+                else if(tab==='account'){ html=`<div style="width:100%;max-width:320px;margin:0 auto;"><div style="text-align:center;margin-bottom:20px;"><img id="accountAvatarImg" src="${defaultAvatar}" class="account-avatar-img"><div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:12px;">[ BẤM ĐỂ ĐỔI ẢNH ]</div></div><div style="background:rgba(0,0,0,0.3);padding:18px;border-radius:16px;font-size:13px;margin-bottom:15px;border:1px solid rgba(255,255,255,0.1);color:#fff;backdrop-filter:blur(10px);"><div style="display:flex;justify-content:space-between;margin-bottom:12px;border-bottom:1px dashed rgba(255,255,255,0.1);padding-bottom:8px;align-items:center;"><span style="color:rgba(255,255,255,0.7);">Tài khoản:</span> <b id="btnChangeName" style="cursor:pointer;color:#fff;background:rgba(255,255,255,0.1);padding:4px 8px;border-radius:6px;">${displayName} <i class="fas fa-edit" style="font-size:10px;margin-left:4px;"></i></b></div><div style="display:flex;justify-content:space-between;margin-bottom:12px;border-bottom:1px dashed rgba(255,255,255,0.1);padding-bottom:8px;"><span style="color:rgba(255,255,255,0.7);">Chức vụ:</span> <b style="color:var(--purp);text-transform:uppercase;">${accountRole}</b></div><div style="display:flex;justify-content:space-between;padding-bottom:4px;"><span style="color:rgba(255,255,255,0.7);">Gói thẻ:</span> <b style="color:#fff;text-transform:uppercase;">${accountType}</b></div></div></div>`; }
+                else if(tab==='settings'){ html=`<div style="width:100%;max-width:320px;margin:0 auto;padding-top:5px; color:#fff;"><h4 style="color:#fff;margin-bottom:25px;display:flex;align-items:center;gap:8px;font-family:'Orbitron';"><i class="fas fa-cog"></i> CÀI ĐẶT GIAO DIỆN</h4><div style="background:rgba(0,0,0,0.3);padding:20px;border-radius:16px;border:1px solid rgba(255,255,255,0.1);margin-bottom:15px;backdrop-filter:blur(10px);"><label style="font-size:13px;color:rgba(255,255,255,0.8);display:flex;justify-content:space-between;">Độ sáng: <b id="brightValText" style="color:#fff;">${window.solBrightness}%</b></label><input type="range" id="brightSlider" min="20" max="150" value="${window.solBrightness}" style="width:100%;margin-top:12px;accent-color:var(--purp);"></div></div>`; }
+            }
+            contentDiv.innerHTML = html;
+            if(isLoggedIn){
+                if(tab==='account'){
+                    document.getElementById('accountAvatarImg').onclick = ()=> document.getElementById('globalAvatarInput').click();
+                    document.getElementById('btnChangeName').onclick = ()=>{
+                        Swal.fire({ title:'ĐỔI TÊN', input:'text', inputValue:displayName, customClass:{popup:'swal-sol-popup',confirmButton:'sol-btn-ok'} }).then(async res=>{ if(res.isConfirmed){ const fd = new URLSearchParams(); fd.append('action','change_name'); fd.append('csrf_token',csrf); fd.append('new_name',res.value.trim()); const r = await fetch('',{method:'POST',body:fd}); const d = await r.json(); if(d.s==='success') location.reload(); } });
+                    };
+                }
+                if(tab==='aim'){
+                    document.querySelectorAll('.aim-card').forEach(card=>{
+                        card.addEventListener('click', function(e){
+                            if(e.target.tagName==='INPUT' || (e.target.tagName==='SPAN' && e.target.classList.contains('slider'))) return;
+                            let id = this.getAttribute('data-id');
+                            if(!this.classList.contains('disabled')) handleAimToggle(id);
+                        });
+                    });
+                    document.querySelectorAll('.aim-switch-input').forEach(inp=> inp.addEventListener('change', function(){ handleAimToggle(this.dataset.id); }));
+                }
+            }
+        }
+        
+        async function handleAimToggle(id){
+            if(window.isTogglingAim) return;
+            window.isTogglingAim = true;
+            let isTurningOn = (activeAim !== id);
+            if(isTurningOn && activeAim !== null){
+                Swal.fire({html:'<div class="neon-popup-content">⚠️ VUI LÒNG TẮT AIM HIỆN TẠI TRƯỚC</div>', customClass:{popup:'swal-sol-popup', confirmButton:'sol-btn-ok'}});
+                window.isTogglingAim = false;
+                return;
+            }
+            const fd = new URLSearchParams(); fd.append('action','toggle_aim'); fd.append('csrf_token',csrf); fd.append('aim_id',id); fd.append('state',isTurningOn?1:0); fd.append('client_ip',clientIP);
+            Swal.fire({title:'Đang kết nối Server...', allowOutsideClick:false, customClass:{popup:'swal-sol-popup'}, didOpen:()=>Swal.showLoading()});
+            try{
+                const r = await fetch('',{method:'POST',body:fd}); const d = await r.json();
+                if(d.kick){ handleKick(); return; }
+                if(d.s==='success' && isTurningOn){
+                    Swal.fire({
+                        html: `<div class="neon-popup-content">✔️ ĐÃ KÍCH HOẠT<br><span class="neon-port-text">CỔNG: ${d.port}</span></div>`,
+                        showConfirmButton: false, timer: 2000, customClass: { popup: 'swal-sol-popup' }
+                    }).then(()=> location.reload());
+                }
+                else if(d.s==='success' && !isTurningOn){
+                    let cooldownUntil = d.cooldown_until || (Math.floor(Date.now()/1000) + 5);
+                    let secondsLeft = Math.max(0, cooldownUntil - Math.floor(Date.now()/1000));
+                    let timerInterval;
+                    Swal.fire({
+                        html: `<div class="neon-popup-content" style="font-size:14px;">⏳ ĐÃ TẮT AIM<br><span class="countdown-text" id="cooldownTimer">${secondsLeft}</span><br><span style="color:rgba(255,255,255,0.6)">VUI LÒNG CHỜ ĐỂ KÍCH HOẠT AIM MỚI</span></div>`,
+                        showConfirmButton: false, allowOutsideClick: false, timer: secondsLeft * 1000, timerProgressBar: true, customClass: { popup: 'swal-sol-popup' },
+                        didOpen: () => {
+                            const timerEl = document.getElementById('cooldownTimer');
+                            let remaining = secondsLeft;
+                            timerInterval = setInterval(() => { remaining--; if (remaining >= 0) timerEl.textContent = remaining; }, 1000);
+                        },
+                        willClose: () => { clearInterval(timerInterval); location.reload(); }
+                    });
+                }
+                else if(d.s==='cooldown'){
+                    let cooldownUntil = d.cooldown_until || (Math.floor(Date.now()/1000) + (d.remain || 5));
+                    let secondsLeft = Math.max(0, cooldownUntil - Math.floor(Date.now()/1000));
+                    let timerInterval;
+                    Swal.fire({
+                        html: `<div class="neon-popup-content">⏳ VUI LÒNG CHỜ<br><span class="countdown-text" id="cooldownTimer">${secondsLeft}</span><br><span style="font-size:16px;">GIÂY</span></div>`,
+                        showConfirmButton: false, allowOutsideClick: false, timer: secondsLeft * 1000, timerProgressBar: true, customClass: { popup: 'swal-sol-popup' },
+                        didOpen: () => {
+                            const timerEl = document.getElementById('cooldownTimer');
+                            let remaining = secondsLeft;
+                            timerInterval = setInterval(() => { remaining--; if (remaining >= 0) timerEl.textContent = remaining; }, 1000);
+                        },
+                        willClose: () => { clearInterval(timerInterval); location.reload(); }
+                    });
+                }
+                else if(d.s==='error'){ Swal.fire({icon:'error',text:d.m, customClass:{popup:'swal-sol-popup', confirmButton:'sol-btn-ok'}}); }
+            } catch(e){ Swal.fire({icon:'error', text:'Lỗi kết nối', customClass:{popup:'swal-sol-popup', confirmButton:'sol-btn-ok'}}); }
+            window.isTogglingAim = false;
+        }
+        
+        function initOrientation(){
+            const blocker = document.getElementById('landscapeBlocker');
+            function onLandscapeSuccess(){ blocker.style.display='none'; }
+            function onPortrait(){ blocker.style.display='flex'; }
+            if(window.matchMedia("(orientation: landscape)").matches) onLandscapeSuccess(); else onPortrait();
+            window.matchMedia("(orientation: landscape)").addEventListener('change', e=> e.matches? onLandscapeSuccess() : onPortrait());
+        }
+        initOrientation();
+        
+        const overlayEl = document.getElementById('gameModalOverlay');
+        if (overlayEl) { overlayEl.classList.add('active'); renderUserBar(); switchTab(currentTab); }
     </script>
 </body>
 </html>
