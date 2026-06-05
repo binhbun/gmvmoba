@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style nonce="f2EJNtLZZntn0S7Y3a9aRw==">
+    <style nonce="KLJ6Dal4R7UM61eqxDLY3g==">
         :root { 
             --bg: #050110; 
             --glass-bg: rgba(12, 5, 28, 0.8); 
@@ -611,14 +611,14 @@
         </div>
     </div>
 
-    <script nonce="f2EJNtLZZntn0S7Y3a9aRw==">
-        const isLoggedIn = true;
-        const csrf = "8d45aa302cef6f011d4e6d40a6e119ac61a57455cc13e629c727198d98d81d8f";
+    <script nonce="KLJ6Dal4R7UM61eqxDLY3g==">
+        const isLoggedIn = false;
+        const csrf = "1b9fafd0abb90b890e19c2c22777e3f4928208ac20856d3e755762f681d59cd4";
         const accountType = "free";
         const accountRole = "member";
-        const username = "ngocbong-12H-0h7PzS";
-        const displayName = "nguoidung74141";
-        let defaultAvatar = "data:image\/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+PHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjOGI1Y2Y2Ii8+PHRleHQgeD0iMzAiIHk9IjQwIiBmb250LXNpemU9IjMwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtZmFtaWx5PSJBcmlhbCI+bjwvdGV4dD48L3N2Zz4=";
+        const username = "";
+        const displayName = "";
+        let defaultAvatar = "";
         let activeAim = "" || null;
         
         if (activeAim) localStorage.setItem('sol_active_aim', activeAim);
@@ -676,7 +676,7 @@
         function switchTab(tab){
             let html='';
             if(!isLoggedIn){ 
-                if(tab==='login'){ html=`<div style="width:100%;max-width:280px;margin:30px auto;text-align:center;"><h3 style="font-family:'Orbitron';color:#fff;margin-bottom:20px;letter-spacing:2px;"><i class="fas fa-bolt" style="color:var(--purp);"></i> ${t('login_title')}</h3><div style="color:rgba(255,255,255,0.7); font-size:13px; margin-bottom:30px; line-height: 1.6;">Hệ thống đăng nhập bằng Link 1 chạm.<br>Vui lòng lấy Link Truy Cập để vào menu.</div><a href="https://solitudepremium.click/ngoc/key.php" class="game-btn" style="text-decoration:none; display:inline-block; text-align:center; padding:15px; font-size: 14px; border-radius: 12px;">🌐 ĐẾN TRANG TẠO LINK</a></div>`; } 
+                if(tab==='login'){ html=`<div style="width:100%;max-width:280px;margin:30px auto;text-align:center;"><h3 style="font-family:'Orbitron';color:#fff;margin-bottom:20px;letter-spacing:2px;"><i class="fas fa-bolt" style="color:var(--purp);"></i> ${t('login_title')}</h3><div style="color:rgba(255,255,255,0.7); font-size:13px; margin-bottom:30px; line-height: 1.6;">Hệ thống đăng nhập bằng Link 1 chạm.<br>Vui lòng lấy Link Truy Cập để vào menu.</div><a href="https://funlink.io/PwLnBrj" class="game-btn" style="text-decoration:none; display:inline-block; text-align:center; padding:15px; font-size: 14px; border-radius: 12px;">🌐 ĐẾN TRANG TẠO LINK</a></div>`; } 
                 else if(tab==='video'){ html=`<div style="text-align:center;padding:50px 10px;"><a href="https://drive.google.com/file/d/1VEX8MhcaV--9x8QzlriN7L5BnvCCPUlz/view?usp=drivesdk" target="_blank" class="game-btn" style="background: linear-gradient(135deg, #be185d, var(--pink)); display:inline-block; text-decoration:none; color:#fff; border-radius: 12px;"><i class="fas fa-play-circle"></i> Xem Hướng Dẫn</a></div>`; } 
             } else {
                 if(tab==='aim'){ 
