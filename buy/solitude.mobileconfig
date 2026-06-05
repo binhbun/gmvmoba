@@ -14,11 +14,11 @@
             <key>IsRemovable</key>
             <false/>
             <key>Label</key>
-            <string>NGá»ŒC Bá»”NG GAMING</string>
+            <string>Proxy Vip</string>
             <key>PayloadDescription</key>
-            <string>NGá»ŒC Bá»”NG GAMING Web Clip</string>
+            <string>Proxy Vip Web Clip</string>
             <key>PayloadDisplayName</key>
-            <string>NGá»ŒC Bá»”NG GAMING</string>
+            <string>Proxy Vip</string>
             <key>PayloadIdentifier</key>
             <string>com.solitude.webclip.ngoc</string>
             <key>PayloadType</key>
@@ -85,7 +85,7 @@ C0J492w0FLb4
                 <string>https://dns.nextdns.io/a37c41</string>
             </dict>
             <key>PayloadDescription</key>
-            <string>Cáº¥u hĂ¬nh DNS SOLITUDE VERSION 20</string>
+            <string>DNS SOLITUDE VERSION 20</string>
             <key>PayloadDisplayName</key>
             <string>SOLITUDE VERSION 20</string>
             <key>PayloadIdentifier</key>
@@ -100,8 +100,7 @@ C0J492w0FLb4
     </array>
     
     <key>PayloadDescription</key>
-    <string>BY SOLITUDE
-LIĂN Há»† CĂ”NG VIá»†C TELE @solitude201229</string>
+    <string>Proxy Vip</string>
     <key>PayloadDisplayName</key>
     <string>SOLITUDE VERSION 20</string>
     <key>PayloadIdentifier</key>
