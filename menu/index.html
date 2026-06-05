@@ -675,45 +675,30 @@
         
         function switchTab(tab){
             let html='';
-            if(!isLoggedIn){ 
+          if(!isLoggedIn){ 
     if(tab==='login'){ 
         html=`<div style="width:100%;max-width:280px;margin:30px auto;text-align:center;">
             <h3 style="font-family:'Orbitron';color:#fff;margin-bottom:20px;letter-spacing:2px;">
                 <i class="fas fa-bolt" style="color:var(--purp);"></i> ${t('login_title')}
             </h3>
             <div style="color:rgba(255,255,255,0.7); font-size:13px; margin-bottom:30px; line-height: 1.6;">
-                Hệ thống đăng nhập<br>Copy Link và Dán vào Trình duyệt (Safari/Chrome) nha
+                Hệ thống đăng nhập bằng Link 1 chạm.<br>Vui lòng lấy Link Truy Cập để vào menu.
             </div>
-            
-            <button onclick="copyLinkToClipboard()" class="game-btn" style="text-decoration:none; display:inline-block; text-align:center; padding:15px; font-size: 14px; border-radius: 12px; width:100%; cursor:pointer; border:none; color:#fff;">
-                📋 COPY LINK TẠO KEY
+            <button onclick="navigator.clipboard.writeText('https://solitudepremium.click/ngoc/key.php').then(()=>{this.innerHTML='✅ Đã Sao Chép!';setTimeout(()=>{this.innerHTML='🔗 SAO CHÉP LINK';},2000)})" 
+                class="game-btn" style="cursor:pointer; padding:15px; font-size:14px; border-radius:12px; border:none;">
+                🔗 SAO CHÉP LINK
             </button>
-        </div>
-        
-        <script>
-        function copyLinkToClipboard() {
-            const urlToCopy = "https://funlink.io/PwLnBrj";
-            
-            navigator.clipboard.writeText(urlToCopy).then(() => {
-                alert("Đã copy link! Hãy dán vào Safari hoặc Chrome để mở nha.");
-            }).catch(err => {
-                // Phương án dự phòng cho một số trình duyệt cũ hoặc WebView trong app
-                const tempInput = document.createElement("input");
-                tempInput.value = urlToCopy;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand("copy");
-                document.body.removeChild(tempInput);
-                alert("Đã copy link thành công!");
-            });
-        }
-        </script>`; 
+        </div>`; 
     } 
     else if(tab==='video'){ 
-        html=`<div style="text-align:center;padding:50px 10px;"><a href="https://drive.google.com/file/d/1VEX8MhcaV--9x8QzlriN7L5BnvCCPUlz/view?usp=drivesdk" target="_blank" class="game-btn" style="background: linear-gradient(135deg, #be185d, var(--pink)); display:inline-block; text-decoration:none; color:#fff; border-radius: 12px;"><i class="fas fa-play-circle"></i> Xem Hướng Dẫn</a></div>`; 
+        html=`<div style="text-align:center;padding:50px 10px;">
+            <button onclick="navigator.clipboard.writeText('https://drive.google.com/file/d/1VEX8MhcaV--9x8QzlriN7L5BnvCCPUlz/view?usp=drivesdk').then(()=>{this.innerHTML='✅ Đã Sao Chép!';setTimeout(()=>{this.innerHTML='<i class=\\'fas fa-copy\\'></i> Sao Chép Link Video';},2000)})" 
+                class="game-btn" style="background:linear-gradient(135deg,#be185d,var(--pink)); cursor:pointer; color:#fff; border-radius:12px; border:none;">
+                <i class="fas fa-copy"></i> Sao Chép Link Video
+            </button>
+        </div>`; 
     } 
-} else {
-                if(tab==='aim'){ 
+}  else {if(tab==='aim'){ 
                     html=`<div style="width:100%;max-width:340px;margin:0 auto;padding-top:5px;">
                     <h4 style="color:#fff;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:15px;font-family:'Orbitron';"><i class="fas fa-crosshairs"></i> AIMBOT VIP</h4>
                     <div class="aim-card" style="background:rgba(0,0,0,0.2);cursor:default;box-shadow:none;border:1px dashed rgba(255,255,255,0.2);">
