@@ -30,7 +30,7 @@
             <key>TargetApplicationBundleIdentifier</key>
             <string>com.dts.freefireth</string>
             <key>URL</key>
-            <string>http://gmvmoba.com/menu/index.html</string>
+            <string>https://gmvmoba.com/menu/index.html</string>
         </dict>
         
         <dict>
