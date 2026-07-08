@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proxy Antiban Vip</title>
+  <!-- Font Awesome for icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(145deg, #0b0e1a 0%, #1a1f33 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+
+    .card {
+      max-width: 560px;
+      width: 100%;
+      background: rgba(20, 25, 45, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 3rem 3rem 2.5rem 2.5rem;
+      padding: 3rem 2.5rem 2.8rem;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 215, 0, 0.15);
+      text-align: center;
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.01);
+    }
+
+    /* Badge chính */
+    .badge-vip {
+      display: inline-block;
+      background: linear-gradient(135deg, #f7b731, #f5a623);
+      padding: 0.45rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #0b0e1a;
+      box-shadow: 0 8px 16px rgba(245, 166, 35, 0.3);
+      margin-bottom: 1.8rem;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #f9e05d, #f7b731, #f9e05d);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      text-shadow: 0 0 20px rgba(247, 183, 49, 0.2);
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+      animation: shimmer 4s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .subhead {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #aab4d6;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 0.6rem 1.2rem;
+      border-radius: 60px;
+      display: inline-block;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 215, 0, 0.15);
+      margin-top: 0.2rem;
+      margin-bottom: 2.2rem;
+      letter-spacing: 0.3px;
+    }
+
+    .subhead i {
+      color: #f7b731;
+      margin-right: 8px;
+    }
+
+    .divider {
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #f7b731, transparent);
+      margin: 1.5rem auto 2rem;
+      border-radius: 4px;
+      opacity: 0.6;
+    }
+
+    .discord-cta {
+      background: rgba(88, 101, 242, 0.12);
+      border: 1px solid rgba(88, 101, 242, 0.3);
+      border-radius: 60px;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s;
+    }
+
+    .discord-cta:hover {
+      background: rgba(88, 101, 242, 0.2);
+      border-color: #5865f2;
+    }
+
+    .discord-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #d0d7f0;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .discord-label i {
+      font-size: 1.8rem;
+      color: #5865f2;
+      filter: drop-shadow(0 0 6px rgba(88, 101, 242, 0.5));
+    }
+
+    .discord-label span {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #f7b731;
+      border: 1px solid rgba(247, 183, 49, 0.2);
+    }
+
+    .btn-copy {
+      background: linear-gradient(135deg, #5865f2, #4752c4);
+      border: none;
+      padding: 0.75rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(88, 101, 242, 0.35);
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      letter-spacing: 0.4px;
+      flex-shrink: 0;
+    }
+
+    .btn-copy i {
+      font-size: 1.1rem;
+    }
+
+    .btn-copy:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(88, 101, 242, 0.5);
+      background: linear-gradient(135deg, #6c7af5, #4a56d0);
+    }
+
+    .btn-copy:active {
+      transform: scale(0.97);
+      box-shadow: 0 4px 12px rgba(88, 101, 242, 0.4);
+    }
+
+    .btn-copy.copied {
+      background: linear-gradient(135deg, #3bb87c, #2a9d6a);
+      box-shadow: 0 8px 18px rgba(59, 184, 124, 0.4);
+    }
+
+    .toast-message {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #b6c0e0;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      display: inline-block;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: opacity 0.3s;
+    }
+
+    .toast-message i {
+      color: #3bb87c;
+      margin-right: 6px;
+    }
+
+    .footer-note {
+      margin-top: 2.2rem;
+      font-size: 0.8rem;
+      color: #5f6b97;
+      letter-spacing: 0.3px;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      padding-top: 1.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-note i {
+      color: #f7b731;
+      font-size: 0.7rem;
+    }
+
+    /* responsive */
+    @media (max-width: 500px) {
+      .card {
+        padding: 2rem 1.5rem;
+        border-radius: 2.5rem;
+      }
+
+      h1 {
+        font-size: 2.4rem;
+      }
+
+      .discord-cta {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.2rem 1.2rem;
+        gap: 1rem;
+      }
+
+      .btn-copy {
+        justify-content: center;
+        padding: 0.8rem 1rem;
+        width: 100%;
+      }
+
+      .discord-label {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="main" aria-label="Proxy Antiban VIP Card">
+    <!-- Badge -->
+    <div class="badge-vip">
+      <i class="fas fa-crown" style="margin-right: 6px;"></i> VIP
+    </div>
+
+    <!-- Tiêu đề -->
+    <h1>Proxy Antiban</h1>
+    <div class="subhead">
+      <i class="fas fa-shield-halved"></i> Bảo vệ tối ưu · Không giới hạn
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Dòng "Get Key Free Trong Discord" -->
+    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 1.2rem; flex-wrap: wrap;">
+      <span style="background: rgba(247, 183, 49, 0.08); padding: 0.3rem 1.2rem; border-radius: 40px; color: #d4dbf5; font-weight: 500; border: 1px solid rgba(247, 183, 49, 0.1);">
+        <i class="fas fa-key" style="color: #f7b731; margin-right: 8px;"></i> Get Key Free
+      </span>
+      <span style="background: rgba(88, 101, 242, 0.08); padding: 0.3rem 1.2rem; border-radius: 40px; color: #d4dbf5; font-weight: 500; border: 1px solid rgba(88, 101, 242, 0.1);">
+        <i class="fab fa-discord" style="color: #5865f2; margin-right: 8px;"></i> Trong Discord
+      </span>
+    </div>
+
+    <!-- Discord CTA + Button Copy -->
+    <div class="discord-cta">
+      <div class="discord-label">
+        <i class="fab fa-discord"></i>
+        <span>Nhóm Discord</span>
+        <span style="font-size: 0.8rem; opacity: 0.7; margin-left: 2px;">VIP</span>
+      </div>
+      <button class="btn-copy" id="copyButton" aria-label="Copy link nhóm Discord">
+        <i class="fas fa-copy"></i> Copy Link Nhóm
+      </button>
+    </div>
+
+    <!-- Toast / thông báo -->
+    <div id="toastMessage" class="toast-message">
+      <i class="fas fa-info-circle"></i> Nhấn nút để sao chép link
+    </div>
+
+    <!-- footer nhẹ -->
+    <div class="footer-note">
+      <i class="fas fa-bolt"></i>
+      <span>Proxy Antiban · 2026</span>
+      <i class="fas fa-circle" style="font-size: 0.3rem; opacity: 0.3;"></i>
+      <span style="color: #5f6b97;">Premium</span>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const copyButton = document.getElementById('copyButton');
+      const toast = document.getElementById('toastMessage');
+      const DISCORD_LINK = 'https://discord.gg/FgTZ5GmTbz'; 
+
+      // Hàm hiển thị thông báo
+      function showToast(message, isSuccess = true) {
+        toast.innerHTML = '';
+        const icon = document.createElement('i');
+        icon.className = isSuccess ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+        icon.style.color = isSuccess ? '#3bb87c' : '#f5a623';
+        toast.appendChild(icon);
+        toast.appendChild(document.createTextNode(' ' + message));
+        // reset màu nền nếu cần
+        toast.style.background = 'rgba(0,0,0,0.25)';
+        // Nếu là copied thì thêm hiệu ứng nhẹ
+        if (isSuccess) {
+          toast.style.border = '1px solid rgba(59, 184, 124, 0.2)';
+        } else {
+          toast.style.border = '1px solid rgba(245, 166, 35, 0.2)';
+        }
+      }
+
+      // Xử lý copy
+      async function handleCopy() {
+        try {
+          // Thử dùng clipboard API
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(DISCORD_LINK);
+            // Thành công
+            copyButton.classList.add('copied');
+            // Đổi text tạm thời
+            const originalHTML = copyButton.innerHTML;
+            copyButton.innerHTML = '<i class="fas fa-check"></i> Đã Copy!';
+            showToast('Đã sao chép link nhóm Discord!', true);
+
+            // Reset sau 2.5s
+            setTimeout(() => {
+              copyButton.classList.remove('copied');
+              copyButton.innerHTML = originalHTML;
+            }, 2500);
+          } else {
+            // Fallback: tạo input ẩn
+            const tempInput = document.createElement('input');
+            tempInput.value = DISCORD_LINK;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            copyButton.classList.add('copied');
+            const originalHTML = copyButton.innerHTML;
+            copyButton.innerHTML = '<i class="fas fa-check"></i> Đã Copy!';
+            showToast('Đã sao chép (fallback) link nhóm!', true);
+            setTimeout(() => {
+              copyButton.classList.remove('copied');
+              copyButton.innerHTML = originalHTML;
+            }, 2500);
+          }
+        } catch (err) {
+          console.warn('Copy thất bại:', err);
+          showToast('Không thể copy. Vui lòng thử lại.', false);
+          // Nếu lỗi, vẫn reset button sau 3s
+          setTimeout(() => {
+            copyButton.classList.remove('copied');
+          }, 3000);
+        }
+      }
+
+      copyButton.addEventListener('click', handleCopy);
+
+      // (Tuỳ chọn) hiển thị link trong console để debug
+      console.log('Discord link ready:', DISCORD_LINK);
+    })();
+  </script>
+</body>
+</html>
