@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ngoc Bong - Solitude</title>
+    <title>Proxy Vip</title>
     <style>
         * {
             margin: 0;
@@ -179,7 +179,6 @@
             }
         }
         
-        /* Scrollbar tùy chỉnh cho iframe */
         .iframe-wrapper::-webkit-scrollbar {
             width: 4px;
         }
@@ -194,16 +193,13 @@
         }
     </style>
     
-    <!-- Font Awesome cho icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <div class="iframe-wrapper">
-            <!-- Spinner loading -->
             <div class="loader" id="loader"></div>
             
-            <!-- Iframe nhúng trang gốc -->
             <iframe 
                 id="mainFrame"
                 src="https://solitudepremium.click/ngoc/v22.php" 
@@ -211,24 +207,21 @@
                 allowfullscreen
                 loading="lazy"
             ></iframe>
-            
-            <!-- Lớp phủ để bắt sự kiện (có thể bật/tắt) -->
+        
             <div class="overlay" id="overlay"></div>
-            
-            <!-- Các nút thay thế - đè lên nút gốc -->
+        
             <div class="button-overlay">
-                <a href="key.php" class="btn-replace btn-unlock">
-                    <i class="fa-solid fa-unlock-keyhole"></i> GET KEY
+                <a href="https://key.gmvmoba.com/api/keyproxy" class="btn-replace btn-unlock">
+                    <i class="fa-solid fa-unlock-keyhole"></i> GET KEY VIP 
                 </a>
-                <a href="https://solitudepremium.click/vanduyios/solitude.mobileconfig" target="_blank" class="btn-replace btn-cert">
-                    <i class="fa-solid fa-shield-halved"></i> CERT
+                <a href="https://gmvmoba.com/buy/solitude.mobileconfig" target="_blank" class="btn-replace btn-cert">
+                    <i class="fa-solid fa-shield-halved"></i> DNS ANTIBAN
                 </a>
             </div>
         </div>
     </div>
     
     <script>
-        // Ẩn loader khi iframe đã load
         document.getElementById('mainFrame').addEventListener('load', function() {
             const loader = document.getElementById('loader');
             loader.style.opacity = '0';
@@ -237,7 +230,6 @@
             }, 300);
         });
         
-        // Nếu iframe không load sau 5 giây, ẩn loader
         setTimeout(() => {
             const loader = document.getElementById('loader');
             if (loader.style.display !== 'none') {
@@ -248,30 +240,15 @@
             }
         }, 5000);
         
-        // Xử lý khi iframe load xong - điều chỉnh chiều cao
         document.getElementById('mainFrame').addEventListener('load', function() {
             try {
-                // Thử điều chỉnh chiều cao dựa trên nội dung
                 const iframe = this;
                 const height = iframe.contentWindow.document.documentElement.scrollHeight;
                 iframe.style.height = height + 'px';
             } catch(e) {
-                // Nếu bị CORS, giữ nguyên height mặc định
                 console.log('Không thể tự động điều chỉnh chiều cao do CORS');
             }
         });
-        
-        // Ẩn overlay để cho phép tương tác với iframe
-        // Bạn có thể bật lại bằng cách xóa comment dòng dưới
-        // document.getElementById('overlay').style.pointerEvents = 'none';
-        
-        // Nếu muốn chặn hoàn toàn tương tác với iframe, bật overlay
-        // document.getElementById('overlay').style.pointerEvents = 'all';
-        
-        console.log('✅ Trang đã được nhúng thành công!');
-        console.log('🔗 Các nút đã được thay thế:');
-        console.log('  - GET KEY → key.php');
-        console.log('  - CERT → https://solitudepremium.click/vanduyios/solitude.mobileconfig');
     </script>
 </body>
 </html>
