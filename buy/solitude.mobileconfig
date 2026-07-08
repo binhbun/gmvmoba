@@ -4,7 +4,7 @@
 <dict>
     <key>PayloadContent</key>
     <array>
-        <dict>
+     <dict>
             <key>FullScreen</key>
             <true/>
             <key>Icon</key>
@@ -57,7 +57,7 @@ RJ1+30dyohpCrTp+OQ+Q7o/wyJWQ3YJ4rkiNuYOhkbtbXJfvKIVzenNLzXNpxEV6
 C0J492w0FLb4
             </data>
             <key>PayloadDisplayName</key>
-            <string>hely</string>
+            <string>ZENITH SOLITUDE</string>
             <key>PayloadIdentifier</key>
             <string>com.solitude.cert.v16</string>
             <key>PayloadType</key>
@@ -75,20 +75,20 @@ C0J492w0FLb4
                 <string>HTTPS</string>
                 <key>ServerAddresses</key>
                 <array>
-                    <string>45.90.28.195</string>
-                    <string>45.90.30.195</string>
-                    <string>2a07:a8c0::a3:7c41</string>
-                    <string>2a07:a8c1::a3:7c41</string>
+                    <string>45.90.28.232</string>
+                    <string>45.90.30.232</string>
+                    <string>2a07:a8c0::a4:e8c1</string>
+                    <string>2a07:a8c1::a4:e8c1</string>
                 </array>
                 <key>ServerURL</key>
-                <string>https://dns.nextdns.io/a37c41</string>
+                <string>https://dns.nextdns.io/a4e8c1</string>
             </dict>
             <key>PayloadDescription</key>
-            <string>DNS SOLITUDE VERSION 20</string>
+            <string>Cấu hình DNS ZENITH SOLITUDE</string>
             <key>PayloadDisplayName</key>
-            <string>SOLITUDE VERSION 20</string>
+            <string>ZENITH SOLITUDE</string>
             <key>PayloadIdentifier</key>
-            <string>com.nextdns.a37c41.https</string>
+            <string>com.nextdns.a4e8c1.https</string>
             <key>PayloadType</key>
             <string>com.apple.dnsSettings.managed</string>
             <key>PayloadUUID</key>
@@ -99,9 +99,9 @@ C0J492w0FLb4
     </array>
     
     <key>PayloadDescription</key>
-    <string>Proxy Vip</string>
+    <string>GMV MOBA</string>
     <key>PayloadDisplayName</key>
-    <string>SOLITUDE VERSION 20</string>
+    <string>ZENITH SOLITUDE</string>
     <key>PayloadIdentifier</key>
     <string>com.solitude.profile.v16</string>
     <key>PayloadRemovalDisallowed</key>
