@@ -3,788 +3,765 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-    <title>Proxy Vip</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ZENITH SOLITUDE - AIM CENTER</title>
+    <script src="https://cdn.tailwindcss.com" type="0c771fd6827df1ada3c8385d-text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style nonce="KLJ6Dal4R7UM61eqxDLY3g==">
-        :root { 
-            --bg: #050110; 
-            --glass-bg: rgba(12, 5, 28, 0.8); 
-            --glass-border: rgba(168, 130, 255, 0.35); 
-            --t1: #fff; 
-            --cyan: #b794f4; 
-            --purp: #8b5cf6; 
-            --pink: #ec4899; 
-            --ff-orange: #f59e0b; 
-            --red-mnt: #ef4444; 
-            --neon-scale: 1; 
-            --neon-speed: 5s; 
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glow-color: #a855f7;
+            --deep-bg: #090110;
+            --card-bg: rgba(18, 4, 32, 0.8);
+            --accent: #a855f7;
+            --accent2: #7e22ce;
+            --border-glow: rgba(168, 85, 247, 0.8);
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { 
-            background: var(--bg); 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            min-height: 100vh; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 12px; 
-            color: #fff; 
-            transition: zoom 0.3s ease; 
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #060010;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            touch-action: manipulation;
+            position: relative;
         }
-        
-        /* Nền động - Chiều sâu vũ trụ */
-        .bg { 
-            position: fixed; 
-            inset: 0; 
-            z-index: 0; 
-            background: 
-                radial-gradient(ellipse at 20% 40%, rgba(139, 92, 246, 0.3) 0%, transparent 55%),
-                radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.2) 0%, transparent 55%),
-                radial-gradient(ellipse at 40% 80%, rgba(167, 139, 250, 0.15) 0%, transparent 55%),
-                radial-gradient(ellipse at 70% 60%, rgba(249, 115, 22, 0.08) 0%, transparent 50%);
-            filter: blur(60px); 
-            animation: pulseBg 12s infinite alternate; 
+
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(circle at 30% 40%, rgba(168, 85, 247, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 70% 60%, rgba(126, 34, 206, 0.08) 0%, transparent 60%);
+            animation: bgPulse 10s ease-in-out infinite alternate;
         }
-        
-        @keyframes pulseBg { 
-            0% { opacity: 0.8; transform: scale(1) rotate(0deg); } 
-            100% { opacity: 1; transform: scale(1.12) rotate(3deg); } 
+
+        @keyframes bgPulse {
+            0% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.05); }
         }
-        
-        /* Blocker khi xoay dọc */
-        #landscapeBlocker { 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(5, 1, 16, 0.98); 
-            backdrop-filter: blur(20px); 
-            z-index: 999999; 
-            display: none; 
-            align-items: center; 
-            justify-content: center; 
-            flex-direction: column; 
-            padding: 20px; 
-            text-align: center; 
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background-image: radial-gradient(circle, rgba(168, 85, 247, 0.25) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.4;
         }
-        #landscapeBlocker i { 
-            font-size: 80px; 
-            color: var(--purp); 
-            margin-bottom: 25px; 
-            animation: iconFloat 2s ease-in-out infinite; 
+
+        .premium-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(168, 85, 247, 0.6);
+            border-radius: 32px;
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.35), 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: box-shadow 0.4s ease, border-color 0.4s ease;
         }
-        #landscapeBlocker span { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            font-size: 16px; 
-            color: #d8b4fe; 
-            font-weight: bold; 
-            line-height: 1.6; 
-            letter-spacing: 1px; 
-            text-transform: uppercase;
+
+        .premium-card::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #a855f7, #7e22ce, #a855f7, #7e22ce);
+            background-size: 400% 400%;
+            border-radius: 34px;
+            z-index: -1;
+            animation: borderGlow 8s linear infinite;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            filter: blur(10px);
         }
-        
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 15px var(--purp)); }
-            50% { transform: translateY(-15px); filter: drop-shadow(0 0 30px var(--purp)); }
+
+        .premium-card:hover::before {
+            opacity: 0.7;
         }
-        @keyframes brandGlow { 
-            0%, 100% { color: #fff; text-shadow: 0 0 20px rgba(168, 130, 255, 0.8), 0 0 40px rgba(139, 92, 246, 0.4); } 
-            50% { color: #ede9fe; text-shadow: 0 0 35px #b794f4, 0 0 70px rgba(236, 72, 153, 0.5), 0 0 100px rgba(139, 92, 246, 0.3); } 
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        
-        /* Nút ngôn ngữ và điều chỉnh */
-        .lang-btn { 
-            position: fixed; 
-            top: 20px; 
-            left: 20px; 
-            z-index: 100; 
-            background: rgba(139, 92, 246, 0.25); 
-            backdrop-filter: blur(15px); 
-            border: 1px solid var(--glass-border); 
-            border-radius: 14px; 
-            padding: 10px 20px; 
-            color: #fff; 
-            font-weight: 900; 
-            font-family: 'Orbitron', sans-serif; 
-            cursor: pointer; 
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            box-shadow: 0 6px 25px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(255,255,255,0.1); 
-            font-size: 12px; 
-            letter-spacing: 1px;
+
+        .glass-input {
+            background: rgba(18, 4, 32, 0.9);
+            border: 1.5px solid rgba(168, 85, 247, 0.8);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3), inset 0 0 8px rgba(168, 85, 247, 0.15);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
         }
-        .lang-btn:hover { 
-            background: rgba(168, 130, 255, 0.4); 
-            box-shadow: 0 10px 35px rgba(139, 92, 246, 0.5), 0 0 20px rgba(236, 72, 153, 0.2); 
-            transform: translateY(-3px); 
-            border-color: var(--purp);
+        .glass-input:focus {
+            border-color: #a855f7;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.6), inset 0 0 12px rgba(168, 85, 247, 0.3);
+            background: #1b0828;
+            transform: scale(1.01);
         }
-        
-        .control-btn { 
-            position: fixed; 
-            top: 20px; 
-            z-index: 100; 
-            background: rgba(236, 72, 153, 0.25); 
-            backdrop-filter: blur(15px); 
-            border: 1px solid rgba(236, 72, 153, 0.4); 
-            border-radius: 14px; 
-            width: 44px; 
-            height: 44px; 
-            color: #fff; 
-            cursor: pointer; 
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            box-shadow: 0 6px 25px rgba(236, 72, 153, 0.3), inset 0 1px 0 rgba(255,255,255,0.1); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-weight: bold; 
-        }
-        #shrinkTextBtn { 
-            left: 120px; 
-            color: var(--pink); 
-            font-family: 'Times New Roman', serif; 
-            font-size: 20px; 
-        }
-        #shrinkTextBtn:hover { 
-            background: rgba(236, 72, 153, 0.4); 
-            box-shadow: 0 10px 35px rgba(236, 72, 153, 0.6), 0 0 20px rgba(139, 92, 246, 0.2); 
-            transform: translateY(-3px) scale(1.05); 
-            border-color: var(--pink);
-        }
-        
-        /* Nút cài đặt góc phải */
-        .setting-btn { 
-            position: fixed; 
-            bottom: 35px; 
-            right: 35px; 
-            z-index: 101; 
-            width: 65px; 
-            height: 65px; 
-            background: linear-gradient(145deg, rgba(139, 92, 246, 0.4), rgba(236, 72, 153, 0.3)); 
-            backdrop-filter: blur(20px); 
-            border: 1px solid rgba(255, 255, 255, 0.4); 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 26px; 
-            color: #fff; 
-            cursor: pointer; 
-            box-shadow: 0 15px 45px rgba(139, 92, 246, 0.5), 0 0 30px rgba(236, 72, 153, 0.3), inset 0 2px 5px rgba(255, 255, 255, 0.2); 
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-        .setting-btn:hover { 
-            transform: rotate(180deg) scale(1.15); 
-            box-shadow: 0 25px 60px rgba(236, 72, 153, 0.6), 0 0 50px rgba(139, 92, 246, 0.5), inset 0 3px 8px rgba(255, 255, 255, 0.3); 
-            border-color: rgba(255, 255, 255, 0.7); 
-        }
-        
-        /* Modal Glassmorphism siêu chiều sâu */
-        .game-modal-overlay { 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(3, 1, 12, 0.75); 
-            z-index: 110; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 15px; 
-            opacity: 0; 
-            visibility: hidden; 
-            transition: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            backdrop-filter: blur(15px); 
-            -webkit-backdrop-filter: blur(15px); 
-        }
-        .game-modal-overlay.active { opacity: 1; visibility: visible; }
-        
-        .game-modal { 
-            width: 100%; 
-            max-width: 600px; 
-            height: 450px; 
-            background: var(--glass-bg); 
-            backdrop-filter: blur(30px); 
-            -webkit-backdrop-filter: blur(30px); 
-            border: 1px solid var(--glass-border); 
-            border-radius: 28px; 
-            display: flex; 
-            flex-direction: row; 
-            position: relative; 
-            transform: scale(0.9) translateY(50px) perspective(800px) rotateX(5deg); 
-            opacity: 0; 
-            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            box-shadow: 
-                0 50px 100px rgba(0, 0, 0, 0.9), 
-                0 0 80px rgba(139, 92, 246, 0.25) inset, 
-                0 0 40px rgba(236, 72, 153, 0.15) inset,
-                0 2px 10px rgba(255, 255, 255, 0.1) inset;
-            overflow: hidden; 
-        }
-        .game-modal-overlay.active .game-modal { 
-            transform: scale(1) translateY(0) perspective(800px) rotateX(0deg); 
-            opacity: 1; 
-        }
-        
-        .modal-ip-badge { 
-            position: absolute; 
-            top: 18px; 
-            left: 18px; 
-            z-index: 10; 
-            font-family: 'Orbitron', monospace; 
-            font-size: 9px; 
-            color: rgba(255, 255, 255, 0.95); 
-            font-weight: 800; 
-            background: rgba(139, 92, 246, 0.35); 
-            backdrop-filter: blur(10px); 
-            padding: 7px 16px; 
-            border-radius: 25px; 
-            border: 1px solid rgba(168, 130, 255, 0.5); 
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(139, 92, 246, 0.3); 
-            letter-spacing: 1.5px;
-        }
-        
-        .sidebar { 
-            width: 155px; 
-            background: rgba(5, 2, 15, 0.5); 
-            border-right: 1px solid var(--glass-border); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            padding: 55px 14px 25px 14px; 
-            flex-shrink: 0; 
-            overflow-y: auto; 
-            box-shadow: inset -10px 0 30px rgba(0,0,0,0.3);
-        }
-        
-        .user-avatar-mini { 
-            width: 55px; 
-            height: 55px; 
-            border-radius: 18px; 
-            border: 2px solid rgba(168, 130, 255, 0.6); 
-            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4), 0 0 15px rgba(236, 72, 153, 0.2); 
-            object-fit: cover; 
-            cursor: pointer; 
-            margin-bottom: 14px; 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-        .user-avatar-mini:hover { 
-            transform: scale(1.1) translateY(-3px); 
-            border-color: #fff; 
-            box-shadow: 0 18px 40px rgba(167, 139, 250, 0.7), 0 0 25px rgba(236, 72, 153, 0.4); 
-        }
-        .user-name-mini { 
-            font-size: 11px; 
-            font-weight: 800; 
-            color: #ede9fe; 
-            text-align: center; 
-            margin-bottom: 28px; 
-            width: 100%; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-            white-space: nowrap; 
-            opacity: 0.95; 
-            letter-spacing: 0.8px;
-        }
-        .mini-tabs { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 10px; 
-            width: 100%; 
-        }
-        .mini-tab { 
-            padding: 12px 15px; 
-            font-weight: 700; 
-            font-size: 11px; 
-            letter-spacing: 1px; 
-            color: rgba(255, 255, 255, 0.65); 
-            background: transparent; 
-            border: 1px solid transparent; 
-            border-radius: 12px; 
-            text-decoration: none; 
-            cursor: pointer; 
-            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            font-family: 'Orbitron', sans-serif; 
-            text-align: left; 
-            display: flex; 
-            align-items: center; 
-            width: 100%; 
+
+        .btn-gradient-premium {
+            background: linear-gradient(135deg, #1b0828 0%, #2d0a3d 100%);
+            border: 1.5px solid rgba(168, 85, 247, 0.9);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
-        .mini-tab::before {
+        .btn-gradient-premium:hover {
+            background: #2f1142;
+            border-color: #c084fc;
+            box-shadow: 0 0 60px rgba(168, 85, 247, 0.9);
+            transform: translateY(-2px);
+        }
+        .btn-gradient-premium:active { transform: scale(0.97); }
+        .btn-gradient-premium::after {
             content: '';
             position: absolute;
-            top: 0; left: 0;
-            width: 3px; height: 100%;
-            background: linear-gradient(180deg, var(--purp), var(--pink));
-            border-radius: 0 4px 4px 0;
-            transform: scaleY(0);
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(168, 85, 247, 0.25), transparent);
+            transform: rotate(45deg) translate(-100%, -100%);
+            transition: transform 0.6s ease;
         }
-        .mini-tab i { 
-            margin-right: 10px; 
-            font-size: 14px; 
-            width: 18px; 
-            text-align: center; 
-            color: var(--purp);
-            transition: color 0.3s;
+        .btn-gradient-premium:hover::after {
+            transform: rotate(45deg) translate(100%, 100%);
         }
-        .mini-tab:hover { 
-            background: rgba(139, 92, 246, 0.12); 
-            color: #fff; 
-            transform: translateX(8px); 
-            border-color: rgba(168, 130, 255, 0.2); 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+
+        .btn-unlock, .btn-cert {
+            background: rgba(18, 4, 32, 0.9);
+            border: 1px solid rgba(168, 85, 247, 0.7);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
         }
-        .mini-tab:hover::before { transform: scaleY(1); }
-        .mini-tab.active { 
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.2)); 
-            color: #fff; 
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4), 0 0 20px rgba(236, 72, 153, 0.2); 
-            transform: translateX(8px); 
-            border: 1px solid rgba(168, 130, 255, 0.4); 
+        .btn-unlock:hover, .btn-cert:hover {
+            border-color: #c084fc;
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.8);
+            background: #1b0828;
+            transform: translateY(-1px);
         }
-        .mini-tab.active::before { transform: scaleY(1); }
-        .mini-tab.active i { color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.6); }
-        
-        .modal-content-area { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            min-width: 0; 
-            background: transparent; 
+
+        .switch { position: relative; display: inline-block; width: 56px; height: 30px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(168, 85, 247, 0.2);
+            border: 1.5px solid rgba(168, 85, 247, 0.8);
+            transition: 0.3s; border-radius: 34px;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
         }
-        .modal-top-bar { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            padding: 20px 28px; 
-            border-bottom: 1px solid var(--glass-border); 
-            background: rgba(5, 2, 15, 0.4); 
-            z-index: 5; 
+        .slider:before {
+            position: absolute; content: "";
+            height: 22px; width: 22px;
+            left: 3px; bottom: 3px;
+            background: #a855f7;
+            transition: 0.3s; border-radius: 50%;
+            box-shadow: 0 0 25px #a855f7;
+        }
+        input:checked + .slider {
+            background: #a855f7;
+            border-color: #a855f7;
+            box-shadow: 0 0 40px #a855f7;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            background: #000;
+            box-shadow: 0 0 30px #a855f7;
+        }
+
+        .cyber-glow {
+            text-shadow: 0 0 20px #a855f7, 0 0 40px rgba(168, 85, 247, 0.9), 0 0 60px rgba(126, 34, 206, 0.7);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 20px #a855f7, 0 0 40px rgba(168, 85, 247, 0.8); }
+            100% { text-shadow: 0 0 30px #c084fc, 0 0 60px rgba(168, 85, 247, 1), 0 0 80px rgba(126, 34, 206, 0.9); }
+        }
+
+        .ip-badge {
+            background: rgba(10, 3, 20, 0.9);
+            border: 1.5px solid rgba(168, 85, 247, 0.9);
+            color: #fff;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            text-shadow: 0 0 20px #a855f7;
+            font-family: monospace;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+            animation: badgePulse 2.5s ease-in-out infinite;
+        }
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); }
+            50% { box-shadow: 0 0 35px rgba(168, 85, 247, 0.8); }
+        }
+
+        .accent-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #a855f7, #7e22ce, #a855f7, transparent);
+            width: 70%;
+            margin: 10px auto;
+            box-shadow: 0 0 20px #a855f7;
+            animation: lineShimmer 4s infinite;
+        }
+        @keyframes lineShimmer {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+
+        .countdown-danger {
+            animation: danger-pulse 2s infinite;
+        }
+        @keyframes danger-pulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(168, 85, 247, 0.5); }
+            50% { box-shadow: 0 0 35px rgba(168, 85, 247, 0.9); }
+        }
+
+        #toastContent {
+            box-shadow: 0 0 45px rgba(168, 85, 247, 0.7);
+            border: 1.5px solid rgba(168, 85, 247, 0.9);
+            background: rgba(10, 2, 20, 0.95);
             backdrop-filter: blur(8px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            animation: toastIn 0.5s ease-out;
         }
-        .modal-title-neon { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 19px; 
-            font-weight: 900; 
-            letter-spacing: 4px; 
-            margin-left: auto; 
-            margin-right: auto; 
-            animation: brandGlow 2.5s infinite alternate; 
-            color: #fff; 
+        @keyframes toastIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-        .modal-close-btn { 
-            background: rgba(255, 255, 255, 0.06); 
-            border: 1px solid rgba(255, 255, 255, 0.15); 
-            border-radius: 12px; 
-            width: 36px; 
-            height: 36px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: rgba(255, 255, 255, 0.7); 
-            font-size: 18px; 
-            cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+
+        .mod-item-active {
+            border-color: #a855f7 !important;
+            background: rgba(168, 85, 247, 0.2) !important;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
+            animation: activeModGlow 2s infinite alternate;
         }
-        .modal-close-btn:hover { 
-            background: rgba(239, 68, 68, 0.25); 
-            color: var(--red-mnt); 
-            transform: rotate(90deg) scale(1.15); 
-            border-color: rgba(239, 68, 68, 0.6); 
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+        @keyframes activeModGlow {
+            0% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); }
+            100% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.9); }
         }
-        
-        .game-content { 
-            flex: 1; 
-            padding: 28px; 
-            overflow-y: auto; 
-            color: #fff; 
+
+        .aim-selected {
+            border-color: rgba(168, 85, 247, 0.9) !important;
+            background: rgba(168, 85, 247, 0.15) !important;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
         }
-        .game-content::-webkit-scrollbar { 
-            width: 6px; 
+
+        .disabled { opacity: 0.5; pointer-events: none; filter: grayscale(30%); }
+
+        #modList > div {
+            transition: all 0.3s ease;
+            position: relative; z-index: 1;
+            border: 1px solid transparent;
         }
-        .game-content::-webkit-scrollbar-thumb { 
-            background: linear-gradient(180deg, var(--purp), var(--pink)); 
-            border-radius: 10px; 
-            box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        #modList > div:hover {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: rgba(168, 85, 247, 0.7);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+            transform: translateY(-2px);
         }
-        
-        /* Thẻ Aim Card - Hiệu ứng kính nổi 3D */
-        .aim-card { 
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.07)); 
-            backdrop-filter: blur(20px); 
-            border: 1px solid rgba(168, 130, 255, 0.2); 
-            border-radius: 18px; 
-            padding: 18px 22px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 16px; 
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            cursor: pointer; 
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255,255,255,0.1); 
-            color: #fff; 
+
+        .fa-bullseye, .fa-key, .fa-crosshairs, .fa-server {
+            filter: drop-shadow(0 0 8px #a855f7);
         }
-        .aim-card:hover { 
-            transform: translateY(-5px) scale(1.02); 
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.12)); 
-            border-color: rgba(168, 130, 255, 0.5); 
-            box-shadow: 0 20px 45px rgba(139, 92, 246, 0.3), 0 0 25px rgba(236, 72, 153, 0.15) inset, 0 2px 2px rgba(255,255,255,0.15) inset; 
+
+        .server-box { animation: fadeInUp 0.4s ease; }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-        .aim-card.disabled { 
-            opacity: 0.35; 
-            filter: grayscale(70%); 
-            cursor: not-allowed; 
-            border-color: transparent; 
-        }
-        .aim-card.disabled:hover { 
-            transform: none; 
-            box-shadow: none; 
-            background: rgba(255, 255, 255, 0.03); 
-        }
-        .aim-error-note { 
-            color: #f87171; 
-            font-size: 10px; 
-            font-weight: 700; 
-            background: rgba(248, 113, 113, 0.2); 
-            padding: 3px 9px; 
-            border-radius: 6px; 
-            border: 1px solid rgba(248, 113, 113, 0.4); 
-            margin-left: 8px; 
-            text-shadow: none; 
-        }
-        
-        .switch { 
-            position: relative; 
-            display: inline-block; 
-            width: 50px; 
-            height: 28px; 
-        }
-        .switch input { 
-            opacity: 0; 
-            width: 0; 
-            height: 0; 
-        }
-        .slider { 
-            position: absolute; 
-            cursor: pointer; 
-            top: 0; 
-            left: 0; 
-            right: 0; 
-            bottom: 0; 
-            background-color: rgba(255, 255, 255, 0.08); 
-            transition: .4s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            border-radius: 28px; 
-            border: 1px solid rgba(255, 255, 255, 0.2); 
-            box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.6); 
-        }
-        .slider:before { 
-            position: absolute; 
-            content: ""; 
-            height: 22px; 
-            width: 22px; 
-            left: 2px; 
-            bottom: 2px; 
-            background-color: #fff; 
-            transition: .4s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            border-radius: 50%; 
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4); 
-        }
-        input:checked + .slider { 
-            background-color: var(--purp); 
-            border-color: var(--purp); 
-            box-shadow: 0 0 25px rgba(139, 92, 246, 0.6), inset 0 3px 10px rgba(0, 0, 0, 0.4); 
-        }
-        input:checked + .slider:before { 
-            transform: translateX(22px); 
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.9); 
-        }
-        
-        .game-btn { 
-            width: 100%; 
-            padding: 18px; 
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(236, 72, 153, 0.85)); 
-            border-radius: 16px; 
-            border: none; 
-            font-weight: 800; 
-            letter-spacing: 2px; 
-            color: #fff; 
-            font-size: 14px; 
-            cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4), 0 0 20px rgba(236, 72, 153, 0.2); 
-            text-transform: uppercase; 
-            font-family: 'Orbitron', sans-serif;
-        }
-        .game-btn:hover { 
-            transform: translateY(-4px); 
-            box-shadow: 0 18px 40px rgba(236, 72, 153, 0.5), 0 0 30px rgba(139, 92, 246, 0.4); 
-            background: linear-gradient(135deg, #a78bfa, #f472b6); 
-        }
-        
-        .account-avatar-img { 
-            width: 90px; 
-            height: 90px; 
-            border-radius: 22px; 
-            border: 2px solid rgba(168, 130, 255, 0.7); 
-            cursor: pointer; 
-            object-fit: cover; 
-            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.5), 0 0 20px rgba(236, 72, 153, 0.3); 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-        .account-avatar-img:hover { 
-            transform: scale(1.08); 
-            border-color: #fff; 
-            box-shadow: 0 20px 50px rgba(167, 139, 250, 0.7), 0 0 30px rgba(236, 72, 153, 0.5); 
-        }
-        
-        .swal-sol-popup { 
-            background: rgba(15, 8, 30, 0.98) !important; 
-            backdrop-filter: blur(25px) !important; 
-            border: 1px solid rgba(168, 130, 255, 0.4) !important; 
-            border-radius: 24px !important; 
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 40px rgba(139, 92, 246, 0.3) !important; 
-            color: #fff; 
-        }
-        .sol-btn-ok { 
-            background: linear-gradient(135deg, #8b5cf6, #ec4899) !important; 
-            color: #fff !important; 
-            font-weight: 800 !important; 
-            border-radius: 12px !important; 
-            font-family: 'Orbitron' !important; 
-            padding: 15px 35px !important; 
-            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4) !important;
-        }
-        .sol-btn-kick { 
-            background: var(--red-mnt) !important; 
-            color: #fff !important; 
-            font-weight: 800 !important; 
-            border-radius: 12px !important; 
-            font-family: 'Orbitron' !important; 
-            padding: 15px 35px !important; 
-            box-shadow: 0 12px 30px rgba(239, 68, 68, 0.5) !important; 
-        }
-        .neon-popup-content { 
-            color: #fff; 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 21px; 
-            line-height: 1.7; 
-            text-shadow: 0 0 25px rgba(168, 130, 255, 0.6); 
-        }
-        .neon-port-text { 
-            font-size: 44px; 
-            font-weight: 900; 
-            display: block; 
-            margin-top: 22px; 
-            text-shadow: 0 0 30px rgba(139, 92, 246, 0.9), 0 0 15px rgba(236, 72, 153, 0.5); 
-            color: #ede9fe;
-        }
-        .countdown-text { 
-            font-size: 60px; 
-            font-weight: 900; 
-            color: #fff; 
-            text-shadow: 0 0 30px rgba(236, 72, 153, 0.9); 
-        }
+
+        #btn-submit-main span { position: relative; z-index: 2; }
     </style>
 </head>
-<body>
-    <div id="landscapeBlocker"><i class="fas fa-mobile-alt" style="transform: rotate(90deg);"></i><span>ĐÃ BẬT CHẾ ĐỘ NGANG<br>VUI LÒNG XOAY NGANG ĐỂ DÙNG</span></div>
-    <div class="bg"></div>
-    <button class="lang-btn" id="langToggle">VN</button>
-    <button class="control-btn" id="shrinkTextBtn" title="Điều chỉnh kích thước">Aa</button>
-    <div class="setting-btn" id="settingBtn"><i class="fas fa-layer-group"></i></div>
-    <input type="file" id="globalAvatarInput" accept="image/*" style="display:none;">
-    
-    <div class="game-modal-overlay" id="gameModalOverlay">
-        <div class="game-modal" onclick="event.stopPropagation()">
-            <div class="modal-ip-badge">IP: <span class="live-ip-display">Đang lấy...</span></div>
-            <div class="sidebar" id="sidebarMenu"></div>
-            <div class="modal-content-area">
-                <div class="modal-top-bar">
-                    <span class="modal-title-neon" id="modalTitle">Proxy Vip</span>
-                    <button class="modal-close-btn" id="modalCloseBtn"><i class="fas fa-times"></i></button>
-                </div>
-                <div class="game-content" id="gameContent"></div>
+<body class="flex flex-col items-center justify-center p-4 relative">
+    <div class="bg-layer"></div>
+    <div class="bg-grid"></div>
+
+    <div class="w-full max-w-[440px] space-y-6 my-6 relative z-10">
+        <div class="flex items-center justify-between px-2">
+            <div>
+                <h1 class="cyber-glow text-[28px] font-black tracking-tight text-[#a855f7] uppercase leading-none">Ngoc Bong</h1>
+                <p class="text-[12px] font-bold uppercase tracking-[0.3em] text-[#c084fc] mt-1" style="text-shadow:0 0 20px #a855f7;">By Solitude</p>
             </div>
+            <div class="flex flex-col items-end gap-1 px-4 py-2 rounded-2xl bg-black/70 backdrop-blur-md border border-[#a855f7]/40 shadow-[0_0_35px_rgba(168,85,247,0.4)]">
+                <div class="flex items-center gap-2 text-xs font-bold text-white/90">
+                    <span class="w-2 h-2 rounded-full bg-[#a855f7] shadow-[0_0_15px_#a855f7] animate-pulse"></span> ONLINE
+                </div>
+                <div class="text-[10px] text-white/60 flex gap-3">
+                    <span>PING <span class="text-white font-mono" id="realtime-ping">24ms</span></span>
+                    <span>USERS <span class="text-white font-mono">4312</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="premium-card p-6 space-y-6">
+            <form id="mainForm" method="POST" class="space-y-6" onsubmit="if (!window.__cfRLUnblockHandlers) return false; return false;" data-cf-modified-0c771fd6827df1ada3c8385d-="">
+                <input type="hidden" name="action" id="actionType">
+                <input type="hidden" name="browser_uuid" id="uuidField">
+                <div class="space-y-6 animate-in">
+                    <div class="space-y-2.5">
+                        <label class="text-[11px] font-bold text-white/80 uppercase tracking-widest ml-1 flex items-center gap-2">
+                            <i class="fa-solid fa-key text-[#a855f7] text-[10px]"></i> License Key
+                        </label>
+                        <input type="text" name="key_code" id="keyInput" placeholder="Nhập mã bản quyền..." autocomplete="off"
+                        class="glass-input w-full rounded-2xl py-4 px-4 outline-none font-mono text-sm text-white placeholder-white/40">
+                    </div>
+
+                    <div id="aimSelector" class="space-y-3 hidden">
+                        <label class="text-[11px] font-bold text-white/80 uppercase tracking-widest ml-1 flex items-center gap-2">
+                            <i class="fa-solid fa-crosshairs text-[#a855f7] text-[10px]"></i> Chọn Aim
+                        </label>
+                        <div id="modList" class="space-y-2"></div>
+                    </div>
+
+                    <div id="statusBox" class="hidden space-y-3 bg-white/10 border border-[#a855f7]/40 p-4 rounded-2xl" style="box-shadow:0 0 45px rgba(168,85,247,0.25);">
+                        <div class="flex items-center justify-between">
+                            <span class="ip-badge" id="clientIpDisplay">Đang lấy IP...</span>
+                            <div id="countdownBox" class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 border border-[#a855f7]/50">
+                                <i class="fa-solid fa-hourglass-half text-[10px] text-white/90"></i>
+                                <span id="countdownTimer" class="text-[11px] font-mono font-bold text-white">--:--:--</span>
+                            </div>
+                        </div>
+                        <div class="accent-line"></div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-[#a855f7]/20 border border-[#a855f7]/50 flex items-center justify-center shadow-[0_0_25px_rgba(168,85,247,0.6)]">
+                                    <i class="fa-solid fa-bullseye text-[#a855f7] text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[11px] font-bold text-white/80 uppercase">AIM ACTIVE</p>
+                                    <p class="text-[13px] font-bold text-white" id="statusModName">-</p>
+                                </div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="toggleSwitch" onchange="if (!window.__cfRLUnblockHandlers) return false; toggleMod()" data-cf-modified-0c771fd6827df1ada3c8385d-="">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div id="serverBox" class="server-box hidden p-3 rounded-xl bg-white/10 border border-[#a855f7]/40 mt-2">
+                            <p class="text-[10px] font-bold text-white uppercase tracking-wider mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-server text-[#a855f7]"></i> SERVER INFO
+                            </p>
+                            <div class="flex justify-between text-[11px]">
+                                <span class="text-white/70">Host:</span>
+                                <span class="text-white font-mono font-bold" id="serverHost">server.zenithsolitude.store</span>
+                            </div>
+                            <div class="flex justify-between text-[11px] mt-1">
+                                <span class="text-white/70">Port:</span>
+                                <span class="text-white font-mono font-bold" id="serverPort">5560</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" id="btn-submit-main" onclick="if (!window.__cfRLUnblockHandlers) return false; handleInitialStep()" class="w-full py-4.5 rounded-2xl btn-gradient-premium text-white font-bold text-[14px] uppercase tracking-[0.15em] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 h-14" data-cf-modified-0c771fd6827df1ada3c8385d-="">
+                        <span id="btnText">KÍCH HOẠT KEY</span> <i class="fa-solid fa-arrow-right text-[11px]"></i>
+                    </button>
+
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <a href="key.php" class="py-3.5 rounded-2xl btn-unlock text-white font-bold text-[10px] uppercase tracking-[0.1em] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-unlock-keyhole text-xs"></i> GET KEY
+                        </a>
+                        <a href="https://solitudepremium.click/vanduyios/solitude.mobileconfig" target="_blank" class="py-3.5 rounded-2xl btn-cert text-white font-bold text-[10px] uppercase tracking-[0.1em] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-xs"></i> CERT
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="text-center pb-4 pt-2">
+            <p class="text-[11px] text-white/50 font-medium tracking-wider flex items-center justify-center gap-2">
+                <i class="fa-solid fa-code text-xs"></i> zenithsolitude
+            </p>
         </div>
     </div>
 
-    <script nonce="KLJ6Dal4R7UM61eqxDLY3g==">
-        const isLoggedIn = false;
-        const csrf = "1b9fafd0abb90b890e19c2c22777e3f4928208ac20856d3e755762f681d59cd4";
-        const accountType = "free";
-        const accountRole = "member";
-        const username = "";
-        const displayName = "";
-        let defaultAvatar = "";
-        let activeAim = "" || null;
-        
-        if (activeAim) localStorage.setItem('sol_active_aim', activeAim);
-        else localStorage.removeItem('sol_active_aim');
-        
-        window.solBrightness = localStorage.getItem('sol_brightness') || 100;
-        document.body.style.filter = `brightness(${window.solBrightness}%)`;
-        
-        let solDeviceId = localStorage.getItem('sol_device_id');
-        if (!solDeviceId) { solDeviceId = 'DEV-' + Math.random().toString(36).substr(2, 10) + '-' + Date.now(); localStorage.setItem('sol_device_id', solDeviceId); }
-        let clientDevice = (function() { const ua = navigator.userAgent; let osVer = ''; const iosMatch = ua.match(/OS (\d+[_.]\d+)/); if (iosMatch) osVer = ' iOS ' + iosMatch[1].replace('_', '.'); if (/iPhone/.test(ua)) { return 'iPhone' + osVer; } if (/Android/.test(ua)) { const m = ua.match(/Android.*?; (.*?) Build/); return m ? m[1].trim() : 'Android'; } if (/Windows NT/.test(ua)) return 'Windows PC'; return 'Thiết bị Web'; })();
-        
-        let clientIP = 'Đang lấy...';
-        fetch('https://api.ipify.org?format=json').then(r=>r.json()).then(d=>{ clientIP = d.ip; document.querySelectorAll('.live-ip-display').forEach(e=>e.innerText=clientIP); }).catch(e=>{ clientIP='Lỗi API'; });
-        
-        const urlParams = new URLSearchParams(window.location.search);
-        const magicToken = urlParams.get('token');
-        if (magicToken && !isLoggedIn) {
-            Swal.fire({ html:'<div class="neon-popup-content" style="font-size:16px;">ĐANG XÁC THỰC LINK...</div>', background:'rgba(15,8,30,0.98)', allowOutsideClick:false, didOpen:()=>Swal.showLoading() });
-            const fd = new URLSearchParams(); fd.append('action', 'login_magic'); fd.append('csrf_token', csrf); fd.append('magic_token', magicToken); fd.append('device_id', solDeviceId); fd.append('device_info', clientDevice);
-            fetch('', {method: 'POST', body: fd}).then(r=>r.json()).then(d=>{ if(d.s==='success'){ window.history.replaceState({}, document.title, window.location.pathname); location.reload(); } else { Swal.fire({icon:'error', title:'LỖI', text:d.m, customClass:{popup:'swal-sol-popup', confirmButton:'sol-btn-ok'}}); } });
-        }
-        
-        const dict = { vi: { tab_login:"Đăng nhập", tab_video:"Hướng Dẫn", tab_aim:"Aimbot", tab_acc:"Tài khoản", login_title:"ĐĂNG NHẬP" }, en: { tab_login:"Login", tab_video:"Tutorial", tab_aim:"Aimbot", tab_acc:"Account", login_title:"LOGIN" } };
-        let curLang = localStorage.getItem('sol_lang') || 'vi';
-        function t(k){ return dict[curLang][k] || k; }
-        
-        document.getElementById('langToggle').onclick = ()=>{ curLang = curLang==='vi'?'en':'vi'; localStorage.setItem('sol_lang', curLang); document.getElementById('langToggle').innerText = curLang.toUpperCase(); if(document.getElementById('gameModalOverlay').classList.contains('active')){ renderUserBar(); switchTab(currentTab); } };
-        document.getElementById('langToggle').innerText = curLang.toUpperCase();
-        
-        function handleKick(){ if(window.isKickedOut)return; window.isKickedOut=true; localStorage.removeItem('sol_active_aim'); localStorage.removeItem('sol_free_expire'); Swal.fire({ html:'<div class="neon-popup-content" style="font-size:16px;">TÀI KHOẢN ĐÃ HẾT HẠN</div>', customClass:{popup:'swal-sol-popup swal-sol-kick',confirmButton:'sol-btn-kick'} }).then(()=>location.reload()); }
-        
-        const overlay = document.getElementById('gameModalOverlay'); const contentDiv = document.getElementById('gameContent'); let currentTab = isLoggedIn ? 'aim' : 'login';
-        document.getElementById('settingBtn').onclick = ()=>{ overlay.classList.add('active'); renderUserBar(); switchTab(currentTab); };
-        document.getElementById('modalCloseBtn').onclick = ()=> overlay.classList.remove('active'); overlay.addEventListener('click', e=>{ if(e.target===overlay) overlay.classList.remove('active'); });
-        
-        function renderUserBar(){
-            if(isLoggedIn){
-                document.getElementById('sidebarMenu').innerHTML = `<img src="${defaultAvatar}" class="user-avatar-mini" id="miniAvatar" title="Đổi Avatar"><span class="user-name-mini">${displayName}</span><div class="mini-tabs"><button class="mini-tab ${currentTab==='aim'?'active':''}" data-tab="aim"><i class="fas fa-crosshairs"></i> ${t('tab_aim')}</button><button class="mini-tab ${currentTab==='account'?'active':''}" data-tab="account"><i class="fas fa-user-astronaut"></i> ${t('tab_acc')}</button><button class="mini-tab ${currentTab==='settings'?'active':''}" data-tab="settings"><i class="fas fa-cog"></i> Cài Đặt Giao Diện</button></div>`;
-                document.getElementById('miniAvatar').onclick = ()=> document.getElementById('globalAvatarInput').click();
-            } else { 
-                document.getElementById('sidebarMenu').innerHTML = `<div class="mini-tabs"><button class="mini-tab ${currentTab==='login'?'active':''}" data-tab="login"><i class="fas fa-sign-in-alt"></i> ${t('tab_login')}</button><button class="mini-tab ${currentTab==='video'?'active':''}" data-tab="video"><i class="fas fa-play"></i> ${t('tab_video')}</button></div>`; 
+    <div id="toast" style="position:fixed;top:24px;left:50%;transform:translate(-50%,-20px);opacity:0;visibility:hidden;z-index:110;width:90%;max-width:400px;transition:0.4s cubic-bezier(0.175,0.885,0.32,1.275);">
+        <div id="toastContent" class="p-4 rounded-2xl text-white text-sm font-medium"></div>
+    </div>
+
+    <audio id="bgMusic" src="quy.mp3" autoplay loop preload="auto"></audio>
+
+    <script type="0c771fd6827df1ada3c8385d-text/javascript">
+        let clientIP = null;
+        let currentActiveMod = null, currentActiveFile = null;
+        let currentServer = 'server.zenithsolitude.store', currentPort = 5560;
+        let currentKey = null, isKeyChecked = false, expiresAt = null, countdownInterval = null, statusCheckInterval = null;
+        let selectedAimFile = null, selectedAimName = null;
+        let cooldownTimer = null, cooldownRemaining = 0;
+        const COOLDOWN_SECONDS = 5;
+        let modList = [];
+
+        async function fetchRealIP() {
+            try {
+                const resp = await fetch('https://api4.ipify.org?format=json');
+                const data = await resp.json();
+                clientIP = data.ip;
+                document.getElementById('clientIpDisplay').innerText = clientIP;
+            } catch(e) {
+                document.getElementById('clientIpDisplay').innerText = 'Lỗi lấy IP';
             }
-            document.querySelectorAll('.mini-tab[data-tab]').forEach(b=> b.onclick = function(){ currentTab = this.dataset.tab; renderUserBar(); switchTab(currentTab); });
         }
-        
-        function renderAimItem(id, name, errorNote = ''){ 
-            let isChecked = activeAim === id; 
-            let isDisabled = activeAim !== null && activeAim !== id; 
-            let activeText = isChecked ? '<span style="color:var(--purp); font-size:10px; font-weight:800; margin-right:10px; text-shadow:0 0 15px rgba(139,92,246,0.8);">ĐANG BẬT</span>' : ''; 
-            let noteHtml = errorNote ? ` <span class="aim-error-note">${errorNote}</span>` : ''; 
-            return `<div class="aim-card ${isDisabled ? 'disabled' : ''}" data-id="${id}"><span style="font-size:13px; font-weight:700; color:${isDisabled ? 'rgba(255,255,255,0.6)' : '#fff'}; display:flex; align-items:center;">${name}${noteHtml}</span><div style="display:flex; align-items:center;">${activeText}<label class="switch"><input type="checkbox" class="aim-switch-input" data-id="${id}" ${isChecked?'checked':''} ${isDisabled?'disabled':''}><span class="slider"></span></label></div></div>`; 
+        fetchRealIP();
+
+        async function loadModList() {
+            try {
+                const fd = new FormData();
+                fd.append('action', 'get_aims');
+                const resp = await fetch(window.location.href, { method: 'POST', body: fd });
+                const data = await resp.json();
+                if (data.status === 'success' && data.aims) {
+                    modList = data.aims.map(a => ({
+                        file: a.file,
+                        name: a.name,
+                        icon: a.icon || 'fa-crosshairs',
+                        desc: a.desc || '',
+                        badge: a.badge || 'SAFE',
+                        server: a.server || 'server.zenithsolitude.store',
+                        port: a.port || 5560
+                    }));
+                } else {
+                    modList = [
+                        { file: 'aim_dragon2.txt', name: 'Aim Drag On 2.0', icon: 'fa-bolt', desc: 'Kéo aim siêu mượt', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 },
+                        { file: 'aim_chest.txt', name: 'Aim Chest', icon: 'fa-crosshairs', desc: 'Tự động aim vào ngực', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 },
+                        { file: 'aim_neck_dragon2.txt', name: 'Aim Neck Drag 2.0', icon: 'fa-circle-dot', desc: 'Aim vào cổ', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 },
+                        { file: 'aim_magic_bullet.txt', name: 'Magic Bullet', icon: 'fa-magic', desc: 'Đạn ma thuật', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 }
+                    ];
+                }
+            } catch (e) {
+                modList = [
+                    { file: 'aim_dragon2.txt', name: 'Aim Drag On 2.0', icon: 'fa-bolt', desc: 'Kéo aim siêu mượt', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 },
+                    { file: 'aim_chest.txt', name: 'Aim Chest', icon: 'fa-crosshairs', desc: 'Tự động aim vào ngực', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 },
+                    { file: 'aim_neck_dragon2.txt', name: 'Aim Neck Drag 2.0', icon: 'fa-circle-dot', desc: 'Aim vào cổ', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 },
+                    { file: 'aim_magic_bullet.txt', name: 'Magic Bullet', icon: 'fa-magic', desc: 'Đạn ma thuật', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 }
+                ];
+            }
+            renderModList();
         }
-        
-        function switchTab(tab){
-            let html='';
-         if(!isLoggedIn){ 
-                if(tab==='login'){ html=`<div style="width:100%;max-width:280px;margin:30px auto;text-align:center;"><h3 style="font-family:'Orbitron';color:#fff;margin-bottom:20px;letter-spacing:2px;"><i class="fas fa-bolt" style="color:var(--purp);"></i> ${t('login_title')}</h3>
-                <div style="color:rgba(255,255,255,0.7); font-size:13px; margin-bottom:30px; line-height: 1.6;">Hệ thống đăng nhập Proxy.<br>Vào nhóm Discord để lấy Key Miễn Phí nhé</div>
-                <a href="https://discord.com/invite/FgTZ5GmTbz" class="game-btn" style="text-decoration:none; display:inline-block; text-align:center; padding:15px; font-size: 14px; border-radius: 12px;">🌐 Vào Discord Lấy Key Free</a></div>`; } 
-                else if(tab==='video'){ html=`<div style="text-align:center;padding:50px 10px;"><a href="https://drive.google.com/file/d/1VEX8MhcaV--9x8QzlriN7L5BnvCCPUlz/view?usp=drivesdk" target="_blank" class="game-btn" style="background: linear-gradient(135deg, #be185d, var(--pink)); display:inline-block; text-decoration:none; color:#fff; border-radius: 12px;"><i class="fas fa-play-circle"></i> Xem Hướng Dẫn</a></div>`; } 
-            }  else {if(tab==='aim'){ 
-                    html=`<div style="width:100%;max-width:340px;margin:0 auto;padding-top:5px;">
-                    <h4 style="color:#fff;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:15px;font-family:'Orbitron';"><i class="fas fa-crosshairs"></i> AIMBOT VIP</h4>
-                    <div class="aim-card" style="background:rgba(0,0,0,0.2);cursor:default;box-shadow:none;border:1px dashed rgba(255,255,255,0.2);">
-                        <span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.8);display:flex;align-items:center;gap:6px;"><i class="fas fa-server"></i> Máy chủ: <span id="serverHostname" style="color:#fff;margin-left:4px;cursor:pointer;">solitudeversion.duckdns.org</span></span>
+
+        function renderModList() {
+            const container = document.getElementById('modList');
+            if (!container) return;
+            container.innerHTML = modList.map(mod => {
+                const isActive = (currentActiveFile === mod.file);
+                const isSelected = (!isActive && selectedAimFile === mod.file);
+                let extraClass = '';
+                if (isActive) extraClass = 'mod-item-active';
+                else if (isSelected) extraClass = 'aim-selected';
+                return `<div class="flex items-center justify-between p-3 rounded-xl bg-black/40 border cursor-pointer transition-all relative ${extraClass} ${!isActive && !isSelected ? 'border-white/30 text-gray-300 hover:border-[#a855f7]/70 hover:bg-white/10' : ''}" onclick="selectAim('${mod.file}', '${mod.name}')">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid ${mod.icon} text-[#a855f7]/80 text-sm"></i>
+                        <div><span class="text-[12px] font-bold">${mod.name}</span><p class="text-[9px] text-white/50">${mod.desc}</p></div>
+                        ${isActive ? '<span class="text-[8px] font-black px-1.5 py-0.5 rounded-md border border-[#a855f7]/70 bg-[#a855f7]/30 text-white uppercase shadow-[0_0_10px_#a855f7]">ON</span>' : ''}
                     </div>
-                    ${renderAimItem('aim_antena','Aim Antena')}
-                    ${renderAimItem('no_antena','Aim No Antena')}
-                    ${renderAimItem('aim_body_antena','Aim Body No Antena')}
-                    ${renderAimItem('server_aimco','Aim Server 2019')}
-                    ${renderAimItem('aim_chest','Aim Ngực')}
-                    ${renderAimItem('aim_co_v2','Aim Cổ')}
-                    ${renderAimItem('aim_long_neck','Aim Cổ Dài')}
-                    </div>`; 
-                }
-                else if(tab==='account'){ html=`<div style="width:100%;max-width:320px;margin:0 auto;"><div style="text-align:center;margin-bottom:20px;"><img id="accountAvatarImg" src="${defaultAvatar}" class="account-avatar-img"><div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:12px;">[ BẤM ĐỂ ĐỔI ẢNH ]</div></div><div style="background:rgba(0,0,0,0.3);padding:18px;border-radius:16px;font-size:13px;margin-bottom:15px;border:1px solid rgba(255,255,255,0.1);color:#fff;backdrop-filter:blur(10px);"><div style="display:flex;justify-content:space-between;margin-bottom:12px;border-bottom:1px dashed rgba(255,255,255,0.1);padding-bottom:8px;align-items:center;"><span style="color:rgba(255,255,255,0.7);">Tài khoản:</span> <b id="btnChangeName" style="cursor:pointer;color:#fff;background:rgba(255,255,255,0.1);padding:4px 8px;border-radius:6px;">${displayName} <i class="fas fa-edit" style="font-size:10px;margin-left:4px;"></i></b></div><div style="display:flex;justify-content:space-between;margin-bottom:12px;border-bottom:1px dashed rgba(255,255,255,0.1);padding-bottom:8px;"><span style="color:rgba(255,255,255,0.7);">Chức vụ:</span> <b style="color:var(--purp);text-transform:uppercase;">${accountRole}</b></div><div style="display:flex;justify-content:space-between;padding-bottom:4px;"><span style="color:rgba(255,255,255,0.7);">Gói thẻ:</span> <b style="color:#fff;text-transform:uppercase;">${accountType}</b></div></div></div>`; }
-                else if(tab==='settings'){ html=`<div style="width:100%;max-width:320px;margin:0 auto;padding-top:5px; color:#fff;"><h4 style="color:#fff;margin-bottom:25px;display:flex;align-items:center;gap:8px;font-family:'Orbitron';"><i class="fas fa-cog"></i> CÀI ĐẶT GIAO DIỆN</h4><div style="background:rgba(0,0,0,0.3);padding:20px;border-radius:16px;border:1px solid rgba(255,255,255,0.1);margin-bottom:15px;backdrop-filter:blur(10px);"><label style="font-size:13px;color:rgba(255,255,255,0.8);display:flex;justify-content:space-between;">Độ sáng: <b id="brightValText" style="color:#fff;">${window.solBrightness}%</b></label><input type="range" id="brightSlider" min="20" max="150" value="${window.solBrightness}" style="width:100%;margin-top:12px;accent-color:var(--purp);"></div></div>`; }
-            }
-            contentDiv.innerHTML = html;
-            if(isLoggedIn){
-                if(tab==='account'){
-                    document.getElementById('accountAvatarImg').onclick = ()=> document.getElementById('globalAvatarInput').click();
-                    document.getElementById('btnChangeName').onclick = ()=>{
-                        Swal.fire({ title:'ĐỔI TÊN', input:'text', inputValue:displayName, customClass:{popup:'swal-sol-popup',confirmButton:'sol-btn-ok'} }).then(async res=>{ if(res.isConfirmed){ const fd = new URLSearchParams(); fd.append('action','change_name'); fd.append('csrf_token',csrf); fd.append('new_name',res.value.trim()); const r = await fetch('',{method:'POST',body:fd}); const d = await r.json(); if(d.s==='success') location.reload(); } });
-                    };
-                }
-                if(tab==='aim'){
-                    document.querySelectorAll('.aim-card').forEach(card=>{
-                        card.addEventListener('click', function(e){
-                            if(e.target.tagName==='INPUT' || (e.target.tagName==='SPAN' && e.target.classList.contains('slider'))) return;
-                            let id = this.getAttribute('data-id');
-                            if(!this.classList.contains('disabled')) handleAimToggle(id);
-                        });
-                    });
-                    document.querySelectorAll('.aim-switch-input').forEach(inp=> inp.addEventListener('change', function(){ handleAimToggle(this.dataset.id); }));
-                }
-            }
+                    <i class="fa-solid ${isActive ? 'fa-check-circle text-[#a855f7] shadow-[0_0_10px_#a855f7] rounded-full' : (isSelected ? 'fa-dot-circle text-[#a855f7]/80' : 'fa-chevron-right text-white/50')} text-xs"></i>
+                </div>`;
+            }).join('');
         }
-        
-        async function handleAimToggle(id){
-            if(window.isTogglingAim) return;
-            window.isTogglingAim = true;
-            let isTurningOn = (activeAim !== id);
-            if(isTurningOn && activeAim !== null){
-                Swal.fire({html:'<div class="neon-popup-content">⚠️ VUI LÒNG TẮT AIM HIỆN TẠI TRƯỚC</div>', customClass:{popup:'swal-sol-popup', confirmButton:'sol-btn-ok'}});
-                window.isTogglingAim = false;
+
+        function saveState(key, mod, file, exp, server, port) {
+            const state = { key, modName: mod, fileName: file, expiresAt: exp, server, port, timestamp: Date.now() };
+            localStorage.setItem('ZENITH_AIM_state', JSON.stringify(state));
+            document.cookie = `zenith_aim_state=${encodeURIComponent(JSON.stringify(state))}; max-age=${30*24*60*60}; path=/; SameSite=Lax`;
+        }
+        function loadState() { try { return JSON.parse(localStorage.getItem('ZENITH_AIM_state')); } catch(e) { return null; } }
+        function loadStateFromCookie() {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; zenith_aim_state=`);
+            if (parts.length === 2) try { return JSON.parse(decodeURIComponent(parts.pop().split(';').shift())); } catch(e) { return null; }
+            return null;
+        }
+        function clearState() {
+            localStorage.removeItem('ZENITH_AIM_state');
+            document.cookie = 'zenith_aim_state=; max-age=0; path=/';
+            isKeyChecked = false; currentKey = null; expiresAt = null;
+            stopCountdown(); stopStatusCheck();
+        }
+
+        function startCountdown(exp) { stopCountdown(); expiresAt = exp; updateCountdown(); countdownInterval = setInterval(updateCountdown, 1000); }
+        function stopCountdown() { if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; } }
+        function updateCountdown() {
+            const timer = document.getElementById('countdownTimer'), box = document.getElementById('countdownBox');
+            if (!timer || !expiresAt) return;
+            const rem = expiresAt - Math.floor(Date.now() / 1000);
+            if (rem <= 0) { timer.innerText = 'HẾT HẠN'; box.className = 'flex items-center gap-2 px-3 py-2 rounded-xl countdown-danger bg-[#a855f7]/20 border border-[#a855f7]/60'; handleExpired(); return; }
+            const h = String(Math.floor(rem / 3600)).padStart(2, '0'), m = String(Math.floor((rem % 3600) / 60)).padStart(2, '0'), s = String(rem % 60).padStart(2, '0');
+            timer.innerText = `${h}:${m}:${s}`;
+            box.className = 'flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 border border-[#a855f7]/50' + (rem < 600 ? ' countdown-danger' : '');
+        }
+
+        async function handleExpired() {
+            stopCountdown(); stopStatusCheck();
+            if (currentKey) {
+                const fd = new FormData(); fd.append('action', 'remove_ip'); fd.append('key_code', currentKey); fd.append('client_ip', clientIP);
+                await fetch(window.location.href, { method: 'POST', body: fd }).catch(() => {});
+            }
+            updateStatusUI(null, null); clearState();
+            showToast("⏰ Key đã hết hạn!");
+        }
+
+        function startStatusCheck(key) {
+            stopStatusCheck();
+            statusCheckInterval = setInterval(async () => {
+                const fd = new FormData(); fd.append('action', 'check_status'); fd.append('key_code', key);
+                fd.append('browser_uuid', document.getElementById('uuidField').value);
+                fd.append('client_ip', clientIP);
+                if (currentActiveFile) fd.append('file_name', currentActiveFile);
+                try {
+                    const resp = await fetch(window.location.href, { method: 'POST', body: fd });
+                    const data = await resp.json();
+                    if (data.expired || data.status === 'error' || !data.active) { handleExpired(); }
+                    else if (data.active && data.data) {
+                        if (data.data.expires_at && data.data.expires_at !== expiresAt) {
+                            startCountdown(data.data.expires_at);
+                            saveState(key, data.data.mod || data.data.aim, data.data.file, data.data.expires_at, data.data.server, data.data.port);
+                        }
+                        const modName = data.data.mod || data.data.aim;
+                        if (modName && modName !== currentActiveMod) updateStatusUI(modName, data.data.file, data.data.server, data.data.port);
+                    }
+                } catch(e) {}
+            }, 30000);
+        }
+        function stopStatusCheck() { if (statusCheckInterval) { clearInterval(statusCheckInterval); statusCheckInterval = null; } }
+
+        function updateStatusUI(modName, fileName, server = null, port = null) {
+            const statusBox = document.getElementById('statusBox'), serverBox = document.getElementById('serverBox'),
+                  modEl = document.getElementById('statusModName'), toggle = document.getElementById('toggleSwitch');
+            if (modName && fileName) {
+                statusBox.classList.remove('hidden'); serverBox.classList.remove('hidden');
+                modEl.innerText = modName; toggle.checked = true;
+                currentActiveMod = modName; currentActiveFile = fileName;
+                if (server) currentServer = server;
+                if (port) currentPort = port;
+                renderServerInfo(currentServer, currentPort);
+                document.getElementById('btnText').innerHTML = 'TẮT AIM';
+                selectedAimFile = null; selectedAimName = null;
+                document.getElementById('aimSelector').classList.add('hidden');
+            } else {
+                statusBox.classList.add('hidden'); serverBox.classList.add('hidden');
+                modEl.innerText = '-'; toggle.checked = false;
+                currentActiveMod = null; currentActiveFile = null;
+                document.getElementById('btnText').innerHTML = 'KÍCH HOẠT AIM';
+                stopCountdown();
+                selectedAimFile = null; selectedAimName = null;
+            }
+            renderModList();
+        }
+
+        function renderServerInfo(server, port) {
+            document.getElementById('serverHost').innerText = server;
+            document.getElementById('serverPort').innerText = port;
+        }
+
+        function startCooldown() {
+            if (cooldownTimer) clearInterval(cooldownTimer);
+            cooldownRemaining = COOLDOWN_SECONDS;
+            document.getElementById('aimSelector').classList.add('disabled');
+            document.getElementById('btn-submit-main').classList.add('disabled');
+            document.getElementById('btnText').innerHTML = `VUI LÒNG CHỜ ${cooldownRemaining}s`;
+            cooldownTimer = setInterval(() => {
+                cooldownRemaining--;
+                if (cooldownRemaining <= 0) {
+                    clearInterval(cooldownTimer); cooldownTimer = null;
+                    document.getElementById('aimSelector').classList.remove('disabled');
+                    document.getElementById('btn-submit-main').classList.remove('disabled');
+                    document.getElementById('btnText').innerHTML = 'KÍCH HOẠT AIM';
+                } else {
+                    document.getElementById('btnText').innerHTML = `VUI LÒNG CHỜ ${cooldownRemaining}s`;
+                }
+            }, 1000);
+        }
+
+        function clearCooldown() {
+            if (cooldownTimer) { clearInterval(cooldownTimer); cooldownTimer = null; }
+            cooldownRemaining = 0;
+            document.getElementById('aimSelector').classList.remove('disabled');
+            document.getElementById('btn-submit-main').classList.remove('disabled');
+            document.getElementById('btnText').innerHTML = 'KÍCH HOẠT AIM';
+        }
+
+        function selectAim(file, name) {
+            if (currentActiveMod) { showToast("Vui lòng tắt aim hiện tại trước khi chọn aim khác!"); return; }
+            if (cooldownTimer || cooldownRemaining > 0) { showToast(`Vui lòng chờ ${cooldownRemaining}s trước khi thao tác!`); return; }
+            selectedAimFile = file; selectedAimName = name;
+            const aim = modList.find(m => m.file === file);
+            if (aim) { currentServer = aim.server; currentPort = aim.port; }
+            renderModList();
+        }
+
+        async function handleInitialStep() {
+            const key = document.getElementById('keyInput').value.trim();
+            if (!key) return showToast("Vui lòng nhập License Key!");
+            if (currentActiveMod && currentActiveFile) { await deactivateCurrentAim(); return; }
+
+            if (!isKeyChecked || currentKey !== key) {
+                const btn = document.getElementById('btn-submit-main'), btnText = document.getElementById('btnText');
+                btn.disabled = true; btnText.innerHTML = 'ĐANG KIỂM TRA...';
+                showToast("⏳ Đang kiểm tra key...");
+                const fd = new FormData(); fd.append('action', 'check_key'); fd.append('key_code', key);
+                fd.append('browser_uuid', document.getElementById('uuidField').value);
+                if (clientIP) fd.append('client_ip', clientIP);
+                try {
+                    const resp = await fetch(window.location.href, { method: 'POST', body: fd });
+                    const data = await resp.json();
+                    if (data.status === 'success') {
+                        isKeyChecked = true; currentKey = key;
+                        const exp = data.expires_at || null;
+                        if (data.activated && data.activation_data) {
+                            const ad = data.activation_data;
+                            updateStatusUI(ad.mod || ad.aim, ad.file, ad.server, ad.port);
+                            if (exp) { startCountdown(exp); startStatusCheck(key); }
+                            saveState(key, ad.mod || ad.aim, ad.file, exp, ad.server, ad.port);
+                            btn.disabled = false;
+                            document.getElementById('aimSelector').classList.add('hidden');
+                            return;
+                        }
+                        document.getElementById('aimSelector').classList.remove('hidden');
+                        showToast("✅ " + data.message);
+                        btnText.innerHTML = 'CHỌN AIM RỒI KÍCH HOẠT';
+                    } else {
+                        isKeyChecked = false; currentKey = null;
+                        showToast("❌ " + (data.message || 'Key không hợp lệ'));
+                    }
+                } catch(e) { showToast("❌ Lỗi kết nối"); }
+                btn.disabled = false;
+                if (!currentActiveMod) btnText.innerHTML = 'KÍCH HOẠT AIM';
                 return;
             }
-            const fd = new URLSearchParams(); fd.append('action','toggle_aim'); fd.append('csrf_token',csrf); fd.append('aim_id',id); fd.append('state',isTurningOn?1:0); fd.append('client_ip',clientIP);
-            Swal.fire({title:'Đang kết nối Server...', allowOutsideClick:false, customClass:{popup:'swal-sol-popup'}, didOpen:()=>Swal.showLoading()});
-            try{
-                const r = await fetch('',{method:'POST',body:fd}); const d = await r.json();
-                if(d.kick){ handleKick(); return; }
-                if(d.s==='success' && isTurningOn){
-                    Swal.fire({
-                        html: `<div class="neon-popup-content">✔️ ĐÃ KÍCH HOẠT<br><span class="neon-port-text">CỔNG: ${d.port}</span></div>`,
-                        showConfirmButton: false, timer: 2000, customClass: { popup: 'swal-sol-popup' }
-                    }).then(()=> location.reload());
-                }
-                else if(d.s==='success' && !isTurningOn){
-                    let cooldownUntil = d.cooldown_until || (Math.floor(Date.now()/1000) + 5);
-                    let secondsLeft = Math.max(0, cooldownUntil - Math.floor(Date.now()/1000));
-                    let timerInterval;
-                    Swal.fire({
-                        html: `<div class="neon-popup-content" style="font-size:14px;">⏳ ĐÃ TẮT AIM<br><span class="countdown-text" id="cooldownTimer">${secondsLeft}</span><br><span style="color:rgba(255,255,255,0.6)">VUI LÒNG CHỜ ĐỂ KÍCH HOẠT AIM MỚI</span></div>`,
-                        showConfirmButton: false, allowOutsideClick: false, timer: secondsLeft * 1000, timerProgressBar: true, customClass: { popup: 'swal-sol-popup' },
-                        didOpen: () => {
-                            const timerEl = document.getElementById('cooldownTimer');
-                            let remaining = secondsLeft;
-                            timerInterval = setInterval(() => { remaining--; if (remaining >= 0) timerEl.textContent = remaining; }, 1000);
-                        },
-                        willClose: () => { clearInterval(timerInterval); location.reload(); }
-                    });
-                }
-                else if(d.s==='cooldown'){
-                    let cooldownUntil = d.cooldown_until || (Math.floor(Date.now()/1000) + (d.remain || 5));
-                    let secondsLeft = Math.max(0, cooldownUntil - Math.floor(Date.now()/1000));
-                    let timerInterval;
-                    Swal.fire({
-                        html: `<div class="neon-popup-content">⏳ VUI LÒNG CHỜ<br><span class="countdown-text" id="cooldownTimer">${secondsLeft}</span><br><span style="font-size:16px;">GIÂY</span></div>`,
-                        showConfirmButton: false, allowOutsideClick: false, timer: secondsLeft * 1000, timerProgressBar: true, customClass: { popup: 'swal-sol-popup' },
-                        didOpen: () => {
-                            const timerEl = document.getElementById('cooldownTimer');
-                            let remaining = secondsLeft;
-                            timerInterval = setInterval(() => { remaining--; if (remaining >= 0) timerEl.textContent = remaining; }, 1000);
-                        },
-                        willClose: () => { clearInterval(timerInterval); location.reload(); }
-                    });
-                }
-                else if(d.s==='error'){ Swal.fire({icon:'error',text:d.m, customClass:{popup:'swal-sol-popup', confirmButton:'sol-btn-ok'}}); }
-            } catch(e){ Swal.fire({icon:'error', text:'Lỗi kết nối', customClass:{popup:'swal-sol-popup', confirmButton:'sol-btn-ok'}}); }
-            window.isTogglingAim = false;
+
+            if (!selectedAimFile) { showToast("Vui lòng chọn Aim trước!"); return; }
+            if (cooldownTimer || cooldownRemaining > 0) { showToast(`Vui lòng chờ ${cooldownRemaining}s trước khi thao tác!`); return; }
+            await activateMod(selectedAimFile, selectedAimName);
         }
-        
-        function initOrientation(){
-            const blocker = document.getElementById('landscapeBlocker');
-            function onLandscapeSuccess(){ blocker.style.display='none'; }
-            function onPortrait(){ blocker.style.display='flex'; }
-            if(window.matchMedia("(orientation: landscape)").matches) onLandscapeSuccess(); else onPortrait();
-            window.matchMedia("(orientation: landscape)").addEventListener('change', e=> e.matches? onLandscapeSuccess() : onPortrait());
+
+        async function activateMod(fileName, modName) {
+            const key = currentKey;
+            if (!clientIP) return showToast("❌ Chưa lấy được IP!");
+            showToast("⏳ Đang kích hoạt " + modName + "...");
+            const fd = new FormData(); fd.append('action', 'add_ip'); fd.append('key_code', key);
+            fd.append('file_name', fileName); fd.append('mod_type', modName);
+            fd.append('browser_uuid', document.getElementById('uuidField').value);
+            fd.append('client_ip', clientIP);
+            try {
+                const resp = await fetch(window.location.href, { method: 'POST', body: fd });
+                const data = await resp.json();
+                if (data.status === 'success') {
+                    updateStatusUI(modName, fileName, data.server, data.port);
+                    document.getElementById('aimSelector').classList.add('hidden');
+                    if (data.expires_at) { startCountdown(data.expires_at); startStatusCheck(key); saveState(key, modName, fileName, data.expires_at, data.server, data.port); }
+                    else saveState(key, modName, fileName, null, data.server, data.port);
+                    showToast("✅ Kích hoạt " + modName + " thành công!");
+                } else {
+                    showToast("❌ " + (data.message || 'Lỗi'));
+                    if (data.message.includes('đã được kích hoạt')) { clearState(); updateStatusUI(null, null); }
+                }
+            } catch(e) { showToast("❌ Lỗi kết nối"); }
         }
-        initOrientation();
-        
-        const overlayEl = document.getElementById('gameModalOverlay');
-        if (overlayEl) { overlayEl.classList.add('active'); renderUserBar(); switchTab(currentTab); }
+
+        async function deactivateCurrentAim() {
+            if (!currentActiveFile || !currentActiveMod || !currentKey) return;
+            if (!clientIP) return showToast("❌ Chưa lấy được IP!");
+            showToast("⏳ Đang tắt " + currentActiveMod + "...");
+            const fd = new FormData(); fd.append('action', 'remove_ip'); fd.append('key_code', currentKey);
+            fd.append('file_name', currentActiveFile); fd.append('mod_type', currentActiveMod);
+            fd.append('client_ip', clientIP);
+            try {
+                const resp = await fetch(window.location.href, { method: 'POST', body: fd });
+                const data = await resp.json();
+                if (data.status === 'success') {
+                    updateStatusUI(null, null);
+                    clearState();
+                    document.getElementById('aimSelector').classList.remove('hidden');
+                    showToast("✅ Đã tắt aim. Chờ 5s để kích hoạt aim khác.");
+                    startCooldown();
+                } else {
+                    showToast("❌ " + (data.message || 'Lỗi'));
+                }
+            } catch(e) { showToast("❌ Lỗi kết nối"); }
+        }
+
+        function toggleMod() {
+            const toggle = document.getElementById('toggleSwitch');
+            if (!toggle.checked && currentActiveMod) { deactivateCurrentAim(); }
+            else if (!toggle.checked && !currentActiveMod) { toggle.checked = true; }
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast'), tc = document.getElementById('toastContent');
+            tc.innerText = msg; t.style.opacity = '1'; t.style.visibility = 'visible'; t.style.transform = 'translate(-50%, 0)';
+            setTimeout(() => { t.style.opacity = '0'; t.style.visibility = 'hidden'; t.style.transform = 'translate(-50%, -20px)'; }, 4000);
+        }
+
+        setInterval(() => { const el = document.getElementById('realtime-ping'); if (el) el.innerText = (Math.floor(Math.random() * 18) + 18) + 'ms'; }, 3000);
+
+        (async function init() {
+            async function getDeviceVipID() {
+                let webglInfo = "";
+                try {
+                    const canvas = document.createElement('canvas');
+                    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                    if (gl && gl.getExtension('WEBGL_debug_renderer_info')) webglInfo = gl.getParameter(gl.getExtension('WEBGL_debug_renderer_info').UNMASKED_RENDERER_WEBGL) + "||" + gl.getParameter(gl.getExtension('WEBGL_debug_renderer_info').UNMASKED_VENDOR_WEBGL);
+                } catch(e) {}
+                const hardware = [navigator.hardwareConcurrency || '8', screen.colorDepth, webglInfo, navigator.platform, navigator.language, new Date().getTimezoneOffset(), navigator.userAgent.replace(/\d+/g, '')].join('||');
+                let hash = 0; for (let i = 0; i < hardware.length; i++) { hash = ((hash << 5) - hash) + hardware.charCodeAt(i); hash |= 0; }
+                return { num: Math.abs(hash), str: 'VIP-' + Math.abs(hash).toString(16).toUpperCase() };
+            }
+            function getCookie(name) { const value = `; ${document.cookie}`; const parts = value.split(`; ${name}=`); return parts.length === 2 ? parts.pop().split(';').shift() : null; }
+            const fp = await getDeviceVipID();
+            const isValidUUID = id => id && !id.includes('DELTA-') && (id.match(/-/g) || []).length >= 2;
+            const params = new URLSearchParams(window.location.search);
+            const keyFromUrl = params.get('key');
+            if (keyFromUrl) { document.getElementById('keyInput').value = keyFromUrl; currentKey = keyFromUrl; }
+            let devID = params.get('browser_uuid') || getCookie('browser_uuid') || localStorage.getItem('delta_device_uuid');
+            if (!isValidUUID(devID)) {
+                const timeSalt = Date.now().toString(16).toUpperCase();
+                const rand = new Uint32Array(1); crypto.getRandomValues(rand);
+                devID = `${fp.str}-${timeSalt}-${rand[0].toString(16).toUpperCase().padStart(4, '0')}`;
+            }
+            localStorage.setItem('delta_device_uuid', devID);
+            document.cookie = "browser_uuid=" + devID + "; max-age=" + 365*24*60*60 + "; path=/; SameSite=Lax";
+            document.getElementById('uuidField').value = devID;
+
+            await fetchRealIP();
+            await loadModList();
+
+            let saved = loadState();
+            if (!saved) saved = loadStateFromCookie();
+            if (saved && saved.key) {
+                document.getElementById('keyInput').value = saved.key;
+                currentKey = saved.key;
+                const fd = new FormData(); fd.append('action', 'check_status'); fd.append('key_code', saved.key);
+                fd.append('browser_uuid', devID);
+                if (saved.fileName) fd.append('file_name', saved.fileName);
+                if (clientIP) fd.append('client_ip', clientIP);
+                try {
+                    const resp = await fetch(window.location.href, { method: 'POST', body: fd });
+                    const data = await resp.json();
+                    if (data.status === 'success' && data.active && data.data) {
+                        updateStatusUI(data.data.mod || data.data.aim, data.data.file, data.data.server, data.data.port);
+                        document.getElementById('aimSelector').classList.add('hidden');
+                        if (data.data.expires_at) { startCountdown(data.data.expires_at); startStatusCheck(saved.key); saveState(saved.key, data.data.mod || data.data.aim, data.data.file, data.data.expires_at, data.data.server, data.data.port); }
+                        isKeyChecked = true;
+                    } else if (data.expired || data.status === 'error' || !data.active) { clearState(); updateStatusUI(null, null); }
+                } catch(e) {}
+            }
+            renderModList();
+            const bgMusic = document.getElementById('bgMusic');
+            if (bgMusic) { bgMusic.volume = 0.5; const playPromise = bgMusic.play(); if (playPromise !== undefined) playPromise.catch(() => { document.addEventListener('click', function resume() { bgMusic.play().catch(() => {}); document.removeEventListener('click', resume); }, { once: true }); }); }
+        })();
     </script>
-</body>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="0c771fd6827df1ada3c8385d-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"37ea39af1ea9491e9be8ed39f1f17675","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a17cfe7d1c9c0723',t:'MTc4MzQ5MTc0Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
