@@ -1,767 +1,277 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ZENITH SOLITUDE - AIM CENTER</title>
-    <script src="https://cdn.tailwindcss.com" type="0c771fd6827df1ada3c8385d-text/javascript"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ngoc Bong - Solitude</title>
     <style>
-        :root {
-            --glow-color: #a855f7;
-            --deep-bg: #090110;
-            --card-bg: rgba(18, 4, 32, 0.8);
-            --accent: #a855f7;
-            --accent2: #7e22ce;
-            --border-glow: rgba(168, 85, 247, 0.8);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #060010;
-            color: #ffffff;
+            background: #0a0a0f;
             min-height: 100vh;
-            overflow-x: hidden;
-            touch-action: manipulation;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 420px;
             position: relative;
         }
-
-        .bg-layer {
-            position: fixed;
+        
+        /* Overlay để chặn tương tác với iframe */
+        .iframe-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 780px;
+            border: none;
+            display: block;
+            background: #0a0a0f;
+        }
+        
+        /* Lớp phủ trong suốt để bắt sự kiện click */
+        .overlay {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            background:
-                radial-gradient(circle at 30% 40%, rgba(168, 85, 247, 0.12) 0%, transparent 60%),
-                radial-gradient(circle at 70% 60%, rgba(126, 34, 206, 0.08) 0%, transparent 60%);
-            animation: bgPulse 10s ease-in-out infinite alternate;
-        }
-
-        @keyframes bgPulse {
-            0% { opacity: 0.8; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.05); }
-        }
-
-        .bg-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            background-image: radial-gradient(circle, rgba(168, 85, 247, 0.25) 1px, transparent 1px);
-            background-size: 30px 30px;
-            opacity: 0.4;
-        }
-
-        .premium-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(168, 85, 247, 0.6);
-            border-radius: 32px;
-            position: relative;
             z-index: 10;
-            overflow: hidden;
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.35), 0 10px 30px rgba(0, 0, 0, 0.7);
-            transition: box-shadow 0.4s ease, border-color 0.4s ease;
+            cursor: default;
+            pointer-events: none; /* Mặc định không chặn */
         }
-
-        .premium-card::before {
-            content: '';
+        
+        /* Vùng chứa các nút thay thế - đặt đè lên iframe */
+        .button-overlay {
             position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: linear-gradient(45deg, #a855f7, #7e22ce, #a855f7, #7e22ce);
-            background-size: 400% 400%;
-            border-radius: 34px;
-            z-index: -1;
-            animation: borderGlow 8s linear infinite;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            filter: blur(10px);
+            bottom: 100px;
+            left: 24px;
+            right: 24px;
+            z-index: 20;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            pointer-events: none; /* Cho phép click xuyên qua */
         }
-
-        .premium-card:hover::before {
-            opacity: 0.7;
-        }
-
-        @keyframes borderGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .glass-input {
-            background: rgba(18, 4, 32, 0.9);
-            border: 1.5px solid rgba(168, 85, 247, 0.8);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3), inset 0 0 8px rgba(168, 85, 247, 0.15);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(4px);
-        }
-        .glass-input:focus {
-            border-color: #a855f7;
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.6), inset 0 0 12px rgba(168, 85, 247, 0.3);
-            background: #1b0828;
-            transform: scale(1.01);
-        }
-
-        .btn-gradient-premium {
-            background: linear-gradient(135deg, #1b0828 0%, #2d0a3d 100%);
-            border: 1.5px solid rgba(168, 85, 247, 0.9);
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-gradient-premium:hover {
-            background: #2f1142;
-            border-color: #c084fc;
-            box-shadow: 0 0 60px rgba(168, 85, 247, 0.9);
-            transform: translateY(-2px);
-        }
-        .btn-gradient-premium:active { transform: scale(0.97); }
-        .btn-gradient-premium::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(168, 85, 247, 0.25), transparent);
-            transform: rotate(45deg) translate(-100%, -100%);
-            transition: transform 0.6s ease;
-        }
-        .btn-gradient-premium:hover::after {
-            transform: rotate(45deg) translate(100%, 100%);
-        }
-
-        .btn-unlock, .btn-cert {
-            background: rgba(18, 4, 32, 0.9);
-            border: 1px solid rgba(168, 85, 247, 0.7);
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(4px);
-        }
-        .btn-unlock:hover, .btn-cert:hover {
-            border-color: #c084fc;
-            box-shadow: 0 0 40px rgba(168, 85, 247, 0.8);
-            background: #1b0828;
-            transform: translateY(-1px);
-        }
-
-        .switch { position: relative; display: inline-block; width: 56px; height: 30px; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute; cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(168, 85, 247, 0.2);
-            border: 1.5px solid rgba(168, 85, 247, 0.8);
-            transition: 0.3s; border-radius: 34px;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
-        }
-        .slider:before {
-            position: absolute; content: "";
-            height: 22px; width: 22px;
-            left: 3px; bottom: 3px;
-            background: #a855f7;
-            transition: 0.3s; border-radius: 50%;
-            box-shadow: 0 0 25px #a855f7;
-        }
-        input:checked + .slider {
-            background: #a855f7;
-            border-color: #a855f7;
-            box-shadow: 0 0 40px #a855f7;
-        }
-        input:checked + .slider:before {
-            transform: translateX(26px);
-            background: #000;
-            box-shadow: 0 0 30px #a855f7;
-        }
-
-        .cyber-glow {
-            text-shadow: 0 0 20px #a855f7, 0 0 40px rgba(168, 85, 247, 0.9), 0 0 60px rgba(126, 34, 206, 0.7);
-            animation: titleGlow 3s ease-in-out infinite alternate;
-        }
-        @keyframes titleGlow {
-            0% { text-shadow: 0 0 20px #a855f7, 0 0 40px rgba(168, 85, 247, 0.8); }
-            100% { text-shadow: 0 0 30px #c084fc, 0 0 60px rgba(168, 85, 247, 1), 0 0 80px rgba(126, 34, 206, 0.9); }
-        }
-
-        .ip-badge {
-            background: rgba(10, 3, 20, 0.9);
-            border: 1.5px solid rgba(168, 85, 247, 0.9);
-            color: #fff;
+        
+        /* Style cho các nút thay thế */
+        .btn-replace {
+            pointer-events: auto; /* Cho phép click vào nút */
+            padding: 14px 20px;
+            border-radius: 16px;
+            border: none;
             font-weight: 700;
-            padding: 4px 14px;
-            border-radius: 20px;
-            text-shadow: 0 0 20px #a855f7;
-            font-family: monospace;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
-            animation: badgePulse 2.5s ease-in-out infinite;
-        }
-        @keyframes badgePulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); }
-            50% { box-shadow: 0 0 35px rgba(168, 85, 247, 0.8); }
-        }
-
-        .accent-line {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #a855f7, #7e22ce, #a855f7, transparent);
-            width: 70%;
-            margin: 10px auto;
-            box-shadow: 0 0 20px #a855f7;
-            animation: lineShimmer 4s infinite;
-        }
-        @keyframes lineShimmer {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; }
-            100% { opacity: 0.8; }
-        }
-
-        .countdown-danger {
-            animation: danger-pulse 2s infinite;
-        }
-        @keyframes danger-pulse {
-            0%, 100% { box-shadow: 0 0 15px rgba(168, 85, 247, 0.5); }
-            50% { box-shadow: 0 0 35px rgba(168, 85, 247, 0.9); }
-        }
-
-        #toastContent {
-            box-shadow: 0 0 45px rgba(168, 85, 247, 0.7);
-            border: 1.5px solid rgba(168, 85, 247, 0.9);
-            background: rgba(10, 2, 20, 0.95);
-            backdrop-filter: blur(8px);
-            animation: toastIn 0.5s ease-out;
-        }
-        @keyframes toastIn {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .mod-item-active {
-            border-color: #a855f7 !important;
-            background: rgba(168, 85, 247, 0.2) !important;
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
-            animation: activeModGlow 2s infinite alternate;
-        }
-        @keyframes activeModGlow {
-            0% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); }
-            100% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.9); }
-        }
-
-        .aim-selected {
-            border-color: rgba(168, 85, 247, 0.9) !important;
-            background: rgba(168, 85, 247, 0.15) !important;
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
-        }
-
-        .disabled { opacity: 0.5; pointer-events: none; filter: grayscale(30%); }
-
-        #modList > div {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             transition: all 0.3s ease;
-            position: relative; z-index: 1;
-            border: 1px solid transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            color: white;
+            font-family: inherit;
         }
-        #modList > div:hover {
-            background: rgba(168, 85, 247, 0.15);
-            border-color: rgba(168, 85, 247, 0.7);
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
-            transform: translateY(-2px);
+        
+        .btn-replace i {
+            font-size: 12px;
         }
-
-        .fa-bullseye, .fa-key, .fa-crosshairs, .fa-server {
-            filter: drop-shadow(0 0 8px #a855f7);
+        
+        .btn-unlock {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
         }
-
-        .server-box { animation: fadeInUp 0.4s ease; }
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
+        
+        .btn-unlock:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 25px rgba(245, 87, 108, 0.5);
         }
-
-        #btn-submit-main span { position: relative; z-index: 2; }
+        
+        .btn-cert {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-cert:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: scale(1.03);
+        }
+        
+        /* Loading spinner */
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.05);
+            border-top: 3px solid #f5576c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .iframe-wrapper iframe {
+                height: 700px;
+            }
+            
+            .button-overlay {
+                bottom: 85px;
+                left: 16px;
+                right: 16px;
+                gap: 10px;
+            }
+            
+            .btn-replace {
+                padding: 12px 16px;
+                font-size: 9px;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .iframe-wrapper iframe {
+                height: 650px;
+            }
+            
+            .button-overlay {
+                bottom: 75px;
+                left: 12px;
+                right: 12px;
+                gap: 8px;
+            }
+            
+            .btn-replace {
+                padding: 10px 12px;
+                font-size: 8px;
+            }
+        }
+        
+        /* Scrollbar tùy chỉnh cho iframe */
+        .iframe-wrapper::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .iframe-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .iframe-wrapper::-webkit-scrollbar-thumb {
+            background: rgba(245, 87, 108, 0.3);
+            border-radius: 2px;
+        }
     </style>
+    
+    <!-- Font Awesome cho icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="flex flex-col items-center justify-center p-4 relative">
-    <div class="bg-layer"></div>
-    <div class="bg-grid"></div>
-
-    <div class="w-full max-w-[440px] space-y-6 my-6 relative z-10">
-        <div class="flex items-center justify-between px-2">
-            <div>
-                <h1 class="cyber-glow text-[28px] font-black tracking-tight text-[#a855f7] uppercase leading-none">Ngoc Bong</h1>
-                <p class="text-[12px] font-bold uppercase tracking-[0.3em] text-[#c084fc] mt-1" style="text-shadow:0 0 20px #a855f7;">By Solitude</p>
+<body>
+    <div class="container">
+        <div class="iframe-wrapper">
+            <!-- Spinner loading -->
+            <div class="loader" id="loader"></div>
+            
+            <!-- Iframe nhúng trang gốc -->
+            <iframe 
+                id="mainFrame"
+                src="https://solitudepremium.click/ngoc/v22.php" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+            ></iframe>
+            
+            <!-- Lớp phủ để bắt sự kiện (có thể bật/tắt) -->
+            <div class="overlay" id="overlay"></div>
+            
+            <!-- Các nút thay thế - đè lên nút gốc -->
+            <div class="button-overlay">
+                <a href="key.php" class="btn-replace btn-unlock">
+                    <i class="fa-solid fa-unlock-keyhole"></i> GET KEY
+                </a>
+                <a href="https://solitudepremium.click/vanduyios/solitude.mobileconfig" target="_blank" class="btn-replace btn-cert">
+                    <i class="fa-solid fa-shield-halved"></i> CERT
+                </a>
             </div>
-            <div class="flex flex-col items-end gap-1 px-4 py-2 rounded-2xl bg-black/70 backdrop-blur-md border border-[#a855f7]/40 shadow-[0_0_35px_rgba(168,85,247,0.4)]">
-                <div class="flex items-center gap-2 text-xs font-bold text-white/90">
-                    <span class="w-2 h-2 rounded-full bg-[#a855f7] shadow-[0_0_15px_#a855f7] animate-pulse"></span> ONLINE
-                </div>
-                <div class="text-[10px] text-white/60 flex gap-3">
-                    <span>PING <span class="text-white font-mono" id="realtime-ping">24ms</span></span>
-                    <span>USERS <span class="text-white font-mono">4312</span></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="premium-card p-6 space-y-6">
-            <form id="mainForm" method="POST" class="space-y-6" onsubmit="if (!window.__cfRLUnblockHandlers) return false; return false;" data-cf-modified-0c771fd6827df1ada3c8385d-="">
-                <input type="hidden" name="action" id="actionType">
-                <input type="hidden" name="browser_uuid" id="uuidField">
-                <div class="space-y-6 animate-in">
-                    <div class="space-y-2.5">
-                        <label class="text-[11px] font-bold text-white/80 uppercase tracking-widest ml-1 flex items-center gap-2">
-                            <i class="fa-solid fa-key text-[#a855f7] text-[10px]"></i> License Key
-                        </label>
-                        <input type="text" name="key_code" id="keyInput" placeholder="Nhập mã bản quyền..." autocomplete="off"
-                        class="glass-input w-full rounded-2xl py-4 px-4 outline-none font-mono text-sm text-white placeholder-white/40">
-                    </div>
-
-                    <div id="aimSelector" class="space-y-3 hidden">
-                        <label class="text-[11px] font-bold text-white/80 uppercase tracking-widest ml-1 flex items-center gap-2">
-                            <i class="fa-solid fa-crosshairs text-[#a855f7] text-[10px]"></i> Chọn Aim
-                        </label>
-                        <div id="modList" class="space-y-2"></div>
-                    </div>
-
-                    <div id="statusBox" class="hidden space-y-3 bg-white/10 border border-[#a855f7]/40 p-4 rounded-2xl" style="box-shadow:0 0 45px rgba(168,85,247,0.25);">
-                        <div class="flex items-center justify-between">
-                            <span class="ip-badge" id="clientIpDisplay">Đang lấy IP...</span>
-                            <div id="countdownBox" class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 border border-[#a855f7]/50">
-                                <i class="fa-solid fa-hourglass-half text-[10px] text-white/90"></i>
-                                <span id="countdownTimer" class="text-[11px] font-mono font-bold text-white">--:--:--</span>
-                            </div>
-                        </div>
-                        <div class="accent-line"></div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-[#a855f7]/20 border border-[#a855f7]/50 flex items-center justify-center shadow-[0_0_25px_rgba(168,85,247,0.6)]">
-                                    <i class="fa-solid fa-bullseye text-[#a855f7] text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="text-[11px] font-bold text-white/80 uppercase">AIM ACTIVE</p>
-                                    <p class="text-[13px] font-bold text-white" id="statusModName">-</p>
-                                </div>
-                            </div>
-                            <label class="switch">
-                                <input type="checkbox" id="toggleSwitch" onchange="if (!window.__cfRLUnblockHandlers) return false; toggleMod()" data-cf-modified-0c771fd6827df1ada3c8385d-="">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <div id="serverBox" class="server-box hidden p-3 rounded-xl bg-white/10 border border-[#a855f7]/40 mt-2">
-                            <p class="text-[10px] font-bold text-white uppercase tracking-wider mb-1 flex items-center gap-2">
-                                <i class="fa-solid fa-server text-[#a855f7]"></i> SERVER INFO
-                            </p>
-                            <div class="flex justify-between text-[11px]">
-                                <span class="text-white/70">Host:</span>
-                                <span class="text-white font-mono font-bold" id="serverHost">server.zenithsolitude.store</span>
-                            </div>
-                            <div class="flex justify-between text-[11px] mt-1">
-                                <span class="text-white/70">Port:</span>
-                                <span class="text-white font-mono font-bold" id="serverPort">5560</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="button" id="btn-submit-main" onclick="if (!window.__cfRLUnblockHandlers) return false; handleInitialStep()" class="w-full py-4.5 rounded-2xl btn-gradient-premium text-white font-bold text-[14px] uppercase tracking-[0.15em] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 h-14" data-cf-modified-0c771fd6827df1ada3c8385d-="">
-                        <span id="btnText">KÍCH HOẠT KEY</span> <i class="fa-solid fa-arrow-right text-[11px]"></i>
-                    </button>
-
-                    <div class="grid grid-cols-2 gap-3 pt-2">
-                        <a href="key.php" class="py-3.5 rounded-2xl btn-unlock text-white font-bold text-[10px] uppercase tracking-[0.1em] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-unlock-keyhole text-xs"></i> GET KEY
-                        </a>
-                        <a href="https://solitudepremium.click/vanduyios/solitude.mobileconfig" target="_blank" class="py-3.5 rounded-2xl btn-cert text-white font-bold text-[10px] uppercase tracking-[0.1em] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-shield-halved text-xs"></i> CERT
-                        </a>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="text-center pb-4 pt-2">
-            <p class="text-[11px] text-white/50 font-medium tracking-wider flex items-center justify-center gap-2">
-                <i class="fa-solid fa-code text-xs"></i> zenithsolitude
-            </p>
         </div>
     </div>
-
-    <div id="toast" style="position:fixed;top:24px;left:50%;transform:translate(-50%,-20px);opacity:0;visibility:hidden;z-index:110;width:90%;max-width:400px;transition:0.4s cubic-bezier(0.175,0.885,0.32,1.275);">
-        <div id="toastContent" class="p-4 rounded-2xl text-white text-sm font-medium"></div>
-    </div>
-
-    <audio id="bgMusic" src="quy.mp3" autoplay loop preload="auto"></audio>
-
-    <script type="0c771fd6827df1ada3c8385d-text/javascript">
-        let clientIP = null;
-        let currentActiveMod = null, currentActiveFile = null;
-        let currentServer = 'server.zenithsolitude.store', currentPort = 5560;
-        let currentKey = null, isKeyChecked = false, expiresAt = null, countdownInterval = null, statusCheckInterval = null;
-        let selectedAimFile = null, selectedAimName = null;
-        let cooldownTimer = null, cooldownRemaining = 0;
-        const COOLDOWN_SECONDS = 5;
-        let modList = [];
-
-        async function fetchRealIP() {
+    
+    <script>
+        // Ẩn loader khi iframe đã load
+        document.getElementById('mainFrame').addEventListener('load', function() {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 300);
+        });
+        
+        // Nếu iframe không load sau 5 giây, ẩn loader
+        setTimeout(() => {
+            const loader = document.getElementById('loader');
+            if (loader.style.display !== 'none') {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 300);
+            }
+        }, 5000);
+        
+        // Xử lý khi iframe load xong - điều chỉnh chiều cao
+        document.getElementById('mainFrame').addEventListener('load', function() {
             try {
-                const resp = await fetch('https://api4.ipify.org?format=json');
-                const data = await resp.json();
-                clientIP = data.ip;
-                document.getElementById('clientIpDisplay').innerText = clientIP;
+                // Thử điều chỉnh chiều cao dựa trên nội dung
+                const iframe = this;
+                const height = iframe.contentWindow.document.documentElement.scrollHeight;
+                iframe.style.height = height + 'px';
             } catch(e) {
-                document.getElementById('clientIpDisplay').innerText = 'Lỗi lấy IP';
+                // Nếu bị CORS, giữ nguyên height mặc định
+                console.log('Không thể tự động điều chỉnh chiều cao do CORS');
             }
-        }
-        fetchRealIP();
-
-        async function loadModList() {
-            try {
-                const fd = new FormData();
-                fd.append('action', 'get_aims');
-                const resp = await fetch(window.location.href, { method: 'POST', body: fd });
-                const data = await resp.json();
-                if (data.status === 'success' && data.aims) {
-                    modList = data.aims.map(a => ({
-                        file: a.file,
-                        name: a.name,
-                        icon: a.icon || 'fa-crosshairs',
-                        desc: a.desc || '',
-                        badge: a.badge || 'SAFE',
-                        server: a.server || 'server.zenithsolitude.store',
-                        port: a.port || 5560
-                    }));
-                } else {
-                    modList = [
-                        { file: 'aim_dragon2.txt', name: 'Aim Drag On 2.0', icon: 'fa-bolt', desc: 'Kéo aim siêu mượt', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 },
-                        { file: 'aim_chest.txt', name: 'Aim Chest', icon: 'fa-crosshairs', desc: 'Tự động aim vào ngực', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 },
-                        { file: 'aim_neck_dragon2.txt', name: 'Aim Neck Drag 2.0', icon: 'fa-circle-dot', desc: 'Aim vào cổ', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 },
-                        { file: 'aim_magic_bullet.txt', name: 'Magic Bullet', icon: 'fa-magic', desc: 'Đạn ma thuật', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 }
-                    ];
-                }
-            } catch (e) {
-                modList = [
-                    { file: 'aim_dragon2.txt', name: 'Aim Drag On 2.0', icon: 'fa-bolt', desc: 'Kéo aim siêu mượt', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 },
-                    { file: 'aim_chest.txt', name: 'Aim Chest', icon: 'fa-crosshairs', desc: 'Tự động aim vào ngực', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 },
-                    { file: 'aim_neck_dragon2.txt', name: 'Aim Neck Drag 2.0', icon: 'fa-circle-dot', desc: 'Aim vào cổ', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 },
-                    { file: 'aim_magic_bullet.txt', name: 'Magic Bullet', icon: 'fa-magic', desc: 'Đạn ma thuật', badge: 'SAFE', server: 'server.zenithsolitude.store', port: 5560 }
-                ];
-            }
-            renderModList();
-        }
-
-        function renderModList() {
-            const container = document.getElementById('modList');
-            if (!container) return;
-            container.innerHTML = modList.map(mod => {
-                const isActive = (currentActiveFile === mod.file);
-                const isSelected = (!isActive && selectedAimFile === mod.file);
-                let extraClass = '';
-                if (isActive) extraClass = 'mod-item-active';
-                else if (isSelected) extraClass = 'aim-selected';
-                return `<div class="flex items-center justify-between p-3 rounded-xl bg-black/40 border cursor-pointer transition-all relative ${extraClass} ${!isActive && !isSelected ? 'border-white/30 text-gray-300 hover:border-[#a855f7]/70 hover:bg-white/10' : ''}" onclick="selectAim('${mod.file}', '${mod.name}')">
-                    <div class="flex items-center gap-2.5">
-                        <i class="fa-solid ${mod.icon} text-[#a855f7]/80 text-sm"></i>
-                        <div><span class="text-[12px] font-bold">${mod.name}</span><p class="text-[9px] text-white/50">${mod.desc}</p></div>
-                        ${isActive ? '<span class="text-[8px] font-black px-1.5 py-0.5 rounded-md border border-[#a855f7]/70 bg-[#a855f7]/30 text-white uppercase shadow-[0_0_10px_#a855f7]">ON</span>' : ''}
-                    </div>
-                    <i class="fa-solid ${isActive ? 'fa-check-circle text-[#a855f7] shadow-[0_0_10px_#a855f7] rounded-full' : (isSelected ? 'fa-dot-circle text-[#a855f7]/80' : 'fa-chevron-right text-white/50')} text-xs"></i>
-                </div>`;
-            }).join('');
-        }
-
-        function saveState(key, mod, file, exp, server, port) {
-            const state = { key, modName: mod, fileName: file, expiresAt: exp, server, port, timestamp: Date.now() };
-            localStorage.setItem('ZENITH_AIM_state', JSON.stringify(state));
-            document.cookie = `zenith_aim_state=${encodeURIComponent(JSON.stringify(state))}; max-age=${30*24*60*60}; path=/; SameSite=Lax`;
-        }
-        function loadState() { try { return JSON.parse(localStorage.getItem('ZENITH_AIM_state')); } catch(e) { return null; } }
-        function loadStateFromCookie() {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; zenith_aim_state=`);
-            if (parts.length === 2) try { return JSON.parse(decodeURIComponent(parts.pop().split(';').shift())); } catch(e) { return null; }
-            return null;
-        }
-        function clearState() {
-            localStorage.removeItem('ZENITH_AIM_state');
-            document.cookie = 'zenith_aim_state=; max-age=0; path=/';
-            isKeyChecked = false; currentKey = null; expiresAt = null;
-            stopCountdown(); stopStatusCheck();
-        }
-
-        function startCountdown(exp) { stopCountdown(); expiresAt = exp; updateCountdown(); countdownInterval = setInterval(updateCountdown, 1000); }
-        function stopCountdown() { if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; } }
-        function updateCountdown() {
-            const timer = document.getElementById('countdownTimer'), box = document.getElementById('countdownBox');
-            if (!timer || !expiresAt) return;
-            const rem = expiresAt - Math.floor(Date.now() / 1000);
-            if (rem <= 0) { timer.innerText = 'HẾT HẠN'; box.className = 'flex items-center gap-2 px-3 py-2 rounded-xl countdown-danger bg-[#a855f7]/20 border border-[#a855f7]/60'; handleExpired(); return; }
-            const h = String(Math.floor(rem / 3600)).padStart(2, '0'), m = String(Math.floor((rem % 3600) / 60)).padStart(2, '0'), s = String(rem % 60).padStart(2, '0');
-            timer.innerText = `${h}:${m}:${s}`;
-            box.className = 'flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 border border-[#a855f7]/50' + (rem < 600 ? ' countdown-danger' : '');
-        }
-
-        async function handleExpired() {
-            stopCountdown(); stopStatusCheck();
-            if (currentKey) {
-                const fd = new FormData(); fd.append('action', 'remove_ip'); fd.append('key_code', currentKey); fd.append('client_ip', clientIP);
-                await fetch(window.location.href, { method: 'POST', body: fd }).catch(() => {});
-            }
-            updateStatusUI(null, null); clearState();
-            showToast("⏰ Key đã hết hạn!");
-        }
-
-        function startStatusCheck(key) {
-            stopStatusCheck();
-            statusCheckInterval = setInterval(async () => {
-                const fd = new FormData(); fd.append('action', 'check_status'); fd.append('key_code', key);
-                fd.append('browser_uuid', document.getElementById('uuidField').value);
-                fd.append('client_ip', clientIP);
-                if (currentActiveFile) fd.append('file_name', currentActiveFile);
-                try {
-                    const resp = await fetch(window.location.href, { method: 'POST', body: fd });
-                    const data = await resp.json();
-                    if (data.expired || data.status === 'error' || !data.active) { handleExpired(); }
-                    else if (data.active && data.data) {
-                        if (data.data.expires_at && data.data.expires_at !== expiresAt) {
-                            startCountdown(data.data.expires_at);
-                            saveState(key, data.data.mod || data.data.aim, data.data.file, data.data.expires_at, data.data.server, data.data.port);
-                        }
-                        const modName = data.data.mod || data.data.aim;
-                        if (modName && modName !== currentActiveMod) updateStatusUI(modName, data.data.file, data.data.server, data.data.port);
-                    }
-                } catch(e) {}
-            }, 30000);
-        }
-        function stopStatusCheck() { if (statusCheckInterval) { clearInterval(statusCheckInterval); statusCheckInterval = null; } }
-
-        function updateStatusUI(modName, fileName, server = null, port = null) {
-            const statusBox = document.getElementById('statusBox'), serverBox = document.getElementById('serverBox'),
-                  modEl = document.getElementById('statusModName'), toggle = document.getElementById('toggleSwitch');
-            if (modName && fileName) {
-                statusBox.classList.remove('hidden'); serverBox.classList.remove('hidden');
-                modEl.innerText = modName; toggle.checked = true;
-                currentActiveMod = modName; currentActiveFile = fileName;
-                if (server) currentServer = server;
-                if (port) currentPort = port;
-                renderServerInfo(currentServer, currentPort);
-                document.getElementById('btnText').innerHTML = 'TẮT AIM';
-                selectedAimFile = null; selectedAimName = null;
-                document.getElementById('aimSelector').classList.add('hidden');
-            } else {
-                statusBox.classList.add('hidden'); serverBox.classList.add('hidden');
-                modEl.innerText = '-'; toggle.checked = false;
-                currentActiveMod = null; currentActiveFile = null;
-                document.getElementById('btnText').innerHTML = 'KÍCH HOẠT AIM';
-                stopCountdown();
-                selectedAimFile = null; selectedAimName = null;
-            }
-            renderModList();
-        }
-
-        function renderServerInfo(server, port) {
-            document.getElementById('serverHost').innerText = server;
-            document.getElementById('serverPort').innerText = port;
-        }
-
-        function startCooldown() {
-            if (cooldownTimer) clearInterval(cooldownTimer);
-            cooldownRemaining = COOLDOWN_SECONDS;
-            document.getElementById('aimSelector').classList.add('disabled');
-            document.getElementById('btn-submit-main').classList.add('disabled');
-            document.getElementById('btnText').innerHTML = `VUI LÒNG CHỜ ${cooldownRemaining}s`;
-            cooldownTimer = setInterval(() => {
-                cooldownRemaining--;
-                if (cooldownRemaining <= 0) {
-                    clearInterval(cooldownTimer); cooldownTimer = null;
-                    document.getElementById('aimSelector').classList.remove('disabled');
-                    document.getElementById('btn-submit-main').classList.remove('disabled');
-                    document.getElementById('btnText').innerHTML = 'KÍCH HOẠT AIM';
-                } else {
-                    document.getElementById('btnText').innerHTML = `VUI LÒNG CHỜ ${cooldownRemaining}s`;
-                }
-            }, 1000);
-        }
-
-        function clearCooldown() {
-            if (cooldownTimer) { clearInterval(cooldownTimer); cooldownTimer = null; }
-            cooldownRemaining = 0;
-            document.getElementById('aimSelector').classList.remove('disabled');
-            document.getElementById('btn-submit-main').classList.remove('disabled');
-            document.getElementById('btnText').innerHTML = 'KÍCH HOẠT AIM';
-        }
-
-        function selectAim(file, name) {
-            if (currentActiveMod) { showToast("Vui lòng tắt aim hiện tại trước khi chọn aim khác!"); return; }
-            if (cooldownTimer || cooldownRemaining > 0) { showToast(`Vui lòng chờ ${cooldownRemaining}s trước khi thao tác!`); return; }
-            selectedAimFile = file; selectedAimName = name;
-            const aim = modList.find(m => m.file === file);
-            if (aim) { currentServer = aim.server; currentPort = aim.port; }
-            renderModList();
-        }
-
-        async function handleInitialStep() {
-            const key = document.getElementById('keyInput').value.trim();
-            if (!key) return showToast("Vui lòng nhập License Key!");
-            if (currentActiveMod && currentActiveFile) { await deactivateCurrentAim(); return; }
-
-            if (!isKeyChecked || currentKey !== key) {
-                const btn = document.getElementById('btn-submit-main'), btnText = document.getElementById('btnText');
-                btn.disabled = true; btnText.innerHTML = 'ĐANG KIỂM TRA...';
-                showToast("⏳ Đang kiểm tra key...");
-                const fd = new FormData(); fd.append('action', 'check_key'); fd.append('key_code', key);
-                fd.append('browser_uuid', document.getElementById('uuidField').value);
-                if (clientIP) fd.append('client_ip', clientIP);
-                try {
-                    const resp = await fetch(window.location.href, { method: 'POST', body: fd });
-                    const data = await resp.json();
-                    if (data.status === 'success') {
-                        isKeyChecked = true; currentKey = key;
-                        const exp = data.expires_at || null;
-                        if (data.activated && data.activation_data) {
-                            const ad = data.activation_data;
-                            updateStatusUI(ad.mod || ad.aim, ad.file, ad.server, ad.port);
-                            if (exp) { startCountdown(exp); startStatusCheck(key); }
-                            saveState(key, ad.mod || ad.aim, ad.file, exp, ad.server, ad.port);
-                            btn.disabled = false;
-                            document.getElementById('aimSelector').classList.add('hidden');
-                            return;
-                        }
-                        document.getElementById('aimSelector').classList.remove('hidden');
-                        showToast("✅ " + data.message);
-                        btnText.innerHTML = 'CHỌN AIM RỒI KÍCH HOẠT';
-                    } else {
-                        isKeyChecked = false; currentKey = null;
-                        showToast("❌ " + (data.message || 'Key không hợp lệ'));
-                    }
-                } catch(e) { showToast("❌ Lỗi kết nối"); }
-                btn.disabled = false;
-                if (!currentActiveMod) btnText.innerHTML = 'KÍCH HOẠT AIM';
-                return;
-            }
-
-            if (!selectedAimFile) { showToast("Vui lòng chọn Aim trước!"); return; }
-            if (cooldownTimer || cooldownRemaining > 0) { showToast(`Vui lòng chờ ${cooldownRemaining}s trước khi thao tác!`); return; }
-            await activateMod(selectedAimFile, selectedAimName);
-        }
-
-        async function activateMod(fileName, modName) {
-            const key = currentKey;
-            if (!clientIP) return showToast("❌ Chưa lấy được IP!");
-            showToast("⏳ Đang kích hoạt " + modName + "...");
-            const fd = new FormData(); fd.append('action', 'add_ip'); fd.append('key_code', key);
-            fd.append('file_name', fileName); fd.append('mod_type', modName);
-            fd.append('browser_uuid', document.getElementById('uuidField').value);
-            fd.append('client_ip', clientIP);
-            try {
-                const resp = await fetch(window.location.href, { method: 'POST', body: fd });
-                const data = await resp.json();
-                if (data.status === 'success') {
-                    updateStatusUI(modName, fileName, data.server, data.port);
-                    document.getElementById('aimSelector').classList.add('hidden');
-                    if (data.expires_at) { startCountdown(data.expires_at); startStatusCheck(key); saveState(key, modName, fileName, data.expires_at, data.server, data.port); }
-                    else saveState(key, modName, fileName, null, data.server, data.port);
-                    showToast("✅ Kích hoạt " + modName + " thành công!");
-                } else {
-                    showToast("❌ " + (data.message || 'Lỗi'));
-                    if (data.message.includes('đã được kích hoạt')) { clearState(); updateStatusUI(null, null); }
-                }
-            } catch(e) { showToast("❌ Lỗi kết nối"); }
-        }
-
-        async function deactivateCurrentAim() {
-            if (!currentActiveFile || !currentActiveMod || !currentKey) return;
-            if (!clientIP) return showToast("❌ Chưa lấy được IP!");
-            showToast("⏳ Đang tắt " + currentActiveMod + "...");
-            const fd = new FormData(); fd.append('action', 'remove_ip'); fd.append('key_code', currentKey);
-            fd.append('file_name', currentActiveFile); fd.append('mod_type', currentActiveMod);
-            fd.append('client_ip', clientIP);
-            try {
-                const resp = await fetch(window.location.href, { method: 'POST', body: fd });
-                const data = await resp.json();
-                if (data.status === 'success') {
-                    updateStatusUI(null, null);
-                    clearState();
-                    document.getElementById('aimSelector').classList.remove('hidden');
-                    showToast("✅ Đã tắt aim. Chờ 5s để kích hoạt aim khác.");
-                    startCooldown();
-                } else {
-                    showToast("❌ " + (data.message || 'Lỗi'));
-                }
-            } catch(e) { showToast("❌ Lỗi kết nối"); }
-        }
-
-        function toggleMod() {
-            const toggle = document.getElementById('toggleSwitch');
-            if (!toggle.checked && currentActiveMod) { deactivateCurrentAim(); }
-            else if (!toggle.checked && !currentActiveMod) { toggle.checked = true; }
-        }
-
-        function showToast(msg) {
-            const t = document.getElementById('toast'), tc = document.getElementById('toastContent');
-            tc.innerText = msg; t.style.opacity = '1'; t.style.visibility = 'visible'; t.style.transform = 'translate(-50%, 0)';
-            setTimeout(() => { t.style.opacity = '0'; t.style.visibility = 'hidden'; t.style.transform = 'translate(-50%, -20px)'; }, 4000);
-        }
-
-        setInterval(() => { const el = document.getElementById('realtime-ping'); if (el) el.innerText = (Math.floor(Math.random() * 18) + 18) + 'ms'; }, 3000);
-
-        (async function init() {
-            async function getDeviceVipID() {
-                let webglInfo = "";
-                try {
-                    const canvas = document.createElement('canvas');
-                    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-                    if (gl && gl.getExtension('WEBGL_debug_renderer_info')) webglInfo = gl.getParameter(gl.getExtension('WEBGL_debug_renderer_info').UNMASKED_RENDERER_WEBGL) + "||" + gl.getParameter(gl.getExtension('WEBGL_debug_renderer_info').UNMASKED_VENDOR_WEBGL);
-                } catch(e) {}
-                const hardware = [navigator.hardwareConcurrency || '8', screen.colorDepth, webglInfo, navigator.platform, navigator.language, new Date().getTimezoneOffset(), navigator.userAgent.replace(/\d+/g, '')].join('||');
-                let hash = 0; for (let i = 0; i < hardware.length; i++) { hash = ((hash << 5) - hash) + hardware.charCodeAt(i); hash |= 0; }
-                return { num: Math.abs(hash), str: 'VIP-' + Math.abs(hash).toString(16).toUpperCase() };
-            }
-            function getCookie(name) { const value = `; ${document.cookie}`; const parts = value.split(`; ${name}=`); return parts.length === 2 ? parts.pop().split(';').shift() : null; }
-            const fp = await getDeviceVipID();
-            const isValidUUID = id => id && !id.includes('DELTA-') && (id.match(/-/g) || []).length >= 2;
-            const params = new URLSearchParams(window.location.search);
-            const keyFromUrl = params.get('key');
-            if (keyFromUrl) { document.getElementById('keyInput').value = keyFromUrl; currentKey = keyFromUrl; }
-            let devID = params.get('browser_uuid') || getCookie('browser_uuid') || localStorage.getItem('delta_device_uuid');
-            if (!isValidUUID(devID)) {
-                const timeSalt = Date.now().toString(16).toUpperCase();
-                const rand = new Uint32Array(1); crypto.getRandomValues(rand);
-                devID = `${fp.str}-${timeSalt}-${rand[0].toString(16).toUpperCase().padStart(4, '0')}`;
-            }
-            localStorage.setItem('delta_device_uuid', devID);
-            document.cookie = "browser_uuid=" + devID + "; max-age=" + 365*24*60*60 + "; path=/; SameSite=Lax";
-            document.getElementById('uuidField').value = devID;
-
-            await fetchRealIP();
-            await loadModList();
-
-            let saved = loadState();
-            if (!saved) saved = loadStateFromCookie();
-            if (saved && saved.key) {
-                document.getElementById('keyInput').value = saved.key;
-                currentKey = saved.key;
-                const fd = new FormData(); fd.append('action', 'check_status'); fd.append('key_code', saved.key);
-                fd.append('browser_uuid', devID);
-                if (saved.fileName) fd.append('file_name', saved.fileName);
-                if (clientIP) fd.append('client_ip', clientIP);
-                try {
-                    const resp = await fetch(window.location.href, { method: 'POST', body: fd });
-                    const data = await resp.json();
-                    if (data.status === 'success' && data.active && data.data) {
-                        updateStatusUI(data.data.mod || data.data.aim, data.data.file, data.data.server, data.data.port);
-                        document.getElementById('aimSelector').classList.add('hidden');
-                        if (data.data.expires_at) { startCountdown(data.data.expires_at); startStatusCheck(saved.key); saveState(saved.key, data.data.mod || data.data.aim, data.data.file, data.data.expires_at, data.data.server, data.data.port); }
-                        isKeyChecked = true;
-                    } else if (data.expired || data.status === 'error' || !data.active) { clearState(); updateStatusUI(null, null); }
-                } catch(e) {}
-            }
-            renderModList();
-            const bgMusic = document.getElementById('bgMusic');
-            if (bgMusic) { bgMusic.volume = 0.5; const playPromise = bgMusic.play(); if (playPromise !== undefined) playPromise.catch(() => { document.addEventListener('click', function resume() { bgMusic.play().catch(() => {}); document.removeEventListener('click', resume); }, { once: true }); }); }
-        })();
+        });
+        
+        // Ẩn overlay để cho phép tương tác với iframe
+        // Bạn có thể bật lại bằng cách xóa comment dòng dưới
+        // document.getElementById('overlay').style.pointerEvents = 'none';
+        
+        // Nếu muốn chặn hoàn toàn tương tác với iframe, bật overlay
+        // document.getElementById('overlay').style.pointerEvents = 'all';
+        
+        console.log('✅ Trang đã được nhúng thành công!');
+        console.log('🔗 Các nút đã được thay thế:');
+        console.log('  - GET KEY → key.php');
+        console.log('  - CERT → https://solitudepremium.click/vanduyios/solitude.mobileconfig');
     </script>
-<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="0c771fd6827df1ada3c8385d-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"37ea39af1ea9491e9be8ed39f1f17675","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a17cfe7d1c9c0723',t:'MTc4MzQ5MTc0Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
