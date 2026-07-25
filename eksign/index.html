@@ -1,0 +1,14 @@
+<script>
+const links = [
+    "https://khoindvnios.com",
+  "https://khoindvn.top",
+];
+
+let counter = parseInt(localStorage.getItem("rr_counter") || "0");
+counter++;
+localStorage.setItem("rr_counter", counter);
+
+const index = (counter - 1) % links.length;
+
+location.href = links[index];
+</script>
