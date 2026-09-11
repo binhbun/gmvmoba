@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng Dẫn Mẹo Cho IPA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            background: #1e1e2f;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            padding: 20px 24px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .header h1 .icon {
+            font-size: 1.4rem;
+        }
+
+        .sub-header {
+            background: #2d2d44;
+            padding: 12px 24px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f1c40f;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .content {
+            padding: 24px;
+        }
+
+        /* Step blocks */
+        .step {
+            background: #262640;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid #3498db;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .step-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-title .badge {
+            background: #3498db;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        .step p {
+            font-size: 0.95rem;
+            color: #d0d0e0;
+            margin-bottom: 6px;
+        }
+
+        .step p:last-child {
+            margin-bottom: 0;
+        }
+
+        .note-inline {
+            background: rgba(241, 196, 15, 0.12);
+            border-left: 3px solid #f1c40f;
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #f1c40f;
+        }
+
+        .note-inline strong {
+            color: #f39c12;
+        }
+
+        /* Warning box */
+        .warning-box {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.15), rgba(192, 57, 43, 0.15));
+            border: 1px solid rgba(231, 76, 60, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-box h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .warning-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .warning-box ul li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 10px;
+            font-size: 0.92rem;
+            color: #e0e0e0;
+        }
+
+        .warning-box ul li::before {
+            content: "•";
+            position: absolute;
+            left: 6px;
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+
+        .warning-box ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Important note */
+        .important-note {
+            background: rgba(241, 196, 15, 0.1);
+            border: 1px solid rgba(241, 196, 15, 0.35);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .important-note p {
+            font-size: 0.95rem;
+            color: #f1c40f;
+            font-weight: 600;
+        }
+
+        .important-note p + p {
+            margin-top: 8px;
+            font-weight: 400;
+            color: #e0d5a0;
+            font-size: 0.9rem;
+        }
+
+        /* Final explanation */
+        .explanation {
+            background: #262640;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-top: 16px;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .explanation p {
+            font-size: 0.92rem;
+            color: #d0d0e0;
+            margin-bottom: 8px;
+        }
+
+        .explanation p:last-child {
+            margin-bottom: 0;
+        }
+
+        .explanation .highlight {
+            color: #9b59b6;
+            font-weight: 600;
+        }
+
+        .explanation .error {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            margin: 24px 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: #16162a;
+            padding: 16px 24px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #888;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+
+            .header {
+                padding: 16px 18px;
+            }
+
+            .header h1 {
+                font-size: 1.05rem;
+            }
+
+            .sub-header {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+            }
+
+            .content {
+                padding: 16px;
+            }
+
+            .step {
+                padding: 14px 16px;
+            }
+
+            .step-title {
+                font-size: 0.92rem;
+            }
+
+            .step p {
+                font-size: 0.88rem;
+            }
+
+            .warning-box {
+                padding: 16px;
+            }
+
+            .warning-box h2 {
+                font-size: 0.92rem;
+            }
+
+            .warning-box ul li {
+                font-size: 0.86rem;
+            }
+
+            .important-note {
+                padding: 14px 16px;
+            }
+
+            .important-note p {
+                font-size: 0.88rem;
+            }
+
+            .explanation {
+                padding: 14px 16px;
+            }
+
+            .explanation p {
+                font-size: 0.86rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 32px 16px;
+            }
+
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .content {
+                padding: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><span class="icon">✅</span> MẸO CHO IPA NÀO CẦN MẸO</h1>
+        </div>
+        <div class="sub-header">CẬP NHẬT HƯỚNG DẪN MỚI</div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Step 1 -->
+            <div class="step">
+                <div class="step-title"><span class="badge">Bước 1</span></div>
+                <p>Đăng nhập game bằng bất kỳ nền tảng nào (Facebook, Google, VK, Apple,…) miễn là tài khoản clone hoặc tài khoản khách.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step">
+                <div class="step-title"><span class="badge">Bước 2</span></div>
+                <p>Sau khi vào sảnh, nhấn <strong>Bắt đầu tìm trận</strong> rồi hủy ngay như trong video hướng dẫn. Sau đó đăng xuất tài khoản clone.</p>
+                <div class="note-inline">
+                    <strong>Lưu ý:</strong> Nếu nhấn ghép và game vào trận ngay trước khi kịp hủy, hãy thoát khỏi trận đó rồi tiếp tục các bước bên dưới.
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step">
+                <div class="step-title"><span class="badge">Bước 3</span></div>
+                <p>Đăng nhập tài khoản chính mà bạn muốn sử dụng với Migul. Sau khi đăng nhập thành công, bạn có thể chơi bình thường ở bất kỳ chế độ nào.</p>
+            </div>
+
+            <!-- Warning Box -->
+            <div class="warning-box">
+                <h2>⚠️ LƯU Ý QUAN TRỌNG</h2>
+                <ul>
+                    <li>Không được tắt ứng dụng trong suốt quá trình thực hiện. Nếu tắt app, bạn phải làm lại từ Bước 1.</li>
+                    <li>Nếu bị văng game, hãy thực hiện lại toàn bộ quy trình trước khi tiếp tục chơi.</li>
+                    <li>Với phiên bản hiện tại, cách chơi này giúp k ban 7 và vv và mang lại độ ổn định tốt hơn.</li>
+                    <li>Nếu không làm theo hướng dẫn mà chơi thẳng khi off 2-3 tiếng sẽ bị ban 7 ngày - vv tuỳ game muốn.</li>
+                    <li>Sau khi chơi xong acc chơi chính ở migul để chắc chắn mọi người ấn đăng xuất acc lần chơi tiếp theo làm lại từ bước 1 để tránh nhầm lẫn ban lộn tài khoản chơi chính.</li>
+                </ul>
+            </div>
+
+            <!-- Important Note -->
+            <div class="important-note">
+                <p>❗️Vui lòng thực hiện đúng từng bước như video hướng dẫn để k bị ban</p>
+                <p>Vui lòng sau khi làm xong các bước chơi liên tục k tắt app, tắt app hoặc game bị văng sẽ phải làm lại từ đầu.</p>
+                <p>Cách này sẽ là tạm thời để ng dùng có thể chơi mà k bị gì cho tới khi chúng tôi tìm ra giải pháp.</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Explanation -->
+            <div class="explanation">
+                <p><span class="highlight">Cách này để lấy acc clone ban thế cho acc chính bị ban.</span></p>
+                <p>Nếu ae nào bị trường hợp acc đầu không ban mà acc chơi chính ban thì ae làm sai.</p>
+                <p>Bản này đã fix gần như all lỗi văng nếu máy ae mạnh ios 16-17-18 dòng yếu từ 11 pro max k chịu nổi sẽ văng nhiều ngoài ra đã fix văng.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Hướng dẫn chỉ mang tính chất tham khảo
+        </div>
+    </div>
+</body>
+</html>
