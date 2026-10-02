@@ -1,39 +1,242 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Note List Skin</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-        
-        iframe {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            border: none;
-            display: block;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>List Skin</title>
+
+<style>
+  :root {
+    --bg: #0e1422;
+    --text: #b6f3d3;
+    --accent: #00e88f;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Fira Code", "JetBrains Mono", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .terminal {
+    background: #111827;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    width: 90%;
+    max-width: 700px;
+    height: 85vh;
+    padding: 20px 30px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mac {
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .mac span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  .red { background: #ff5f56; }
+  .yellow { background: #ffbd2e; }
+  .green { background: #27c93f; }
+
+  .tabs {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .tab {
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    background: #1a2333;
+    transition: 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .tab.active {
+    background: #00e88f33;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+  }
+
+  pre {
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 10px;
+  }
+
+  pre::-webkit-scrollbar {
+    width: 6px;
+  }
+  pre::-webkit-scrollbar-thumb {
+    background: rgba(0, 232, 143, 0.25);
+    border-radius: 4px;
+  }
+
+  .line {
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(5px);
+    animation: fadeInUp 0.4s forwards;
+  }
+
+  .arrow {
+    color: var(--accent);
+    margin-right: 10px;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background: var(--accent);
+    margin-left: 4px;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+</style>
 </head>
+
 <body>
-    <iframe 
-        src="https://unlock.tumadam.com/note-list-skin.html" 
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+  <div class="terminal">
+    <div class="mac">
+      <span class="red"></span>
+      <span class="yellow"></span>
+      <span class="green"></span>
+    </div>
+
+    <!-- TAB BUTTONS -->
+    <div class="tabs">
+      <div class="tab active" data-tab="1">List Skin Bị Ảo Khi Dùng Unlock</div>
+    </div>
+
+    <pre id="output"></pre>
+  </div>
+
+<script>
+let typingInterval = null;      // interval đang gõ
+let stopTyping = false;         // flag để ngăn chạy tiếp
+
+const tabData = {
+  1: [
+"Nakroth Bạch Diện Chiến Thương","Nakroth Quỷ Thương Liệt Đế","Airi Bích Hải Thánh Nữ",
+"Lauriel Thứ Nguyên Vệ Thần","Violet Thần Long Tỉ Tỉ","Violet Huyết Ma Thần","Violet Vọng Nguyệt Long Cơ",
+"Violet Vợ Người Ta","Veera Thất Sát - Thượng Sinh","Ilumia Lưỡng Nghi Long Hậu","Hayate Tu Di Thánh Đế","Krixi Phù Thuỷ Thời Không",
+"Krixi Tatsumaki Lốc Xoáy Kinh Hoàng","Tulen Thần Sứ ST.L-79","Tulen Chí Tôn Kiếm Tiên","Butterfly Bình Minh Tận Thế","Aya Công Chúa Cầu Vồng","Capheny Càn Nguyên Điện Chủ",
+"Billow Thiên Tướng - Độ Ách","Baron Thiên Phủ - Tư Mệnh","Pain Megumi Fushiguro","Violet Nobara Kugisaki","Tel'Annas Lân Quang Thánh Điệu","Tel'Annas Tân Niên Vệ Thần","Tel'Annas Thần Sứ F.E.E-X1",
+"Raz Bão Vũ Cuồng Lôi","Veres Lưu Ly Long Mẫu","Bijan Lữ Hành Thời Không","Yorn Conan Edogawa",
+"Hayate Siêu Đạo Chích Kid","Stuart Siêu Trùm Phản Diện","Eland'orr Mộng Giới Yêu Chủ","Erin Nguyệt Ảnh Minh Điệp",
+"Qi Milim Nava","Iggy Rimuru","Yue Trầm kim ánh nguyệt","Hayate Thứ Nguyên Vệ Thần",
+  ],
+  }
+
+let currentTab = 1;
+const output = document.getElementById("output");
+
+function typeLine(text, delay = 1.0) {
+  return new Promise(resolve => {
+
+    const line = document.createElement("div");
+    line.className = "line";
+    line.innerHTML = `<span class="arrow">➜</span><span class="text"></span>`;
+    output.appendChild(line);
+
+    const textEl = line.querySelector(".text");
+    let i = 0;
+
+    typingInterval = setInterval(() => {
+
+      if (stopTyping) { 
+        clearInterval(typingInterval);
+        return resolve();
+      }
+
+      textEl.textContent = text.slice(0, i++);
+      output.scrollTop = output.scrollHeight;
+
+      if (i > text.length) {
+        clearInterval(typingInterval);
+        resolve();
+      }
+
+    }, delay);
+
+  });
+}
+
+async function runTab(tabID) {
+
+  stopTyping = true;          // dừng tác vụ gõ cũ  
+  clearInterval(typingInterval);
+
+  await new Promise(r => setTimeout(r, 50)); // chờ dừng
+
+  stopTyping = false;         // cho phép chạy task mới
+  output.innerHTML = "";
+
+  const lines = tabData[tabID];
+
+  for (let i = 0; i < lines.length; i++) {
+
+    if (stopTyping) break;    // đảm bảo không bị chạy sót
+
+    await typeLine(lines[i]);
+    await new Promise(r => setTimeout(r, 20));
+  }
+
+  if (!stopTyping) {
+    const cursor = document.createElement("span");
+    cursor.className = "cursor";
+    output.appendChild(cursor);
+  }
+}
+
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+
+    if (btn.classList.contains("active")) return;
+
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    btn.classList.add("active");
+
+    currentTab = btn.dataset.tab;
+    runTab(currentTab);
+  });
+});
+runTab(1);
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"f0df29bd91e74cecbc2b1e7fec37d3d1","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
